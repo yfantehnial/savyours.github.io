@@ -11,17 +11,14 @@
 <body>
     <header>
         <div class="logo">Savyours</div>
-        
-        <input type="checkbox" id="menu-checkbox" style="display: none;">
-        <label for="menu-checkbox" class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </label>
-
-        <nav>
-            <a href="#">Find Bags</a>
-            <a href="#">Business Login</a> 
-            <a href="#">My Account</a>
-        </nav>
+        <label for="menu-checkbox" class="menu-toggle" id="menu-toggle-btn">
+    <i class="fas fa-bars"></i>
+</label>
+        <nav id="main-nav">
+    <a href="#">Find Bags</a>
+    <a href="#">Business Login</a>
+    <a href="#">My Account</a>
+</nav>
     </header>
 
     <main class="content-page">
@@ -32,8 +29,7 @@
                 <h3>Account Settings</h3>
                 <p>Email: user@brunei.bn</p>
                 <p>Phone: +673 8xxxxxx</p>
-            <button id="rickrollButton" class="primary-btn btn-full-width">Edit Details
-            </button>
+                <button class="primary-btn btn-full-width">Edit Details</button>
             </div>
         </div>
         
@@ -45,7 +41,7 @@
             </div>
         </div>
         
-        <button class="primary-btn btn-error btn-full-width">Log Out</button>
+        <button class="primary-btn btn-error">Log Out</button>
     </main>
 
     <div class="mobile-nav-bar">
@@ -70,21 +66,6 @@
             <span>Profile</span>
         </a>
     </div>
+
 </body>
 </html>
-
-<script>
-    // Get the button element by its ID
-    const button = document.getElementById('rickrollButton');
-
-    // Add a click listener to the button
-    button.addEventListener('click', function() {
-        // Redirect the user to the Rickroll URL
-        window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-    });
-</script>
-
-
-
-
-
