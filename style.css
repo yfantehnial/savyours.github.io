@@ -293,7 +293,7 @@ nav a:hover {
     margin-top: 10px;
 }
 
-/* FIX: Price arrangement update */
+/* 💰 FIX: Price arrangement update for clean alignment */
 .price-details {
     display: flex;
     justify-content: space-between;
@@ -353,7 +353,7 @@ nav a:hover {
     border: 1px solid #e2e8f0;
 }
 
-/* --- Dedicated Map View Section (New) --- */
+/* --- Dedicated Map View Section (New for map.html) --- */
 .map-page main {
     height: calc(100vh - 65px); /* Full height minus fixed nav and header */
 }
@@ -386,6 +386,42 @@ nav a:hover {
 
 body.map-page {
     padding-bottom: 0; 
+}
+
+/* --- Mobile Navigation Bar (Fixed Bottom) --- */
+.mobile-nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-primary);
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px 0;
+    height: 60px;
+    z-index: 1000;
+}
+
+.mobile-nav-bar a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    font-size: 0.8em;
+    font-weight: 500;
+    transition: color var(--transition-speed);
+}
+
+.mobile-nav-bar a .icon {
+    font-size: 1.4em;
+    margin-bottom: 3px;
+}
+
+.mobile-nav-bar a.active, .mobile-nav-bar a:hover {
+    color: var(--color-accent);
 }
 
 
@@ -434,38 +470,49 @@ body.map-page {
 }
 
 @media (max-width: 768px) {
-    /* Hero section centering on small mobile */
-    .hero-section {
-        padding: 40px 4% 30px;
-        text-align: center;
+    /* General Padding and Font Size Adjustments */
+    .content-page { padding: 20px 4%; }
+    header { padding: 15px 4%; }
+    .hero-section { padding: 40px 0 20px 0; text-align: center; }
+    
+    .hero-section h1 { font-size: 2.2em; padding: 0 4%; }
+    .hero-section p { font-size: 1.0em; padding: 0 4%; }
+
+    /* Search Bar Specifics */
+    .image-banner, 
+    .search-bar {
+        margin-left: 4%;
+        margin-right: 4%;
+        width: 92%;
+        max-width: none; 
     }
     
-    .hero-section h1 {
-        font-size: 2.2em;
-    }
-
     /* Search Bar stacking */
     .search-bar {
         flex-direction: column;
-        width: 100%;
-        max-width: none;
-        margin: 0 auto;
+        gap: 10px;
     }
-    /* FIX: Ensure search input and button are fully rounded when stacked */
+
     .search-bar input {
         width: 100%;
+        border: 1px solid #ccc; /* Use the default border */
         border-radius: var(--border-radius);
-        border: 1px solid #ccc;
-        border-right: 1px solid #ccc; /* Reset right border removal */
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-right: 1px solid #ccc; /* Fix for earlier right border removal */
     }
+
+    /* FINAL FIX: Ensure the search button is fully rounded when stacked */
     .search-bar .search-btn { 
         width: 100%;
-        margin-top: 10px;
-        border-radius: var(--border-radius);
-        padding: 18px;
+        padding: 15px;
+        border-radius: var(--border-radius); 
     }
 
     /* Card/Grid adjustments */
+    .listings-section {
+        padding: 20px 4%;
+    }
     .listings-grid {
         grid-template-columns: 1fr;
         gap: 25px;
@@ -473,5 +520,9 @@ body.map-page {
     .listing-card:hover {
         transform: none;
         box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    
+    .card-info {
+        padding: 20px;
     }
 }
