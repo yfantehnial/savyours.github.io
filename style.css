@@ -1,12 +1,15 @@
 /* --- Global Styles & Variables --- */
 :root {
     --color-primary: #FFFFFF;
-    --color-accent: #4CAF50; /* Fresh Green */
-    --color-hover: #5cb85c;  /* Slightly lighter green for hover */
-    --color-dark: #2c3e50;   /* Cleaner dark text */
+    --color-accent: #4CAF50;    /* Fresh Green */
+    --color-hover: #5cb85c;     /* Slightly lighter green for hover */
+    --color-dark: #2c3e50;      /* Cleaner dark text */
     --color-light-gray: #F0F2F5; /* Very light, modern background */
+    --color-light-green: #e6f6e6; /* New: Light accent background */
     --color-shadow: rgba(0, 0, 0, 0.1);
+    --color-error: #CC0000;     /* New: For log out/error */
     --transition-speed: 0.3s;
+    --border-radius: 8px;
 }
 
 body {
@@ -16,9 +19,32 @@ body {
     background-color: var(--color-light-gray);
     color: var(--color-dark);
     padding-bottom: 65px; /* Space for the fixed bottom nav bar */
+    line-height: 1.6;
 }
 
-/* --- Header & Navigation --- */
+h1, h2, h3 {
+    line-height: 1.2;
+    color: var(--color-dark);
+}
+
+/* --- Utility Classes for Consistency (Replaces Inline Styles) --- */
+.content-page {
+    padding: 20px 5%;
+}
+
+.page-title {
+    color: var(--color-accent);
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.secondary-heading {
+    margin-top: 30px;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+/* --- Header & Desktop Navigation --- */
 header {
     display: flex;
     justify-content: space-between;
@@ -51,17 +77,37 @@ nav a:hover {
 
 /* --- Hero Section & Search Bar --- */
 .hero-section {
-    text-align: center;
     padding: 60px 5% 40px;
     background-color: var(--color-primary);
     border-bottom: 5px solid var(--color-accent);
 }
 
 .hero-section h1 {
-    color: var(--color-dark);
     font-size: 2.5em;
-    font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+.hero-section p {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Enhanced Image Banner with Overlay */
+.image-banner {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Increased height for better visual impact */
+    overflow: hidden;
+    margin: 20px auto 30px auto;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px var(--color-shadow);
+}
+
+.image-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .search-bar {
@@ -72,10 +118,10 @@ nav a:hover {
 }
 
 .search-bar input {
-    padding: 14px 20px;
+    padding: 16px 20px; /* Slightly larger padding */
     border: 1px solid #ccc;
     border-right: none;
-    border-radius: 8px 0 0 8px;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
     width: 70%;
     font-size: 1em;
     outline: none;
@@ -84,14 +130,16 @@ nav a:hover {
 
 .search-bar input:focus {
     border-color: var(--color-accent);
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
+/* --- Buttons --- */
 .primary-btn {
     background-color: var(--color-accent);
     color: white;
-    padding: 14px 30px;
+    padding: 16px 30px;
     border: none;
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
     cursor: pointer;
     font-size: 1em;
     font-weight: 600;
@@ -103,29 +151,34 @@ nav a:hover {
 }
 
 .primary-btn:active {
-    transform: scale(0.98); /* Animation: Click feedback */
+    transform: scale(0.98);
 }
 
-/* ------------------------------------------------------------------ */
-/* 🖼️ IMAGE BANNER STYLING */
-/* ------------------------------------------------------------------ */
+.reserve-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 6px;
+    border: none;
+}
 
-.image-banner {
+.btn-full-width { /* New utility for full width buttons */
     width: 100%;
-    height: 250px; 
-    overflow: hidden; 
-    margin: 20px auto 30px auto; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    margin-top: 15px;
+    border-radius: var(--border-radius);
 }
 
-.image-banner img {
-    width: 100%; 
-    height: 100%;
-    object-fit: cover; 
-    object-position: center; 
+.btn-error { /* New style for Log Out */
+    background-color: var(--color-error);
+    border-radius: var(--border-radius);
+    /* Overwrite specific primary-btn styles for better consistency */
+    padding: 15px 30px;
+    width: 90%;
+    margin: 30px 5%;
 }
 
+.btn-error:hover {
+    background-color: #a00;
+}
 
 /* --- Listings Grid (Magic Bag Cards) --- */
 .listings-section {
@@ -134,21 +187,21 @@ nav a:hover {
 
 .listings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted min-width for better fit */
     gap: 30px;
 }
 
 .listing-card {
     background-color: var(--color-primary);
-    border-radius: 12px; 
+    border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 15px var(--color-shadow);
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
     cursor: pointer;
 }
 
 .listing-card:hover {
-    transform: translateY(-8px); /* Animation: Lift effect */
+    transform: translateY(-8px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
@@ -157,11 +210,28 @@ nav a:hover {
     background-color: #eee;
     background-size: cover;
     background-position: center;
-    border-bottom: 3px solid var(--color-accent); 
+    border-bottom: 3px solid var(--color-accent);
 }
 
 .card-info {
     padding: 20px;
+}
+
+.card-info h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.4em;
+}
+
+.card-info p {
+    margin: 5px 0;
+    font-size: 0.95em;
+}
+
+.bags-left {
+    color: var(--color-error);
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 .price-details {
@@ -170,12 +240,12 @@ nav a:hover {
     align-items: center;
     margin-top: 15px;
     padding-top: 10px;
-    border-top: 1px dashed var(--color-light-gray); 
+    border-top: 1px dashed #ddd; /* Darker dashed line for clarity */
 }
 
 .price-details .new-price {
-    font-size: 1.6em;
-    font-weight: 700;
+    font-size: 1.8em; /* Slightly larger */
+    font-weight: 800;
     color: var(--color-accent);
 }
 
@@ -186,15 +256,40 @@ nav a:hover {
     margin-left: 10px;
 }
 
-.reserve-btn {
-    padding: 10px 20px;
-    font-size: 1em;
-    border-radius: 6px;
+/* --- Order Voucher Card (New Dedicated Style) --- */
+.order-voucher-card {
+    margin: 20px 5%;
+    background-color: var(--color-primary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.4); /* Stronger shadow for active status */
+    padding: 20px;
+    border-left: 8px solid var(--color-accent);
 }
+
+.voucher-code {
+    font-size: 1.8em;
+    font-weight: 800;
+    color: var(--color-accent);
+    margin: 10px 0;
+}
+
+.order-history-item {
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    background-color: var(--color-primary);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin: 15px 0;
+}
+
+.order-history-item h3 {
+    margin: 0;
+    font-size: 1.1em;
+}
+
 
 /* --- Mobile Navigation Bar (Bottom) --- */
 footer {
-    display: none; 
+    display: none;
 }
 
 .mobile-nav-bar {
@@ -203,7 +298,7 @@ footer {
     left: 0;
     width: 100%;
     background-color: var(--color-primary);
-    box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 -4px 10px var(--color-shadow);
     display: flex;
     justify-content: space-around;
     padding: 10px 0;
@@ -229,67 +324,85 @@ footer {
 /* ------------------------------------------------------------------ */
 
 @media (max-width: 600px) {
-    
+
+    .content-page {
+        padding: 10px 4%; /* Tighter padding on mobile */
+    }
+
     /* Header Fix */
     header {
         padding: 15px 4%;
         justify-content: flex-start;
     }
-    
+
     header nav {
-        display: none; 
+        display: none;
     }
 
     /* Hero adjustments */
     .hero-section {
-        padding-bottom: 20px;
+        padding: 40px 4% 20px;
+    }
+
+    .hero-section h1 {
+        font-size: 2em; /* Smaller on mobile */
     }
 
     /* Image Banner adjustment */
     .image-banner {
-        height: 150px; 
-        margin: 15px auto 20px auto; 
+        height: 180px; /* Adjusted height */
+        margin: 15px auto 20px auto;
     }
-    
+
     /* Search Bar Adjustment */
     .search-bar {
-        flex-direction: column; 
-        gap: 10px; 
+        flex-direction: column;
+        gap: 10px;
     }
 
     .search-bar input {
         width: 100%;
-        border-radius: 8px; 
-        border: 2px solid var(--color-accent); 
-        padding: 15px; 
+        border-radius: var(--border-radius);
+        border: 2px solid var(--color-accent);
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .primary-btn {
         width: 100%;
-        border-radius: 8px; 
-        padding: 15px; 
+        border-radius: var(--border-radius);
+        padding: 15px;
     }
-    
+
     /* Listings Grid */
+    .listings-section {
+        padding: 20px 4%;
+    }
+
     .listings-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
-    
+
     .listing-card:hover {
-        transform: none; 
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transform: none;
+        box-shadow: 0 4px 10px var(--color-shadow);
     }
-    
+
+    /* Price Details Stack */
     .price-details {
-        flex-direction: column; 
+        flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
-    
+
     .reserve-btn {
-        width: 100%; 
+        /* Overwrite generic primary-btn styles set above */
         padding: 12px;
-        font-size: 1em;
+    }
+
+    .reserve-btn, .btn-full-width {
+        width: 100%;
+        margin-top: 5px; /* Tighter spacing on mobile */
     }
 }
