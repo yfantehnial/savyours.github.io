@@ -6,10 +6,17 @@
     <title>Savyours | Stop Food Waste</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ87RHvR52yW+O6lP4dF6T3qjR73v2b+Xq7Tz/w/oV6c2C3t/p1l5N8q9q1P3lA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <header>
         <div class="logo">Savyours</div>
+        
+        <input type="checkbox" id="menu-checkbox" style="display: none;">
+        <label for="menu-checkbox" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </label>
+
         <nav>
             <a href="#">Find Bags</a>
             <a href="#">Business Login</a> 
@@ -30,23 +37,25 @@
         
         <section class="listings-section">
             <div class="image-banner">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1200px-Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="Promotional banner showing rescued food bags">
+                <img src="https://i0.wp.com/explorewithfinesse.com/wp-content/uploads/2023/11/IMG_0747-scaled.jpg?fit=1024%2C768&ssl=1" alt="Variety of local Bruneian food items">
             </div>
-
-            <h2>Available Bags Today (3 Available)</h2>
+            
+            <h2 class="secondary-heading">Available Bags Today (3 Available)</h2>
             <div id="food-listings" class="listings-grid">
                 
                 <div class="listing-card">
-                    <div class="card-image" style="background-image: url('https://images.tgtg.ninja/item/cover/ecf66390-3990-4496-a579-6a6be8b84fc1.jpg');"></div>
+                    <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/p/AF1QipP8XNvSvIz6MqpHV8Blk_JsygPRg_O3ryVtF9fo=s680-w680-h510-rw');">
+                        <span class="favorite-toggle"><i class="far fa-star"></i><i class="fas fa-star"></i></span>
+                    </div>
                     <div class="card-info">
-                        <h3>Artisan Bakery Surprise</h3>
-                        <p><strong>Bake-It-Brunei, Serusop</strong></p>
-                        <p>Pickup: 7:30 PM - 8:30 PM</p>
-                        <p class="bags-left">Bags Left: 1</p> 
+                        <h3>Comfort Greens Cafe</h3>
+                        <p>A surprise selection of healthy sandwiches and salads.</p>
+                        <p style="color: var(--color-dark); font-weight: 600; margin-bottom: 0;">Pickup: 7:00 PM - 8:00 PM</p>
+                        <p class="bags-left">Bags Left: 2</p> 
                         <div class="price-details">
                             <div>
-                                <span class="new-price">BND 6.00</span>
-                                <span class="old-price">BND 18.00</span>
+                                <span class="new-price">BND 7.00</span>
+                                <span class="old-price">BND 21.00</span>
                             </div>
                             <button class="primary-btn reserve-btn">Reserve Now</button>
                         </div>
@@ -54,12 +63,33 @@
                 </div>
 
                 <div class="listing-card">
-                    <div class="card-image" style="background-image: url('https://images.squarespace-cdn.com/content/v1/616db3980a8e6f3491216a8d/1647637587692-18O6A3RINC17AQ8X3C16/20201003114950_IMG_99212.jpg');"></div>
+                    <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/p/AF1QipOxD735fHtZRzoL9x6kh4ekKiRyfhHyWtHnrtuq=w408-h272-k-no');">
+                        <span class="favorite-toggle favorited"><i class="far fa-star"></i><i class="fas fa-star"></i></span>
+                    </div>
                     <div class="card-info">
-                        <h3>Gourmet Lunch Box</h3>
-                        <p><strong>Healthy Bites, Kiulap</strong></p>
-                        <p>Pickup: 1:00 PM - 2:00 PM</p>
-                        <p>Bags Left: 5</p> 
+                        <h3>The Little Leaf Bakery</h3>
+                        <p>Assortment of artisan bread, pastries, and cakes.</p>
+                        <p style="color: var(--color-dark); font-weight: 600; margin-bottom: 0;">Pickup: 6:00 PM - 6:30 PM</p>
+                        <p class="bags-left">Bags Left: 4</p> 
+                        <div class="price-details">
+                            <div>
+                                <span class="new-price">BND 9.00</span>
+                                <span class="old-price">BND 28.00</span>
+                            </div>
+                            <button class="primary-btn reserve-btn">Reserve Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="listing-card">
+                    <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4no8vh5_NQqOW9h_sSyW9b8t-lQiHn5h2fcRow2rCIEQAEc7dEtRGMrpEGent-vy0RCm_QGgYpHFChp2iIq0KPZm9iIiChQEd1JmNONOOmkbrv8xI4DCot4VBiPVMwrx2KrKj-cZ=w408-h372-k-no');">
+                        <span class="favorite-toggle"><i class="far fa-star"></i><i class="fas fa-star"></i></span>
+                    </div>
+                    <div class="card-info">
+                        <h3>Pepper Lunch</h3>
+                        <p>Surprise bag of cooked meals (steak, rice, etc.).</p>
+                        <p style="color: var(--color-dark); font-weight: 600; margin-bottom: 0;">Pickup: 1:00 PM - 2:00 PM</p>
+                        <p class="bags-left">Bags Left: 5</p> 
                         <div class="price-details">
                             <div>
                                 <span class="new-price">BND 8.00</span>
@@ -76,31 +106,35 @@
     
     <div class="mobile-nav-bar">
         <a href="index.html" class="active">
-            <span class="icon">🔍</span>
+            <span class="icon"><i class="fas fa-list-ul"></i></span>
             <span>Discover</span>
         </a>
+        <a href="map.html">
+            <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
+            <span>Map</span>
+        </a>
         <a href="favorites.html">
-            <span class="icon">⭐</span>
+            <span class="icon"><i class="fas fa-star"></i></span>
             <span>Favorites</span>
         </a>
         <a href="orders.html">
-            <span class="icon">🛒</span>
+            <span class="icon"><i class="fas fa-shopping-bag"></i></span>
             <span>Orders</span>
         </a>
         <a href="profile.html">
-            <span class="icon">👤</span>
+            <span class="icon"><i class="fas fa-user-circle"></i></span>
             <span>Profile</span>
         </a>
     </div>
 
     <footer>
-        <p>&copy; 2025 Savyours. Made for Brunei. Slogan: Stay Healthy and Stop Food Waste.</p>
+        <p>© 2025 Savyours. Made for Brunei.</p>
     </footer>
 
     <script>
         function filterListings() {
             const location = document.getElementById('location-input').value;
-            alert('Searching for bags in: ' + location);
+            alert('Searching for bags near ' + location + '...');
         }
     </script>
 </body>
