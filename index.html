@@ -11,17 +11,14 @@
 <body>
     <header>
         <div class="logo">Savyours</div>
-        
-        <input type="checkbox" id="menu-checkbox" style="display: none;">
-        <label for="menu-checkbox" class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </label>
-
-        <nav>
-            <a href="#">Find Bags</a>
-            <a href="#">Business Login</a> 
-            <a href="#">My Account</a>
-        </nav>
+        <label for="menu-checkbox" class="menu-toggle" id="menu-toggle-btn">
+    <i class="fas fa-bars"></i>
+</label>
+        <nav id="main-nav">
+    <a href="#">Find Bags</a>
+    <a href="#">Business Login</a>
+    <a href="#">My Account</a>
+</nav>
     </header>
 
     <main>
@@ -31,7 +28,7 @@
             
             <div class="search-bar">
                 <input type="text" placeholder="Enter your location (e.g., Gadong)" id="location-input">
-                <button class="primary-btn search-btn" onclick="filterListings()">Search</button>
+                <button class="primary-btn search-btn" id="search-button">Search</button>
             </div>
         </section>
         
@@ -40,10 +37,10 @@
                 <img src="https://i0.wp.com/explorewithfinesse.com/wp-content/uploads/2023/11/IMG_0747-scaled.jpg?fit=1024%2C768&ssl=1" alt="Variety of local Bruneian food items">
             </div>
             
-            <h2 class="secondary-heading">Available Bags Today (3 Available)</h2>
+            <h2 class="secondary-heading" id="listing-count-header">Available Bags Today (3 Available)</h2>
             <div id="food-listings" class="listings-grid">
                 
-                <div class="listing-card">
+                <div class="listing-card" data-location="gadong" data-store-id="Savyours_001">
                     <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/p/AF1QipP8XNvSvIz6MqpHV8Blk_JsygPRg_O3ryVtF9fo=s680-w680-h510-rw');">
                         <span class="favorite-toggle"><i class="far fa-star"></i><i class="fas fa-star"></i></span>
                     </div>
@@ -62,7 +59,7 @@
                     </div>
                 </div>
 
-                <div class="listing-card">
+                <div class="listing-card sold-out" data-location="kiulap" data-store-id="Savyours_002">
                     <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/p/AF1QipOxD735fHtZRzoL9x6kh4ekKiRyfhHyWtHnrtuq=w408-h272-k-no');">
                         <span class="favorite-toggle favorited"><i class="far fa-star"></i><i class="fas fa-star"></i></span>
                     </div>
@@ -70,18 +67,18 @@
                         <h3>The Little Leaf Bakery</h3>
                         <p>Assortment of artisan bread, pastries, and cakes.</p>
                         <p style="color: var(--color-dark); font-weight: 600; margin-bottom: 0;">Pickup: 6:00 PM - 6:30 PM</p>
-                        <p class="bags-left">Bags Left: 4</p> 
+                        <p class="bags-left">Bags Left: 0 (Sold Out)</p> 
                         <div class="price-details">
                             <div>
                                 <span class="new-price">BND 9.00</span>
                                 <span class="old-price">BND 28.00</span>
                             </div>
-                            <button class="primary-btn reserve-btn">Reserve Now</button>
+                            <button class="primary-btn reserve-btn">Sold Out</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="listing-card">
+                <div class="listing-card" data-location="airport mall" data-store-id="Savyours_003">
                     <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4no8vh5_NQqOW9h_sSyW9b8t-lQiHn5h2fcRow2rCIEQAEc7dEtRGMrpEGent-vy0RCm_QGgYpHFChp2iIq0KPZm9iIiChQEd1JmNONOOmkbrv8xI4DCot4VBiPVMwrx2KrKj-cZ=w408-h372-k-no');">
                         <span class="favorite-toggle"><i class="far fa-star"></i><i class="fas fa-star"></i></span>
                     </div>
@@ -101,6 +98,10 @@
                 </div>
 
             </div>
+            
+            <p id="no-results-message" style="display: none; text-align: center; padding: 30px; font-style: italic;">
+                No bags found in this location. Try searching for "Gadong" or check the map!
+            </p>
         </section>
     </main>
     
@@ -127,15 +128,88 @@
         </a>
     </div>
 
-    <footer>
-        <p>© 2025 Savyours. Made for Brunei.</p>
-    </footer>
-
     <script>
-        function filterListings() {
-            const location = document.getElementById('location-input').value;
-            alert('Searching for bags near ' + location + '...');
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchButton = document.getElementById('search-button');
+            const locationInput = document.getElementById('location-input');
+            const listingsContainer = document.getElementById('food-listings');
+            const listingCards = listingsContainer.querySelectorAll('.listing-card');
+            const listingCountHeader = document.getElementById('listing-count-header');
+            const noResultsMessage = document.getElementById('no-results-message');
+
+            // --- 1. Search/Filter Functionality ---
+            function filterListings() {
+                const searchTerm = locationInput.value.toLowerCase().trim();
+                let visibleCount = 0;
+
+                listingCards.forEach(card => {
+                    // Search location via data-location attribute
+                    const cardLocation = card.getAttribute('data-location') || '';
+                    
+                    if (searchTerm === '' || cardLocation.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Update UI Feedback
+                listingCountHeader.textContent = `Available Bags Today (${visibleCount} Available)`;
+                noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
+
+            searchButton.addEventListener('click', filterListings);
+            locationInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    filterListings();
+                }
+            });
+
+            // --- 2. Favorite Toggle Functionality ---
+            function loadFavorites() {
+                const favorites = JSON.parse(localStorage.getItem('savyours_favorites')) || [];
+                listingCards.forEach(card => {
+                    const storeId = card.getAttribute('data-store-id');
+                    const toggle = card.querySelector('.favorite-toggle');
+                    if (favorites.includes(storeId)) {
+                        toggle.classList.add('favorited');
+                    } else {
+                        toggle.classList.remove('favorited');
+                    }
+                });
+            }
+
+            function toggleFavorite(event) {
+                const toggle = event.currentTarget;
+                const card = toggle.closest('.listing-card');
+                const storeId = card.getAttribute('data-store-id');
+                let favorites = JSON.parse(localStorage.getItem('savyours_favorites')) || [];
+
+                if (toggle.classList.contains('favorited')) {
+                    // Remove from favorites
+                    favorites = favorites.filter(id => id !== storeId);
+                    toggle.classList.remove('favorited');
+                } else {
+                    // Add to favorites
+                    favorites.push(storeId);
+                    toggle.classList.add('favorited');
+                }
+
+                localStorage.setItem('savyours_favorites', JSON.stringify(favorites));
+                // Optional: Provide visual feedback (e.g., a tiny toast notification)
+                console.log('Favorites updated:', favorites);
+            }
+
+            // Attach listeners to all favorite toggles
+            document.querySelectorAll('.favorite-toggle').forEach(toggle => {
+                toggle.addEventListener('click', toggleFavorite);
+            });
+            
+            // Initial load to set the correct favorite state
+            loadFavorites();
+        });
     </script>
+
 </body>
 </html>
