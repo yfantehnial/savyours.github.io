@@ -6,56 +6,93 @@
     <title>Favorites | Savyours</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ87RHvR52yW+O6lP4dF6T3qjR73v2b+Xq7Tz/w/oV6c2C3t/p1l5N8q9q1P3lA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <header>
         <div class="logo">Savyours</div>
-        <nav></nav>
+        
+        <input type="checkbox" id="menu-checkbox" style="display: none;">
+        <label for="menu-checkbox" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </label>
+        
+        <nav>
+            <a href="#">Find Bags</a>
+            <a href="#">Business Login</a> 
+            <a href="#">My Account</a>
+        </nav>
     </header>
 
     <main class="content-page">
-        <h1 style="color: #4CAF50; padding: 20px 5%;">⭐ My Favorite Stores</h1>
-        <p style="padding: 0 5%;">Tap the star icon on any store on the Discover page to save it here!</p>
+        <h1 class="page-title">⭐ My Favorite Stores</h1>
+        <p>Tap the star icon on any store on the Discover page to save it here!</p>
         
-        <div class="listings-grid" style="padding: 20px 5%; grid-template-columns: 1fr;">
+        <div class="listings-grid">
             <div class="listing-card">
+                <div class="card-image" style="background-image: url('http://googleusercontent.com/profile/picture/3');">
+                    <span class="favorite-toggle favorited"><i class="far fa-star"></i><i class="fas fa-star"></i></span>
+                </div>
                 <div class="card-info">
                     <h3>Taste of Brunei Bakeries</h3>
-                    <p>Pickup Available: 6:00 PM - 7:00 PM Today</p>
-                    <p>Location: Gadong, Brunei-Muara</p>
+                    <p>Cakes and pastries.</p>
+                    <p style="color: var(--color-dark); font-weight: 600; margin-bottom: 0;">Pickup Available: 6:00 PM - 7:00 PM Today</p>
+                    <p class="bags-left">Bags Left: 1</p>
+                    <div class="price-details">
+                        <div>
+                            <span class="new-price">BND 8.00</span>
+                            <span class="old-price">BND 24.00</span>
+                        </div>
+                        <button class="primary-btn reserve-btn">Reserve Now</button>
+                    </div>
                 </div>
             </div>
             <div class="listing-card">
+                <div class="card-image" style="background-image: url('http://googleusercontent.com/profile/picture/4');">
+                    <span class="favorite-toggle favorited"><i class="far fa-star"></i><i class="fas fa-star"></i></span>
+                </div>
                 <div class="card-info">
                     <h3>Mama's Kitchen</h3>
-                    <p>Pickup Available: Tomorrow</p>
-                    <p>Location: Serusop</p>
+                    <p>Traditional Bruneian meals.</p>
+                    <p style="color: var(--color-dark); font-weight: 600; margin-bottom: 0;">Pickup Available: Tomorrow</p>
+                    <p class="bags-left">Bags Left: 3</p>
+                    <div class="price-details">
+                        <div>
+                            <span class="new-price">BND 7.00</span>
+                            <span class="old-price">BND 22.00</span>
+                        </div>
+                        <button class="primary-btn reserve-btn" style="background-color: #999;">Sold Out</button>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <div id="empty-favorites-message" style="display: none; text-align: center; padding: 40px 0; color: var(--color-text-secondary);">
+            <p style="font-style: italic;">You haven't favorited any stores yet! Find some delicious deals on the Discover page.</p>
         </div>
     </main>
 
     <div class="mobile-nav-bar">
         <a href="index.html">
-            <span class="icon">🔍</span>
+            <span class="icon"><i class="fas fa-list-ul"></i></span>
             <span>Discover</span>
         </a>
+        <a href="map.html">
+            <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
+            <span>Map</span>
+        </a>
         <a href="favorites.html" class="active">
-            <span class="icon">⭐</span>
+            <span class="icon"><i class="fas fa-star"></i></span>
             <span>Favorites</span>
         </a>
         <a href="orders.html">
-            <span class="icon">🛒</span>
+            <span class="icon"><i class="fas fa-shopping-bag"></i></span>
             <span>Orders</span>
         </a>
         <a href="profile.html">
-            <span class="icon">👤</span>
+            <span class="icon"><i class="fas fa-user-circle"></i></span>
             <span>Profile</span>
         </a>
     </div>
-
-    <footer>
-        <p>&copy; 2025 Savyours.</p>
-    </footer>
 </body>
 </html>
