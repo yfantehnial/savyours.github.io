@@ -293,7 +293,7 @@ nav a:hover {
     margin-top: 10px;
 }
 
-/* 💰 FIX: Price arrangement update for clean alignment */
+/* FIX: Price arrangement update for clean alignment */
 .price-details {
     display: flex;
     justify-content: space-between;
@@ -303,7 +303,7 @@ nav a:hover {
     border-top: 1px dashed #ddd;
 }
 
-/* NEW: Ensures old price is centered with the large new price */
+/* Ensures old price is centered with the large new price */
 .price-details > div {
     display: flex;
     align-items: center; 
@@ -353,41 +353,6 @@ nav a:hover {
     border: 1px solid #e2e8f0;
 }
 
-/* --- Dedicated Map View Section (New for map.html) --- */
-.map-page main {
-    height: calc(100vh - 65px); /* Full height minus fixed nav and header */
-}
-
-.map-view-section {
-    padding: 0; 
-    margin: 0;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.map-container {
-    width: 100%;
-    height: 100%;
-    background-color: #e0e0e0; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2em;
-    color: var(--color-dark);
-    text-align: center;
-    /* Added subtle styling for the placeholder itself */
-    background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0), linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
-}
-
-body.map-page {
-    padding-bottom: 0; 
-}
-
 /* --- Mobile Navigation Bar (Fixed Bottom) --- */
 .mobile-nav-bar {
     position: fixed;
@@ -422,6 +387,44 @@ body.map-page {
 
 .mobile-nav-bar a.active, .mobile-nav-bar a:hover {
     color: var(--color-accent);
+}
+
+/* 🗺️ MAP VIEW STYLES */
+
+/* Set padding to accommodate fixed header and fixed bottom nav bar on mobile */
+body.map-page {
+    padding-bottom: 65px; 
+    padding-top: 60px;
+}
+
+/* On map page, the header must be fixed to stay on top of the map content */
+body.map-page header {
+    position: fixed;
+    width: 100%;
+    z-index: 1000; 
+}
+
+/* Ensure the main content takes up the remaining viewport height */
+.map-page main {
+    /* Full height minus header (approx 60px) and bottom nav bar (approx 65px) */
+    height: calc(100vh - 125px); 
+    padding: 0;
+    margin: 0;
+}
+
+.map-view-section {
+    width: 100%;
+    height: 100%;
+    padding: 0; 
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.map-container {
+    width: 100%;
+    height: 100%;
+    /* CRITICAL: Must be explicitly set for Leaflet/Google Maps to render */
 }
 
 
@@ -467,6 +470,13 @@ body.map-page {
         border-bottom: 1px solid var(--color-light-gray);
         text-align: left;
     }
+    
+    /* Map View Adjustments for Mobile Menu */
+    body.map-page header {
+        position: fixed; /* Keep fixed position on mobile */
+    }
+
+    /* On mobile, map main height is already correctly calculated */
 }
 
 @media (max-width: 768px) {
@@ -495,11 +505,11 @@ body.map-page {
 
     .search-bar input {
         width: 100%;
-        border: 1px solid #ccc; /* Use the default border */
+        border: 1px solid #ccc; 
         border-radius: var(--border-radius);
         padding: 15px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        border-right: 1px solid #ccc; /* Fix for earlier right border removal */
+        border-right: 1px solid #ccc; 
     }
 
     /* FINAL FIX: Ensure the search button is fully rounded when stacked */
@@ -524,5 +534,22 @@ body.map-page {
     
     .card-info {
         padding: 20px;
+    }
+}
+
+/* 🗺️ MAP VIEW DESKTOP ADJUSTMENTS */
+@media (min-width: 901px) {
+    /* Desktop map: don't need padding for fixed bottom nav */
+    body.map-page {
+        padding-bottom: 0; 
+        padding-top: 0; 
+    }
+    /* Sticky header behavior on desktop */
+    body.map-page header {
+        position: sticky;
+    }
+    /* Map main content uses full remaining height under the sticky header */
+    .map-page main {
+        min-height: calc(100vh - 65px); /* Assuming header height is around 65px */
     }
 }
