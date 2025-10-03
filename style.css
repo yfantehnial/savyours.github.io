@@ -120,7 +120,8 @@ nav a:hover {
     padding: 16px 20px;
     border: 1px solid #ccc;
     border-right: none;
-    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    /* CORRECTED: Round the left (start) side for horizontal grouping */
+    border-radius: var(--border-radius) 0 0 var(--border-radius); 
     width: 70%;
     font-size: 1em;
     outline: none;
@@ -146,6 +147,7 @@ nav a:hover {
 
 /* Default for buttons in search bar (desktop) */
 .search-btn {
+    /* CORRECTED: Round the right (end) side for horizontal grouping */
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
 
