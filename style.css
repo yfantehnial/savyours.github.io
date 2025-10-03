@@ -1,33 +1,3 @@
-/* 🚀 MOBILE OPTIMIZATION (Max-Width 600px) */
-@media (max-width: 600px) {
-
-    /* ... other mobile styles ... */
-    
-    /* Search Bar Adjustment (Vertical Stack) */
-    .search-bar {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .search-bar input {
-        width: 100%;
-        border: 2px solid var(--color-accent); 
-        border-radius: var(--border-radius); /* Fully rounded input field */
-        padding: 15px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* NEW TARGETED FIX: Use the specific search-btn class */
-    .search-btn { 
-        width: 100%;
-        padding: 15px;
-        /* Reset all desktop grouping styles for this button */
-        border-radius: var(--border-radius); 
-    }
-    
-    /* ... rest of the mobile styles ... */
-}
-
 /* --- Global Styles & Variables --- */
 :root {
     --color-primary: #FFFFFF;
@@ -37,7 +7,7 @@
     --color-light-gray: #F0F2F5; /* Very light, modern background */
     --color-light-green: #e6f6e6; /* New: Light accent background */
     --color-shadow: rgba(0, 0, 0, 0.1);
-    --color-error: #CC0000;     /* New: For log out/error */
+    --color-error: #CC0000;     /* For log out/error */
     --transition-speed: 0.3s;
     --border-radius: 8px;
 }
@@ -57,7 +27,7 @@ h1, h2, h3 {
     color: var(--color-dark);
 }
 
-/* --- Utility Classes for Consistency (Replaces Inline Styles) --- */
+/* --- Utility Classes for Consistency --- */
 .content-page {
     padding: 20px 5%;
 }
@@ -150,7 +120,7 @@ nav a:hover {
     padding: 16px 20px;
     border: 1px solid #ccc;
     border-right: none;
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
     width: 70%;
     font-size: 1em;
     outline: none;
@@ -168,11 +138,15 @@ nav a:hover {
     color: white;
     padding: 16px 30px;
     border: none;
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
     cursor: pointer;
     font-size: 1em;
     font-weight: 600;
     transition: background-color var(--transition-speed), transform 0.1s;
+}
+
+/* Default for buttons in search bar (desktop) */
+.search-btn {
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
 
 .primary-btn:hover {
@@ -190,13 +164,13 @@ nav a:hover {
     border: none;
 }
 
-.btn-full-width { /* New utility for full width buttons */
+.btn-full-width { /* Utility for full width buttons like Edit/Logout */
     width: 100%;
     margin-top: 15px;
     border-radius: var(--border-radius);
 }
 
-.btn-error { /* New style for Log Out */
+.btn-error {
     background-color: var(--color-error);
     border-radius: var(--border-radius);
     padding: 15px 30px;
@@ -390,17 +364,16 @@ footer {
 
     .search-bar input {
         width: 100%;
-        /* FIX: Explicitly set the border on all sides to fix the 'cut out' look */
         border: 2px solid var(--color-accent); 
         border-radius: var(--border-radius); /* Fully rounded input field */
         padding: 15px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .primary-btn {
+    /* FINAL FIX: Ensure the search button is fully rounded when stacked */
+    .search-bar .search-btn { 
         width: 100%;
         padding: 15px;
-        /* FINAL FIX: Explicitly set full border-radius for the search button */
         border-radius: var(--border-radius) !important; 
     }
 
@@ -435,4 +408,3 @@ footer {
         margin-top: 5px;
     }
 }
-
