@@ -120,7 +120,7 @@ nav a:hover {
     padding: 16px 20px;
     border: 1px solid #ccc;
     border-right: none;
-    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
     width: 70%;
     font-size: 1em;
     outline: none;
@@ -362,17 +362,16 @@ footer {
         width: 100%;
         /* FIX: Explicitly set the border on all sides to fix the 'cut out' look */
         border: 2px solid var(--color-accent); 
-        border-radius: var(--border-radius);
+        border-radius: var(--border-radius); /* Fully rounded input field */
         padding: 15px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .primary-btn {
         width: 100%;
-        border-radius: var(--border-radius);
         padding: 15px;
-        /* Re-set button specific styles */
-        border-radius: var(--border-radius); 
+        /* FINAL FIX: Explicitly set full border-radius for the search button */
+        border-radius: var(--border-radius) !important; 
     }
 
     /* Listings Grid */
