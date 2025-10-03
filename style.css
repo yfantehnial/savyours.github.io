@@ -1,23 +1,22 @@
 /* --- UNIVERSAL BOX-SIZING FIX --- */
 *, *::before, *::after {
+    /* CRITICAL FIX: Ensures padding and border are included in the element's total width */
     box-sizing: border-box;
 }
 
-/* --- Global Styles & Variables (Too Good To Go Inspired) --- */
+/* --- Global Styles & Variables (Sophisticated Palette) --- */
 :root {
     --color-primary: #FFFFFF;
-    --color-accent: #38A169;      /* Forest Green (Brand Color) */
-    --color-hover: #48BB78;       /* Lighter for hover */
-    --color-dark: #1A202C;        /* Deep Black for text */
-    --color-text-secondary: #718096; /* Medium Gray for secondary text */
-    --color-light-gray: #F7FAFC;  /* Off-white background */
-    --color-light-accent-bg: #E6FFFA; /* Subtle green background */
-    --color-shadow-light: rgba(26, 32, 44, 0.04); /* Very light, modern shadow */
-    --color-shadow-medium: rgba(26, 32, 44, 0.1);
-    --color-error: #C53030;       /* Muted red */
+    --color-accent: #38A169;    /* Muted, Sophisticated Forest Green */
+    --color-hover: #48BB78;     /* Slightly lighter for hover */
+    --color-dark: #1A202C;      /* Deep Black for high contrast text */
+    --color-text-secondary: #4A5568; /* Soft dark gray for body text */
+    --color-light-gray: #F7FAFC; /* Very light, almost white background */
+    --color-light-accent-bg: #E6FFFA; /* Subtle highlight background (mint green) */
+    --color-shadow: rgba(26, 32, 44, 0.08); /* Darker, more subtle shadow */
+    --color-error: #C53030;     /* Muted red for errors/log out */
     --transition-speed: 0.3s;
-    --border-radius: 16px;        /* Soft, modern corner radius */
-    --font-size-base: 16px;
+    --border-radius: 12px;      /* Slightly larger radius for a softer look */
 }
 
 body {
@@ -26,9 +25,8 @@ body {
     padding: 0;
     background-color: var(--color-light-gray);
     color: var(--color-text-secondary);
-    padding-bottom: 75px; /* Space for the 5-tab bottom nav bar */
-    line-height: 1.6;
-    font-size: var(--font-size-base);
+    padding-bottom: 65px; 
+    line-height: 1.7; 
 }
 
 h1, h2, h3 {
@@ -39,15 +37,15 @@ h1, h2, h3 {
 
 /* --- Utility Classes for Consistency --- */
 .content-page {
-    padding: 20px 5%; 
+    padding: 30px 5%; 
     max-width: 900px;
     margin: 0 auto;
 }
 
 .page-title {
-    font-size: 2em; 
-    color: var(--color-dark);
-    margin: 0 0 15px 0;
+    font-size: 2.5em; 
+    color: var(--color-accent);
+    margin-bottom: 15px;
     font-weight: 800;
 }
 
@@ -56,7 +54,6 @@ h1, h2, h3 {
     font-size: 1.4em;
     font-weight: 700;
     color: var(--color-dark);
-    padding: 0 5%;
 }
 
 /* --- Header & Desktop Navigation --- */
@@ -66,20 +63,20 @@ header {
     align-items: center;
     padding: 18px 5%; 
     background-color: var(--color-primary);
-    box-shadow: 0 2px 15px var(--color-shadow-light); 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
 .logo {
-    font-size: 2.2em; 
+    font-size: 2.0em; 
     font-weight: 800;
     color: var(--color-accent);
 }
 
 nav {
-    display: flex; 
+    display: flex; /* Default (Desktop) */
 }
 
 nav a {
@@ -88,17 +85,17 @@ nav a {
     color: var(--color-text-secondary);
     font-weight: 600;
     transition: color var(--transition-speed);
-    padding: 5px 0; 
+    padding: 5px 0;
 }
 
 nav a:hover {
     color: var(--color-accent);
 }
 
-/* Hamburger Button (Hidden by default on desktop) */
+/* NEW: Hamburger Button (Hidden by default on desktop) */
 .menu-toggle {
     display: none;
-    font-size: 1.6em;
+    font-size: 1.5em;
     color: var(--color-dark);
     cursor: pointer;
     background: none;
@@ -109,22 +106,23 @@ nav a:hover {
 
 /* --- Hero Section & Search Bar --- */
 .hero-section {
-    padding: 40px 5% 30px; 
+    padding: 90px 5% 50px; 
     background-color: var(--color-primary);
+    border-bottom: 8px solid var(--color-accent); 
     text-align: left;
-    box-shadow: 0 2px 10px var(--color-shadow-light); /* Added subtle shadow for depth */
 }
 
 .hero-section h1 {
-    font-size: 2.8em; 
-    margin-bottom: 10px;
+    font-size: 3.2em; 
+    margin-bottom: 20px;
     max-width: 650px;
+    font-weight: 800;
 }
 
 .hero-section p {
-    font-size: 1.1em;
+    font-size: 1.25em;
     color: var(--color-text-secondary);
-    margin-bottom: 25px;
+    margin-bottom: 40px;
     max-width: 650px;
 }
 
@@ -152,25 +150,26 @@ nav a:hover {
 }
 
 .search-bar input {
-    padding: 15px 20px;
-    border: 1px solid #ddd;
+    padding: 18px 20px;
+    border: 1px solid #ccc;
     border-right: none;
     border-radius: var(--border-radius) 0 0 var(--border-radius); 
     width: 70%;
-    font-size: 1em;
+    font-size: 1.1em;
     outline: none;
-    box-shadow: 0 4px 10px var(--color-shadow-light);
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 .search-bar input:focus {
     border-color: var(--color-accent);
+    box-shadow: 0 0 5px rgba(56, 161, 105, 0.5);
 }
 
 /* --- Buttons --- */
 .primary-btn {
     background-color: var(--color-accent);
     color: white;
-    padding: 15px 30px; 
+    padding: 18px 35px; 
     border: none;
     cursor: pointer;
     font-size: 1em;
@@ -186,10 +185,14 @@ nav a:hover {
     background-color: var(--color-hover);
 }
 
+.primary-btn:active {
+    transform: scale(0.98);
+}
+
 .reserve-btn {
-    padding: 10px 20px;
-    font-size: 0.95em;
-    border-radius: 10px;
+    padding: 12px 25px;
+    font-size: 1.05em;
+    border-radius: 8px;
 }
 
 .btn-full-width {
@@ -202,46 +205,50 @@ nav a:hover {
     background-color: var(--color-error);
     border-radius: var(--border-radius);
     padding: 15px 30px;
-    width: 100%; /* Changed to 100% for full content-page width */
-    margin: 30px 0; /* Adjusted margin */
+    width: 90%;
+    margin: 30px 5%;
     font-weight: 700;
 }
 
+.btn-error:hover {
+    background-color: #a00;
+}
 
 /* --- Listings Grid (Magic Bag Cards) --- */
 .listings-section {
-    padding: 20px 5%;
+    padding: 40px 5%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .listings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 35px; 
 }
 
 .listing-card {
     background-color: var(--color-primary);
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 10px 30px var(--color-shadow-light); 
-    transition: transform var(--transition-speed);
+    box-shadow: 0 8px 20px var(--color-shadow); 
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
     cursor: pointer;
-    border: 1px solid #edf2f7; 
+    border: 1px solid #e2e8f0; 
 }
 
 .listing-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px var(--color-shadow-medium);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
 }
 
 .card-image {
-    height: 180px; 
+    height: 220px; 
     background-color: #eee;
     background-size: cover;
     background-position: center;
-    position: relative; 
+    border-bottom: 5px solid var(--color-accent); 
+    position: relative;
 }
 
 /* FAVORITE TOGGLE STYLES */
@@ -265,51 +272,41 @@ nav a:hover {
 
 
 .card-info {
-    padding: 20px; 
+    padding: 25px; 
 }
 
 .card-info h3 {
     margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 1.4em;
+    margin-bottom: 8px;
+    font-size: 1.5em;
     font-weight: 700;
 }
 
 .card-info p {
-    font-size: 0.9em;
+    font-size: 0.95em;
     color: var(--color-text-secondary);
-    margin-bottom: 5px;
 }
 
 .bags-left {
     color: var(--color-error);
     font-weight: 700;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
+/* FIX: Price arrangement update */
 .price-details {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px dashed #edf2f7; 
-}
-
-/* ... in style.css */
-
-.price-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Ensures the reserve button is vertically centered with the price block */
+    align-items: center; 
     margin-top: 20px;
     padding-top: 15px;
     border-top: 1px dashed #ddd;
 }
 
-.price-details > div { /* NEW: A container for the two price points */
+/* NEW: Ensures old price is centered with the large new price */
+.price-details > div {
     display: flex;
-    align-items: center; /* This ensures the small old price is vertically centered with the large new price */
+    align-items: center; 
 }
 
 .price-details .new-price {
@@ -323,13 +320,21 @@ nav a:hover {
     color: #999;
     font-size: 1.0em; 
     margin-left: 10px;
-    /* Removed the large margin-bottom that might have been causing the jankiness */
 }
 
-/* ... rest of the CSS */
+/* --- Order Voucher Card --- */
+.order-voucher-card {
+    margin: 20px 0; 
+    padding: 30px;
+    border-radius: var(--border-radius);
+    background-color: var(--color-light-accent-bg); 
+    box-shadow: 0 0 10px rgba(56, 161, 105, 0.2);
+    border-left: 8px solid var(--color-accent); 
+}
+
 .voucher-code {
     font-family: monospace; 
-    font-size: 1.8em; /* Slightly smaller */
+    font-size: 1.8em; 
     font-weight: 900;
     color: var(--color-dark);
     margin: 10px 0;
@@ -343,20 +348,14 @@ nav a:hover {
     padding: 20px;
     border-radius: var(--border-radius);
     background-color: var(--color-primary);
-    box-shadow: 0 2px 8px var(--color-shadow-light);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     margin: 15px 0;
     border: 1px solid #e2e8f0;
 }
 
-.order-history-item h3 {
-    margin: 0;
-    font-size: 1.3em;
-}
-
-
 /* --- Dedicated Map View Section (New) --- */
 .map-page main {
-    height: calc(100vh - 75px); /* Full height minus fixed nav and header */
+    height: calc(100vh - 65px); /* Full height minus fixed nav and header */
 }
 
 .map-view-section {
@@ -376,51 +375,17 @@ nav a:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1.5em;
-    color: var(--color-text-secondary);
+    font-size: 1.2em;
+    color: var(--color-dark);
     text-align: center;
+    /* Added subtle styling for the placeholder itself */
+    background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0), linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
 }
 
 body.map-page {
-    padding-bottom: 0; /* Remove bottom padding on map page since the map container handles height */
-}
-
-
-/* --- Mobile Navigation Bar (Bottom) --- */
-footer {
-    display: none;
-}
-
-.mobile-nav-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--color-primary);
-    box-shadow: 0 -4px 15px var(--color-shadow-light);
-    display: flex;
-    justify-content: space-around;
-    padding: 15px 0 10px 0; /* Taller navigation bar with padding for safe area */
-    z-index: 2000;
-}
-
-.mobile-nav-bar a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: #b3b3b3; 
-    font-size: 0.75em; 
-    font-weight: 600;
-    transition: color var(--transition-speed);
-}
-.mobile-nav-bar a .icon {
-    font-size: 1.8em; 
-    margin-bottom: 5px;
-}
-
-.mobile-nav-bar a.active, .mobile-nav-bar a:hover {
-    color: var(--color-accent);
+    padding-bottom: 0; 
 }
 
 
@@ -453,7 +418,7 @@ footer {
         left: 0;
         width: 100%;
         background-color: var(--color-primary);
-        box-shadow: 0 4px 10px var(--color-shadow-medium);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         padding: 10px 0;
         z-index: 999; 
         border-bottom-left-radius: var(--border-radius);
@@ -471,12 +436,12 @@ footer {
 @media (max-width: 768px) {
     /* Hero section centering on small mobile */
     .hero-section {
-        padding: 30px 4% 20px;
+        padding: 40px 4% 30px;
         text-align: center;
     }
     
     .hero-section h1 {
-        font-size: 2em;
+        font-size: 2.2em;
     }
 
     /* Search Bar stacking */
@@ -486,30 +451,27 @@ footer {
         max-width: none;
         margin: 0 auto;
     }
+    /* FIX: Ensure search input and button are fully rounded when stacked */
     .search-bar input {
         width: 100%;
         border-radius: var(--border-radius);
-        border: 1px solid #ddd;
-        border-right: 1px solid #ddd;
+        border: 1px solid #ccc;
+        border-right: 1px solid #ccc; /* Reset right border removal */
     }
     .search-bar .search-btn { 
         width: 100%;
         margin-top: 10px;
         border-radius: var(--border-radius);
-        padding: 15px;
+        padding: 18px;
     }
 
     /* Card/Grid adjustments */
     .listings-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 25px;
     }
     .listing-card:hover {
         transform: none;
-        box-shadow: 0 4px 10px var(--color-shadow-light);
-    }
-    .price-details {
-        flex-direction: row; 
-        justify-content: space-between;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 }
