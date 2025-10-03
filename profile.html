@@ -32,7 +32,7 @@
                 <h3>Account Settings</h3>
                 <p>Email: user@brunei.bn</p>
                 <p>Phone: +673 8xxxxxx</p>
-            <button class="primary-btn btn-full-width" onclick="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'">Edit Details
+            <button id="rickrollButton" class="primary-btn btn-full-width">Edit Details
             </button>
             </div>
         </div>
@@ -73,6 +73,16 @@
 </body>
 </html>
 
+<script>
+    // Get the button element by its ID
+    const button = document.getElementById('rickrollButton');
+
+    // Add a click listener to the button
+    button.addEventListener('click', function() {
+        // Redirect the user to the Rickroll URL
+        window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+    });
+</script>
 
 
 
