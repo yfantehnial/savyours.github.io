@@ -6,11 +6,22 @@
     <title>Profile | Savyours</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ87RHvR52yW+O6lP4dF6T3qjR73v2b+Xq7Tz/w/oV6c2C3t/p1l5N8q9q1P3lA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <header>
         <div class="logo">Savyours</div>
-        <nav></nav>
+        
+        <input type="checkbox" id="menu-checkbox" style="display: none;">
+        <label for="menu-checkbox" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </label>
+
+        <nav>
+            <a href="#">Find Bags</a>
+            <a href="#">Business Login</a> 
+            <a href="#">My Account</a>
+        </nav>
     </header>
 
     <main class="content-page">
@@ -33,30 +44,30 @@
             </div>
         </div>
         
-        <button class="primary-btn btn-error">Log Out</button>
+        <button class="primary-btn btn-error btn-full-width">Log Out</button>
     </main>
 
     <div class="mobile-nav-bar">
         <a href="index.html">
-            <span class="icon">🔍</span>
+            <span class="icon"><i class="fas fa-list-ul"></i></span>
             <span>Discover</span>
         </a>
+        <a href="map.html">
+            <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
+            <span>Map</span>
+        </a>
         <a href="favorites.html">
-            <span class="icon">⭐</span>
+            <span class="icon"><i class="fas fa-star"></i></span>
             <span>Favorites</span>
         </a>
         <a href="orders.html">
-            <span class="icon">🛒</span>
+            <span class="icon"><i class="fas fa-shopping-bag"></i></span>
             <span>Orders</span>
         </a>
         <a href="profile.html" class="active">
-            <span class="icon">👤</span>
+            <span class="icon"><i class="fas fa-user-circle"></i></span>
             <span>Profile</span>
         </a>
     </div>
-
-    <footer>
-        <p>&copy; 2025 Savyours.</p>
-    </footer>
 </body>
 </html>
