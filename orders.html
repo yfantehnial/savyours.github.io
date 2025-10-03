@@ -11,32 +11,29 @@
 <body>
     <header>
         <div class="logo">Savyours</div>
-        
-        <input type="checkbox" id="menu-checkbox" style="display: none;">
-        <label for="menu-checkbox" class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </label>
-        
-        <nav>
-            <a href="#">Find Bags</a>
-            <a href="#">Business Login</a> 
-            <a href="#">My Account</a>
-        </nav>
+        <label for="menu-checkbox" class="menu-toggle" id="menu-toggle-btn">
+    <i class="fas fa-bars"></i>
+</label>
+        <nav id="main-nav">
+    <a href="#">Find Bags</a>
+    <a href="#">Business Login</a>
+    <a href="#">My Account</a>
+</nav>
     </header>
 
     <main class="content-page">
         <h1 class="page-title">🛒 My Orders</h1>
         
-        <h2 class="secondary-heading" style="padding: 0;">Active Voucher (Pickup Soon)</h2>
+        <h2 class="secondary-heading">Active Voucher (Pickup Soon)</h2>
         
         <div class="order-voucher-card">
-            <p style="font-size: 1.2em; font-weight: bold; color: var(--color-dark);">Store: The Green Cafe</p>
-            <p class="voucher-code">SVY-BN-987654</p>
-            <p style="color: var(--color-dark); font-weight: 600;">Pickup Time: Today, 7:00 PM - 8:00 PM</p>
+            <p style="font-size: 1.2em; font-weight: bold;">Store: The Green Cafe</p>
+            <p class="voucher-code">Voucher Code: SVY-BN-987654</p>
+            <p>Pickup Time: Today, 7:00 PM - 8:00 PM</p>
             <button class="primary-btn btn-full-width">View Voucher Details</button>
         </div>
         
-        <h2 class="secondary-heading" style="padding: 0;">Order History</h2>
+        <h2 class="secondary-heading">Order History</h2>
         
         <div class="order-history-item">
             <h3>Completed: Nasi Lemak Surprise</h3>
@@ -70,5 +67,6 @@
             <span>Profile</span>
         </a>
     </div>
+
 </body>
 </html>
