@@ -13,15 +13,14 @@
         <div class="logo">Savyours</div>
         
         <input type="checkbox" id="menu-checkbox" style="display: none;">
-        <label for="menu-checkbox" class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </label>
-        
-        <nav>
-            <a href="#">Find Bags</a>
-            <a href="#">Business Login</a> 
-            <a href="#">My Account</a>
-        </nav>
+        <label for="menu-checkbox" class="menu-toggle" id="menu-toggle-btn">
+    <i class="fas fa-bars"></i>
+</label>
+        <nav id="main-nav">
+    <a href="#">Find Bags</a>
+    <a href="#">Business Login</a>
+    <a href="#">My Account</a>
+</nav>
     </header>
 
     <main class="content-page">
@@ -30,44 +29,22 @@
         
         <div class="listings-grid">
             <div class="listing-card">
-                <div class="card-image" style="background-image: url('http://googleusercontent.com/profile/picture/3');">
-                    <span class="favorite-toggle favorited"><i class="far fa-star"></i><i class="fas fa-star"></i></span>
-                </div>
                 <div class="card-info">
                     <h3>Taste of Brunei Bakeries</h3>
-                    <p>Cakes and pastries.</p>
-                    <p style="color: var(--color-dark); font-weight: 600; margin-bottom: 0;">Pickup Available: 6:00 PM - 7:00 PM Today</p>
-                    <p class="bags-left">Bags Left: 1</p>
-                    <div class="price-details">
-                        <div>
-                            <span class="new-price">BND 8.00</span>
-                            <span class="old-price">BND 24.00</span>
-                        </div>
-                        <button class="primary-btn reserve-btn">Reserve Now</button>
-                    </div>
+                    <p>Pickup Available: 6:00 PM - 7:00 PM Today</p>
+                    <p>Location: Gadong, Brunei-Muara</p>
                 </div>
             </div>
             <div class="listing-card">
-                <div class="card-image" style="background-image: url('http://googleusercontent.com/profile/picture/4');">
-                    <span class="favorite-toggle favorited"><i class="far fa-star"></i><i class="fas fa-star"></i></span>
-                </div>
                 <div class="card-info">
                     <h3>Mama's Kitchen</h3>
-                    <p>Traditional Bruneian meals.</p>
-                    <p style="color: var(--color-dark); font-weight: 600; margin-bottom: 0;">Pickup Available: Tomorrow</p>
-                    <p class="bags-left">Bags Left: 3</p>
-                    <div class="price-details">
-                        <div>
-                            <span class="new-price">BND 7.00</span>
-                            <span class="old-price">BND 22.00</span>
-                        </div>
-                        <button class="primary-btn reserve-btn" style="background-color: #999;">Sold Out</button>
-                    </div>
+                    <p>Pickup Available: Tomorrow</p>
+                    <p>Location: Serusop</p>
                 </div>
             </div>
         </div>
 
-        <div id="empty-favorites-message" style="display: none; text-align: center; padding: 40px 0; color: var(--color-text-secondary);">
+        <div id="empty-favorites-message" style="text-align: center; padding: 40px 0; color: var(--color-text-secondary);">
             <p style="font-style: italic;">You haven't favorited any stores yet! Find some delicious deals on the Discover page.</p>
         </div>
     </main>
@@ -94,5 +71,6 @@
             <span>Profile</span>
         </a>
     </div>
+
 </body>
 </html>
