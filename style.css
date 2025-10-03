@@ -1,3 +1,33 @@
+/* 🚀 MOBILE OPTIMIZATION (Max-Width 600px) */
+@media (max-width: 600px) {
+
+    /* ... other mobile styles ... */
+    
+    /* Search Bar Adjustment (Vertical Stack) */
+    .search-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-bar input {
+        width: 100%;
+        border: 2px solid var(--color-accent); 
+        border-radius: var(--border-radius); /* Fully rounded input field */
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* NEW TARGETED FIX: Use the specific search-btn class */
+    .search-btn { 
+        width: 100%;
+        padding: 15px;
+        /* Reset all desktop grouping styles for this button */
+        border-radius: var(--border-radius); 
+    }
+    
+    /* ... rest of the mobile styles ... */
+}
+
 /* --- Global Styles & Variables --- */
 :root {
     --color-primary: #FFFFFF;
@@ -405,3 +435,4 @@ footer {
         margin-top: 5px;
     }
 }
+
