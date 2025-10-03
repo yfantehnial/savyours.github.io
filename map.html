@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ87RHvR52yW+O6lP4dF6T3qjR73v2b+Xq7Tz/w/oV6c2C3t/p1l5N8q9q1P3lA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
 </head>
 <body class="map-page">
     <header>
@@ -26,18 +30,14 @@
 
     <main>
         <section class="map-view-section">
-            <div class="map-container">
-                <i class="fas fa-map-marked-alt" style="font-size: 4em; color: var(--color-accent); margin-bottom: 20px;"></i>
-                <h2 style="margin: 0;">Map View Placeholder</h2>
-                <p style="font-size: 1em; color: var(--color-text-secondary);">This is where the interactive map would appear,<br> showing all available Magic Bags near you.</p>
-                <button class="primary-btn reserve-btn" style="margin-top: 15px;">Refresh Map</button>
-            </div>
+            <div id="interactive-map" class="map-container">
+                </div>
         </section>
     </main>
-    
+
     <div class="mobile-nav-bar">
         <a href="index.html">
-            <span class="icon"><i class="fas fa-list-ul"></i></span>
+            <span class="icon"><i class="fas fa-search"></i></span>
             <span>Discover</span>
         </a>
         <a href="map.html" class="active">
@@ -58,5 +58,31 @@
         </a>
     </div>
 
+    <script>
+        // Check if the map container exists
+        if (document.getElementById('interactive-map')) {
+            
+            // 1. Initialize the map (Centered near Bandar Seri Begawan)
+            var map = L.map('interactive-map').setView([4.9450, 114.9427], 13); // Latitude/Longitude and Zoom Level
+
+            // 2. Add the Tile Layer (OpenStreetMap)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            // 3. Add a sample marker for a store
+            var storeMarker = L.marker([4.9123, 114.9348]).addTo(map)
+                .bindPopup("<b>The Green Cafe</b><br>Magic Bag Available!").openPopup();
+                
+            // 4. Optionally add a marker for the user's current location (Simulated)
+            L.circle([4.9450, 114.9427], {
+                color: 'blue',
+                fillColor: '#30a4ff',
+                fillOpacity: 0.5,
+                radius: 300 // radius in meters
+            }).addTo(map).bindPopup("Your Location");
+        }
+    </script>
 </body>
 </html>
