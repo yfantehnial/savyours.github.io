@@ -19,22 +19,20 @@
 
     <main>
         <section class="hero-section">
-        <h1>Rescue Delicious Food Near You in Brunei</h1>
-        <p>Save money, enjoy great food, and help the planet—all before dinner!</p>
+            <h1>Rescue Delicious Food Near You in Brunei</h1>
+            <p>Save money, enjoy great food, and help the planet—all before dinner!</p>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Enter your location (e.g., Gadong)" id="location-input">
+                <button class="primary-btn" onclick="filterListings()">Search</button>
+            </div>
+        </section>
         
-        <section class="image-banner">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1200px-Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="Promotional banner showing rescued food bags">
-        </section>
-        <div class="search-bar">
-            <input type="text" placeholder="Enter your location (e.g., Gadong)" id="location-input">
-            <button class="primary-btn" onclick="filterListings()">Search</button>
-        </div>
-    </section>
-
-    <section class="listings-section">
-        </section>
-
         <section class="listings-section">
+            <div class="image-banner">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1200px-Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="Promotional banner showing rescued food bags">
+            </div>
+
             <h2>Available Bags Today (3 Available)</h2>
             <div id="food-listings" class="listings-grid">
                 
@@ -44,7 +42,7 @@
                         <h3>Artisan Bakery Surprise</h3>
                         <p><strong>Bake-It-Brunei, Serusop</strong></p>
                         <p>Pickup: 7:30 PM - 8:30 PM</p>
-                        <p style="color: red; font-weight: bold;">Bags Left: 1</p> 
+                        <p class="bags-left">Bags Left: 1</p> 
                         <div class="price-details">
                             <div>
                                 <span class="new-price">BND 6.00</span>
@@ -77,23 +75,7 @@
     </main>
     
     <div class="mobile-nav-bar">
-        <a href="index.html" class="active">
-            <span class="icon">🔍</span>
-            <span>Discover</span>
-        </a>
-        <a href="favorites.html">
-            <span class="icon">⭐</span>
-            <span>Favorites</span>
-        </a>
-        <a href="orders.html">
-            <span class="icon">🛒</span>
-            <span>Orders</span>
-        </a>
-        <a href="profile.html">
-            <span class="icon">👤</span>
-            <span>Profile</span>
-        </a>
-    </div>
+        </div>
 
     <footer>
         <p>&copy; 2025 Savyours. Made for Brunei. Slogan: Stay Healthy and Stop Food Waste.</p>
@@ -106,11 +88,4 @@
         }
     </script>
 </body>
-
 </html>
-
-
-
-
-
-
