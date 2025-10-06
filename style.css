@@ -411,16 +411,18 @@ body.light-mode #discover-map-placeholder {
     border-radius: 12px;
 }
 
+/* Custom Marker CSS is primarily handled by dynamic JS/inline styles for color, 
+   but these classes provide the structural context for the icons. */
 .map-icon-active div {
-    background-color: var(--color-accent) !important;
-    box-shadow: 0 0 10px rgba(0, 163, 108, 0.7);
+    /* Styles are primarily handled by the Leaflet.divIcon HTML property to correctly access CSS variables */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); 
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .map-icon-soldout div {
-    background-color: var(--color-sold-out) !important;
+    /* Styles are primarily handled by the Leaflet.divIcon HTML property to correctly access CSS variables */
     opacity: 0.8;
-    box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
 .map-icon-active i, .map-icon-soldout i {
@@ -437,9 +439,11 @@ body.light-mode #discover-map-placeholder {
     color: var(--text-dark);
     border-radius: 8px;
     padding: 10px;
+    box-shadow: var(--card-shadow);
 }
 .leaflet-popup-tip {
     background: var(--surface-color);
+    box-shadow: var(--card-shadow);
 }
 .leaflet-popup-content hr {
     border-color: var(--border-subtle);
@@ -482,6 +486,8 @@ body.light-mode .favorite-store button {
 
 /* ORDERS SCREEN STYLES */
 #voucher-section {
+    display: flex; /* Makes input and button align */
+    flex-wrap: wrap; /* Allows status message to wrap below */
     background-color: var(--surface-color);
     padding: 15px;
     border-radius: 12px;
@@ -494,19 +500,20 @@ body.light-mode .favorite-store button {
     font-size: 1.1rem;
     margin-bottom: 10px;
     border-bottom: none;
+    width: 100%; /* forces heading to its own line */
 }
 #voucher-input {
-    width: 60%;
+    flex-grow: 1; /* Takes up remaining space */
     padding: 10px;
     border-radius: 6px 0 0 6px;
     border: 1px solid var(--border-subtle);
     background-color: var(--background-color);
     color: var(--text-dark);
     outline: none;
+    min-width: 60%;
 }
 #voucher-section button {
-    width: 40%;
-    padding: 10px;
+    padding: 10px 15px;
     border: none;
     background-color: var(--primary-color);
     color: var(--text-light);
@@ -516,6 +523,7 @@ body.light-mode .favorite-store button {
     transition: background-color 0.3s;
 }
 .voucher-status {
+    width: 100%; /* Forces status message to its own line */
     margin-top: 10px;
     font-size: 0.9rem;
     color: #D32F2F;
@@ -535,10 +543,12 @@ body.light-mode .favorite-store button {
     border-radius: 12px;
     margin-bottom: 15px;
     border-left: 5px solid var(--border-subtle);
-    transition: border-color 0.3s;
+    box-shadow: var(--card-shadow);
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 .order-card.active {
     border-left-color: var(--primary-color);
+    box-shadow: 0 4px 10px rgba(0, 163, 108, 0.2);
 }
 .order-card.past {
     border-left-color: var(--text-medium);
@@ -623,7 +633,7 @@ body.light-mode .favorite-store button {
     transition: background-color 0.2s;
 }
 .profile-links p:hover {
-    background-color: #282828;
+    background-color: rgba(0,0,0,0.1); /* Subtle hover effect in both modes */
     padding-left: 5px;
 }
 .profile-links p:last-of-type {
