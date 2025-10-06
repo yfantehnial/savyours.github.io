@@ -1,0 +1,740 @@
+/* GLOBAL STYLES & FONT */
+:root {
+    /* Base for Dark Mode */
+    --primary-color: #00A36C; /* Deep Emerald Green */
+    --secondary-color: #00FFFF; /* Dark Mode Accent: Vibrant Cyan/Aqua */
+    --background-color: #121212;
+    --surface-color: #1E1E1E;
+    --text-dark: #E0E0E0;
+    --text-medium: #A0A0A0;
+    --text-light: #FFFFFF;
+    --border-subtle: #333333;
+    --card-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    --impact-background: linear-gradient(45deg, #1C313A, #0A1929);
+    /* Map Colors for Leaflet Icons and Popups */
+    --color-accent: var(--primary-color);
+    --color-sold-out: #D32F2F;
+    --secondary-text-color: var(--text-dark); /* Default secondary text */
+}
+
+/* Light Mode Variables - Overrides for .light-mode */
+body.light-mode {
+    --primary-color: #00897B; /* Teal */
+    --secondary-color: #FF5722; /* NEW LIGHT MODE ACCENT: Vibrant Red-Orange (High Contrast) */
+    --background-color: #F0F2F5; /* Light Grey */
+    --surface-color: #FFFFFF;
+    --text-dark: #333333;
+    --text-medium: #666666;
+    --text-light: #000000;
+    --border-subtle: #E0E0E0;
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    --impact-background: linear-gradient(45deg, #E0F2F7, #BBDEFB);
+    /* Map Colors for Leaflet Icons and Popups */
+    --color-accent: var(--primary-color);
+    --color-sold-out: #D32F2F;
+    --secondary-text-color: #000000; /* Force black text on secondary color in light mode */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-dark); 
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+/* APP CONTAINER (Simulates a phone screen) */
+#app-container {
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    max-height: 900px;
+    background-color: var(--background-color);
+    box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* HEADER (Updated to place slogan underneath) */
+header {
+    display: flex;
+    flex-direction: column; /* Main container is a column */
+    padding: 10px 15px; 
+    background-color: var(--surface-color); 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    z-index: 10;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* New top row to hold logo, icons, and menu */
+.header-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* --- LOGO STYLES (Title Only) --- */
+#savyours-logo-main {
+    flex-grow: 1; 
+    text-align: center;
+    line-height: 1.2;
+    padding: 0 10px;
+}
+#savyours-logo-main h1 {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* --- SLOGAN STYLES (Below Top Row) --- */
+#savyours-slogan {
+    text-align: center;
+    font-size: 0.65rem;
+    color: var(--text-medium);
+    margin-top: 5px; /* Space below the main title row */
+    font-weight: 500;
+    padding: 0 15px;
+}
+/* --- END LOGO STYLES --- */
+
+.menu-icon, header .material-icons {
+    cursor: pointer;
+    color: var(--text-dark);
+    transition: color 0.3s, transform 0.2s;
+}
+.menu-icon:active, header .material-icons:active {
+    transform: scale(0.9);
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+#theme-toggle-header {
+    font-size: 1.5rem;
+}
+
+#sholat-time {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem; 
+    font-weight: 500;
+    color: var(--primary-color); 
+    transition: color 0.3s;
+    white-space: nowrap;
+    margin-right: 15px; 
+}
+
+#sholat-time .material-icons {
+    font-size: 1.2rem;
+    margin-right: 4px;
+    color: var(--primary-color);
+    transition: color 0.3s;
+}
+
+/* MAIN CONTENT AREA */
+#content-area {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0 0 80px 0; 
+}
+
+/* --- SCREEN TRANSITION ANIMATION --- */
+.app-screen {
+    display: none;
+    padding: 20px;
+    opacity: 0;
+    transform: translateX(100%);
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.active-screen {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 5;
+    position: relative; 
+}
+
+h2 {
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--border-subtle);
+    padding-bottom: 5px;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+/* DISCOVER SCREEN SPECIFIC STYLES */
+#location-bar {
+    display: flex;
+    align-items: center;
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--card-shadow);
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+#location-bar input {
+    flex-grow: 1;
+    border: none;
+    padding: 0 10px;
+    background: transparent;
+    font-size: 1rem;
+    color: var(--text-dark);
+    outline: none;
+    transition: color 0.3s;
+}
+#location-bar input::placeholder {
+    color: var(--text-medium);
+    transition: color 0.3s;
+}
+
+/* Horizontal Scrollable Banner */
+#banner-carousel {
+    display: flex;
+    overflow-x: scroll;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    gap: 15px;
+    scrollbar-width: none;
+}
+#banner-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.banner-card {
+    min-width: 280px;
+    height: 120px;
+    background: linear-gradient(135deg, var(--surface-color), #282828); 
+    border-radius: 12px;
+    padding: 18px;
+    color: var(--text-light);
+    font-weight: 600;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-subtle);
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+body.light-mode .banner-card {
+    background: linear-gradient(135deg, var(--surface-color), #F8F8F8); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: var(--text-dark);
+}
+/* PROMO CARD: Use secondary color for background. Text color is dynamic. */
+.banner-card.promo { 
+    background: linear-gradient(135deg, var(--secondary-color), #e94c1a); 
+    color: var(--secondary-text-color); 
+}
+body.light-mode .banner-card.promo {
+    background: linear-gradient(135deg, var(--secondary-color), #e94c1a); 
+    color: #000000; /* Force black text for high contrast on light orange/red */
+}
+.banner-card.impact { background: linear-gradient(135deg, var(--primary-color), #007D54); color: var(--text-light); }
+
+/* Available Bags List (Cards) */
+.bag-card {
+    display: flex;
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.2s ease, background-color 0.3s, box-shadow 0.3s, opacity 0.3s;
+}
+.bag-card:hover {
+    transform: translateY(-4px) scale(1.01); 
+    box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+}
+
+.bag-card.sold-out-card {
+    opacity: 0.6; 
+    pointer-events: none; 
+}
+
+.bag-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    flex-shrink: 0;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+.bag-card.sold-out-card .bag-image {
+    filter: grayscale(80%); 
+}
+
+.bag-info {
+    padding: 15px;
+    flex-grow: 1;
+}
+
+.bag-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+    border-bottom: none;
+    padding-bottom: 0;
+    transition: color 0.3s;
+}
+
+.bag-info .pickup-time, .bag-info .time-left {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin-bottom: 5px;
+    transition: color 0.3s;
+}
+/* Time left uses the new secondary color */
+.bag-info .time-left {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+.bag-info .time-left.sold-out-text { 
+    color: #D32F2F;
+}
+
+.price-details {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.price-new {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.price-old {
+    text-decoration: line-through;
+    color: var(--text-medium);
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+/* BAGS LEFT TAG: Text color dynamically changes based on theme, ensuring contrast */
+.bags-left {
+    font-size: 0.85rem;
+    color: var(--secondary-text-color);
+    font-weight: bold;
+    background-color: var(--secondary-color);
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-left: auto; 
+    transition: background-color 0.3s, color 0.3s;
+}
+body.light-mode .bags-left {
+    color: #000000; /* Force black text on light mode secondary color */
+}
+.bags-left.sold-out {
+    color: var(--text-light);
+    background-color: #A00000;
+}
+
+/* --- MAP VIEW STYLES (Leaflet Integration) --- */
+.map-view {
+    height: 200px; 
+    margin-bottom: 20px;
+    background-color: var(--surface-color); 
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Full Map View - Use for Leaflet */
+#interactive-map-full {
+    height: 60vh; 
+    border-radius: 12px;
+}
+
+/* Discover Map View - Retain simple placeholder for small size */
+#discover-map-placeholder {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #333; /* Default dark background for map preview */
+    background-image: url('https://placehold.co/400x200/555/fff?text=Map+Preview+Only+-+Go+to+%27Map%27+Tab'); 
+    background-size: cover; 
+    background-position: center; 
+    color: var(--text-light); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    text-align: center;
+}
+body.light-mode #discover-map-placeholder {
+    background-color: #EEE;
+    background-image: url('https://placehold.co/400x200/EEE/333?text=Map+Preview+Only+-+Go+to+%27Map%27+Tab');
+    color: var(--text-dark);
+}
+
+
+/* --- LEAFLET CUSTOM MARKER STYLES --- */
+
+.leaflet-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 12px;
+}
+
+.map-icon-active div {
+    background-color: var(--color-accent) !important;
+    box-shadow: 0 0 10px rgba(0, 163, 108, 0.7);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.map-icon-soldout div {
+    background-color: var(--color-sold-out) !important;
+    opacity: 0.8;
+    box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
+}
+
+.map-icon-active i, .map-icon-soldout i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
+
+/* Leaflet Popup Styling for Dark/Light Mode Consistency */
+.leaflet-popup-content-wrapper {
+    background: var(--surface-color);
+    color: var(--text-dark);
+    border-radius: 8px;
+    padding: 10px;
+}
+.leaflet-popup-tip {
+    background: var(--surface-color);
+}
+.leaflet-popup-content hr {
+    border-color: var(--border-subtle);
+}
+.leaflet-popup-content a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* FAVORITES SCREEN STYLES */
+.favorite-store {
+    display: block;
+    padding: 15px;
+}
+.favorite-store h3 {
+    color: var(--text-light);
+    margin-bottom: 8px;
+}
+.favorite-store button {
+    background-color: var(--secondary-color); /* Uses new secondary color */
+    color: var(--secondary-text-color); /* Uses dynamic text color for contrast */
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+body.light-mode .favorite-store button {
+    color: #000000; /* Force black text */
+}
+.favorite-store button:active {
+    transform: scale(0.98);
+}
+.favorite-store.faded {
+    opacity: 0.4;
+}
+
+/* ORDERS SCREEN STYLES */
+#voucher-section {
+    background-color: var(--surface-color);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px dashed var(--primary-color);
+    box-shadow: var(--card-shadow);
+}
+#voucher-section h3 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    border-bottom: none;
+}
+#voucher-input {
+    width: 60%;
+    padding: 10px;
+    border-radius: 6px 0 0 6px;
+    border: 1px solid var(--border-subtle);
+    background-color: var(--background-color);
+    color: var(--text-dark);
+    outline: none;
+}
+#voucher-section button {
+    width: 40%;
+    padding: 10px;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+.voucher-status {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #D32F2F;
+}
+.voucher-status.success {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.order-header {
+    margin-top: 20px;
+    color: var(--secondary-color); /* Uses secondary color */
+}
+.order-card {
+    background-color: var(--surface-color);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border-left: 5px solid var(--border-subtle);
+    transition: border-color 0.3s;
+}
+.order-card.active {
+    border-left-color: var(--primary-color);
+}
+.order-card.past {
+    border-left-color: var(--text-medium);
+    opacity: 0.7;
+}
+
+.order-card h4 {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+.order-card button {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.order-card button:hover {
+    background-color: #008f5d;
+    transform: translateY(-1px);
+}
+.order-card button:active {
+    transform: translateY(0);
+}
+
+
+/* PROFILE SCREEN STYLES */
+#impact-section {
+    background: var(--impact-background);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    color: var(--text-light);
+    box-shadow: var(--card-shadow);
+    transition: background 0.3s;
+}
+#impact-section h3 {
+    color: var(--secondary-color); /* Uses secondary color */
+    font-size: 1.2rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+#impact-section p {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+#impact-section span {
+    font-weight: 700;
+    color: var(--secondary-color); /* Uses secondary color */
+}
+#impact-section small {
+    display: block;
+    margin-top: 10px;
+    color: var(--text-medium);
+    font-size: 0.8rem;
+}
+
+.profile-links {
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: var(--card-shadow);
+}
+.profile-links h3 {
+    color: var(--primary-color);
+    border-bottom: none;
+    margin-bottom: 10px;
+}
+.profile-links p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.profile-links p:hover {
+    background-color: #282828;
+    padding-left: 5px;
+}
+.profile-links p:last-of-type {
+    border-bottom: none;
+}
+.logout-btn {
+    width: 100%;
+    background-color: #D32F2F;
+    color: var(--text-light);
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.logout-btn:hover {
+    background-color: #b71c1c;
+}
+.logout-btn:active {
+    transform: scale(0.99);
+}
+
+
+/* FOOTER NAVIGATION (Tab Bar) */
+#bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 65px;
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--border-subtle);
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-medium);
+    font-size: 0.7rem;
+    padding: 5px;
+    transition: color 0.3s, transform 0.2s;
+}
+
+.nav-item:hover {
+    transform: translateY(-2px);
+}
+
+.nav-item.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* HAMBURGER MENU STYLES (Sidebar) */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    background-color: var(--surface-color); 
+    overflow-x: hidden;
+    transition: width 0.4s ease-out; 
+    padding-top: 80px;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+    max-width: 320px;
+    transition: background-color 0.3s, box-shadow 0.3s, width 0.4s ease-out;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    text-decoration: none;
+    color: var(--text-dark);
+}
+
+.sidebar a {
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 1rem;
+    color: var(--text-dark);
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: rgba(0, 163, 108, 0.1); 
+}
+
+.menu-section {
+    margin-bottom: 20px;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.menu-section h3 {
+    padding: 0 25px 10px;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    border-bottom: none;
+}
