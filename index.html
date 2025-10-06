@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savyours - Rescue Delicious Food in Brunei</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="dark-mode"> 
+
+    <div id="sidebar-menu" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="menu-section">
+            <h3>Settings</h3>
+            <a href="#">Account Details</a>
+            <a href="#">Payment Method</a>
+            <a href="#">Special Rewards</a>
+            <a href="#">Notifications</a>
+            <a href="#" id="theme-toggle-sidebar">
+                Dark Mode <span class="material-icons theme-icon">dark_mode</span>
+            </a>
+        </div>
+        <div class="menu-section">
+            <h3>Community</h3>
+            <a href="#">Recommend a Store</a>
+        </div>
+        <div class="menu-section">
+            <h3>Support</h3>
+            <a href="#">Help with an Order</a>
+            <a href="#">How It Works</a>
+            <a href="#">Sign Up Food Business</a>
+            <a href="#">Careers</a>
+        </div>
+        <div class="menu-section">
+            <h3>Others</h3>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+    </div>
+
+    <div id="app-container">
+        
+        <header>
+            <div class="header-top-row">
+                <span class="material-icons menu-icon" onclick="openNav()">menu</span>
+                <div id="savyours-logo-main">
+                    <h1>Savyours</h1>
+                </div>
+                <div class="header-icons">
+                    <div id="sholat-time" class="brunei-feature">
+                        <span class="material-icons">mosque</span>
+                        <span id="next-sholat">Next Prayer: Maghrib at 6:15 PM</span>
+                    </div>
+                    <span class="material-icons" id="theme-toggle-header">dark_mode</span>
+                    <span class="material-icons">info</span>
+                </div>
+            </div>
+            <p id="savyours-slogan">save money, enjoy great food, and help the planet - all before dinner!</p>
+        </header>
+
+        <main id="content-area">
+
+            <section id="screen-discover" class="app-screen active-screen">
+                <div id="location-bar">
+                    <span class="material-icons icon-pin">location_on</span>
+                    <input type="text" placeholder="Enter your location in Brunei..." value="Bandar Seri Begawan">
+                    <span class="material-icons icon-search">search</span>
+                </div>
+                
+                <h2>Featured Rescues Today</h2>
+                <div id="banner-carousel">
+                    <div class="banner-card promo">BND 5 Off First Rescue!</div>
+                    <div class="banner-card impact">You've Saved 25kg CO₂e!</div>
+                    <div class="banner-card new-store">New Store: Flour Garden Bakery!</div>
+                </div>
+
+                <h2>Available Surprise Bags</h2>
+            
+
+                <div id="available-bags-list">
+                    <div class="bag-card" data-screen="bag-details" data-store-name="Comfort Greens Cafe" data-location="Gadong" data-available="true">
+                        <img src="https://placehold.co/120x120/00a36c/ffffff?text=Cafe+Bag" alt="Comfort Greens Cafe Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/00a36c/ffffff?text=Cafe+Bag';">
+                        <div class="bag-info">
+                            <h3>Comfort Greens Cafe (Gadong)</h3>
+                            <p class="time-left">Time Left: **1h 30m**</p>
+                            <p class="pickup-time">Pickup: 6:00 PM - 6:30 PM</p>
+                            <div class="price-details">
+                                <span class="price-new">BND 7.00</span>
+                                <span class="price-old">BND 21.00</span>
+                                <span class="bags-left">2 Bags Left</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bag-card sold-out-card" data-screen="bag-details" data-store-name="The Little Leaf Bakery" data-location="Kiulap" data-available="false">
+                        <img src="https://placehold.co/120x120/A00000/ffffff?text=Sold+Out" alt="Little Leaf Bakery Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/A00000/ffffff?text=Sold+Out';">
+                        <div class="bag-info">
+                            <h3>The Little Leaf Bakery (Kiulap)</h3>
+                            <p class="time-left sold-out-text">Time Left: **SOLD OUT**</p>
+                            <p class="pickup-time">Pickup: 7:30 PM - 8:00 PM</p>
+                            <div class="price-details">
+                                <span class="price-new">BND 9.00</span>
+                                <span class="price-old">BND 27.00</span>
+                                <span class="bags-left sold-out">Sold Out</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bag-card" data-screen="bag-details" data-store-name="Pepper Lunch" data-location="Airport Mall" data-available="true">
+                        <img src="https://placehold.co/120x120/00897B/ffffff?text=Meal+Bag" alt="Pepper Lunch Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/00897B/ffffff?text=Meal+Bag';">
+                        <div class="bag-info">
+                            <h3>Pepper Lunch (Airport Mall)</h3>
+                            <p class="time-left">Time Left: **3h 05m**</p>
+                            <p class="pickup-time">Pickup: 5:00 PM - 5:30 PM</p>
+                            <div class="price-details">
+                                <span class="price-new">BND 8.00</span>
+                                <span class="price-old">BND 24.00</span>
+                                <span class="bags-left">5 Bags Left</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="screen-map" class="app-screen">
+                <h2>Bags Near You (Interactive Map)</h2>
+                <div id="interactive-map-full" class="map-view"></div>
+            </section>
+
+            <section id="screen-favorites" class="app-screen">
+                <h2>Your Favorite Rescuers 💖</h2>
+                <div class="bag-card favorite-store">
+                    <h3>Comfort Greens Cafe (Gadong)</h3>
+                    <p class="store-status">2 Bags available today!</p>
+                    <button>View Bag</button>
+                </div>
+                <div class="bag-card favorite-store">
+                    <h3>Pepper Lunch (Airport Mall)</h3>
+                    <p class="store-status">5 Bags available today!</p>
+                    <button>View Bag</button>
+                </div>
+                 <div class="bag-card favorite-store faded">
+                    <h3>The Cakery Brunei</h3>
+                    <p class="store-status">No bags currently available.</p>
+                </div>
+            </section>
+
+            <section id="screen-orders" class="app-screen">
+                <h2>My Orders</h2>
+                <div id="voucher-section">
+                    <h3>Vouchers & Promos</h3>
+                    <input type="text" id="voucher-input" placeholder="Enter voucher code (e.g., SAVEYOUR5)">
+                    <button onclick="applyVoucher()">Apply</button>
+                    <p class="voucher-status"></p>
+                </div>
+                
+                <h3 class="order-header">Active Order (1)</h3>
+                <div class="order-card active">
+                    <p>Order #BN00123</p>
+                    <h4>Comfort Greens Cafe (Gadong)</h4>
+                    <p>Pickup Window: **Today, 6:00 PM - 6:30 PM**</p>
+                    <p class="order-total">Total Paid: BND 7.00</p>
+                    <button>View Pickup Code</button>
+                </div>
+
+                <h3 class="order-header">Past Orders (2)</h3>
+                <div class="order-card past">
+                    <p>Order #BN00122 - Completed</p>
+                    <h4>Sweet Treats Bakery (Gadong)</h4>
+                    <p class="order-date">Date: 04 Oct 2025</p>
+                </div>
+            </section>
+
+            <section id="screen-profile" class="app-screen">
+                <h2>My Profile</h2>
+                
+                <div id="impact-section">
+                    <h3>Your Savings & Impact 🌍</h3>
+                    <p>Total Bags Rescued: <span id="bags-count">25</span></p>
+                    <p>Money Saved: <span id="money-saved">BND 125.00</span></p>
+                    <p>CO₂e Avoided: <span id="co2-avoided">67.5 kg</span></p>
+                    <small>The equivalent of driving a car 250 km!</small>
+                </div>
+
+                <div class="profile-links">
+                    <h3>Account & Settings</h3>
+                    <p onclick="openNav()">Account Details <span class="material-icons">chevron_right</span></p>
+                    <p onclick="openNav()">Payment Method <span class="material-icons">chevron_right</span></p>
+                    <button class="logout-btn">Log Out</button>
+                </div>
+            </section>
+
+        </main>
+
+        <nav id="bottom-nav">
+            <a href="#" class="nav-item active" data-target="discover">
+                <span class="material-icons">explore</span>
+                <span class="nav-label">Discover</span>
+            </a>
+            <a href="#" class="nav-item" data-target="map">
+                <span class="material-icons">map</span>
+                <span class="nav-label">Map</span>
+            </a>
+            <a href="#" class="nav-item" data-target="favorites">
+                <span class="material-icons">favorite_border</span>
+                <span class="nav-label">Favorites</span>
+            </a>
+            <a href="#" class="nav-item" data-target="orders">
+                <span class="material-icons">receipt_long</span>
+                <span class="nav-label">Orders</span>
+            </a>
+            <a href="#" class="nav-item" data-target="profile">
+                <span class="material-icons">person</span>
+                <span class="nav-label">Profile</span>
+            </a>
+        </nav>
+
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
+    <script>
+        // See the JavaScript section below.
+    </script>
+</body>
+</html>
