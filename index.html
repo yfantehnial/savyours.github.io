@@ -80,10 +80,9 @@
 
                 <h2>Available Surprise Bags</h2>
             
-
                 <div id="available-bags-list">
-                    <div class="bag-card" data-screen="bag-details" data-store-name="Comfort Greens Cafe" data-location="Gadong" data-available="true">
-                        <img src="https://placehold.co/120x120/00a36c/ffffff?text=Cafe+Bag" alt="Comfort Greens Cafe Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/00a36c/ffffff?text=Cafe+Bag';">
+                    <div class="bag-card" data-screen="bag-details" data-store-name="Comfort Greens Cafe" data-location="Gadong" data-available="true" data-cutoff-time="18:30">
+                        <img src="https://placehold.co/120x120/00A36C/ffffff?text=Cafe+Bag" alt="Comfort Greens Cafe Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/00A36C/ffffff?text=Cafe+Bag';">
                         <div class="bag-info">
                             <h3>Comfort Greens Cafe (Gadong)</h3>
                             <p class="time-left">Time Left: **1h 30m**</p>
@@ -96,7 +95,7 @@
                         </div>
                     </div>
 
-                    <div class="bag-card sold-out-card" data-screen="bag-details" data-store-name="The Little Leaf Bakery" data-location="Kiulap" data-available="false">
+                    <div class="bag-card sold-out-card" data-screen="bag-details" data-store-name="The Little Leaf Bakery" data-location="Kiulap" data-available="false" data-cutoff-time="19:00">
                         <img src="https://placehold.co/120x120/A00000/ffffff?text=Sold+Out" alt="Little Leaf Bakery Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/A00000/ffffff?text=Sold+Out';">
                         <div class="bag-info">
                             <h3>The Little Leaf Bakery (Kiulap)</h3>
@@ -110,7 +109,7 @@
                         </div>
                     </div>
 
-                    <div class="bag-card" data-screen="bag-details" data-store-name="Pepper Lunch" data-location="Airport Mall" data-available="true">
+                    <div class="bag-card" data-screen="bag-details" data-store-name="Pepper Lunch" data-location="Airport Mall" data-available="true" data-cutoff-time="17:30">
                         <img src="https://placehold.co/120x120/00897B/ffffff?text=Meal+Bag" alt="Pepper Lunch Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/00897B/ffffff?text=Meal+Bag';">
                         <div class="bag-info">
                             <h3>Pepper Lunch (Airport Mall)</h3>
@@ -143,7 +142,7 @@
                     <p class="store-status">5 Bags available today!</p>
                     <button>View Bag</button>
                 </div>
-                 <div class="bag-card favorite-store faded">
+                <div class="bag-card favorite-store faded">
                     <h3>The Cakery Brunei</h3>
                     <p class="store-status">No bags currently available.</p>
                 </div>
@@ -223,6 +222,341 @@
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     
-    <script src="script.js"></script>
+    <script>
+        // Store the map instance globally
+        let mapInstance = null;
+        let tileLayerInstance = null; // To track the current tile layer for replacement
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 0. THEME TOGGLE LOGIC ---
+            const body = document.body;
+            const themeToggleHeader = document.getElementById('theme-toggle-header');
+            const themeToggleSidebar = document.getElementById('theme-toggle-sidebar');
+            const rootStyle = getComputedStyle(document.documentElement);
+
+            const savedTheme = localStorage.getItem('savyours-theme') || 'dark-mode';
+            body.classList.remove('dark-mode', 'light-mode');
+            body.classList.add(savedTheme);
+            updateThemeToggleIcons(savedTheme);
+
+            function updateThemeToggleIcons(currentTheme) {
+                const iconElement = themeToggleSidebar ? themeToggleSidebar.querySelector('.theme-icon') : null;
+                
+                if (currentTheme === 'dark-mode') {
+                    themeToggleHeader.textContent = 'dark_mode';
+                    if (iconElement) {
+                        iconElement.textContent = 'dark_mode';
+                        themeToggleSidebar.childNodes[0].nodeValue = 'Dark Mode ';
+                    }
+                } else {
+                    themeToggleHeader.textContent = 'light_mode';
+                    if (iconElement) {
+                        iconElement.textContent = 'light_mode';
+                        themeToggleSidebar.childNodes[0].nodeValue = 'Light Mode ';
+                    }
+                }
+                // Crucially, trigger map update if it exists
+                if (mapInstance) {
+                    reinitializeLeafletMap();
+                }
+            }
+
+            function toggleTheme() {
+                const isDarkMode = body.classList.contains('dark-mode');
+                const newTheme = isDarkMode ? 'light-mode' : 'dark-mode';
+                
+                body.classList.remove('dark-mode', 'light-mode');
+                body.classList.add(newTheme);
+                localStorage.setItem('savyours-theme', newTheme);
+                updateThemeToggleIcons(newTheme);
+            }
+
+            themeToggleHeader.addEventListener('click', toggleTheme);
+            if (themeToggleSidebar) {
+                themeToggleSidebar.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    toggleTheme();
+                    closeNav();
+                });
+            }
+
+            // --- 1. NAVIGATION LOGIC ---
+            const navItems = document.querySelectorAll('#bottom-nav .nav-item');
+            const appScreens = document.querySelectorAll('.app-screen');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    // Deactivate all screens and nav items (with transition effect)
+                    appScreens.forEach(screen => screen.classList.remove('active-screen'));
+                    navItems.forEach(nav => nav.classList.remove('active'));
+
+                    // Activate the selected screen and nav item
+                    const targetId = this.getAttribute('data-target');
+                    const targetScreen = document.getElementById(`screen-${targetId}`);
+                    if (targetScreen) {
+                        setTimeout(() => {
+                            targetScreen.classList.add('active-screen');
+                            document.getElementById('content-area').scrollTop = 0;
+                        }, 50);
+                    }
+                    this.classList.add('active');
+
+                    closeNav(); 
+
+                    // Special handling for the map screen - ensure map initializes and tile layers are correct
+                    if (targetId === 'map') {
+                        setTimeout(() => {
+                            initializeLeafletMap();
+                            reinitializeLeafletMap(); // ensures tile layer matches current theme
+                        }, 100); 
+                    }
+                });
+            });
+
+            // --- 2. HAMBURGER MENU (SIDEBAR) LOGIC ---
+            window.openNav = function() {
+                document.getElementById("sidebar-menu").style.width = "280px";
+            }
+
+            window.closeNav = function() {
+                document.getElementById("sidebar-menu").style.width = "0";
+            }
+
+            // --- 3. SHOLAT TIME LOGIC (Brunei-Specific Feature) ---
+            const sholatTimes = [
+                // Based on real-time approximation for Bandar Seri Begawan (Oct 6, 2025)
+                { name: "Fajr", time: "04:51" },
+                { name: "Sunrise", time: "06:08" },
+                { name: "Dhuhr", time: "12:10" },
+                { name: "Asar", time: "15:23" }, 
+                { name: "Maghrib", time: "18:12" }, 
+                { name: "Isha", time: "19:21" }  
+            ];
+
+            function updateSholatTime() {
+                const now = new Date();
+                const nowMinutes = now.getHours() * 60 + now.getMinutes();
+                let nextPrayer = null;
+
+                for (const prayer of sholatTimes) {
+                    const [hour, minute] = prayer.time.split(':').map(Number);
+                    const prayerMinutes = hour * 60 + minute;
+
+                    if (prayerMinutes > nowMinutes) {
+                        nextPrayer = prayer;
+                        break;
+                    }
+                }
+
+                const sholatElement = document.getElementById('next-sholat');
+                if (sholatElement) {
+                    if (nextPrayer) {
+                        const [hour, minute] = nextPrayer.time.split(':');
+                        const displayTime = new Date(0, 0, 0, hour, minute).toLocaleTimeString('en-US', {
+                            hour: 'numeric', minute: 'numeric', hour12: true
+                        });
+                        sholatElement.textContent = `Next: ${nextPrayer.name} at ${displayTime}`;
+                    } else {
+                        const [fajrHour, fajrMinute] = sholatTimes[0].time.split(':').map(Number);
+                        const fajrDisplayTime = new Date(0, 0, 0, fajrHour, fajrMinute).toLocaleTimeString('en-US', {
+                            hour: 'numeric', minute: 'numeric', hour12: true
+                        });
+                        sholatElement.textContent = `Next: Fajr Tomorrow at ${fajrDisplayTime}`;
+                    }
+                }
+            }
+
+            updateSholatTime();
+            setInterval(updateSholatTime, 60000); // Update every minute
+
+
+            // --- 4. DISCOVER SCREEN: DYNAMIC COUNTDOWN TIMER 🔥 ---
+            
+            function updateCountdown() {
+                const now = new Date();
+                
+                // Get all available bag cards that need a timer
+                const bagCards = document.querySelectorAll('.bag-card[data-available="true"]');
+
+                bagCards.forEach(card => {
+                    const timeLeftElement = card.querySelector('.time-left');
+                    const bagsLeftElement = card.querySelector('.bags-left');
+                    const cutoffTimeStr = card.dataset.cutoffTime; // e.g., "18:30"
+                    
+                    if (!cutoffTimeStr || !timeLeftElement) return;
+
+                    const [ch, cm] = cutoffTimeStr.split(':').map(Number);
+                    const cutoffTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ch, cm, 0);
+
+                    // If cutoff time has already passed, set it for tomorrow
+                    if (cutoffTime.getTime() < now.getTime()) {
+                        // For a real app, this bag would become 'sold out' permanently for the day.
+                        // Here, we'll assume it's for today's pickup only and mark as expired/sold out.
+                        card.classList.add('sold-out-card');
+                        card.setAttribute('data-available', 'false');
+                        timeLeftElement.textContent = 'Time Left: EXPIRED';
+                        timeLeftElement.classList.add('sold-out-text');
+                        bagsLeftElement.textContent = 'Expired';
+                        bagsLeftElement.classList.add('sold-out');
+                        return;
+                    }
+
+                    const milliseconds = cutoffTime.getTime() - now.getTime();
+                    const totalSeconds = Math.floor(milliseconds / 1000);
+                    const hours = Math.floor(totalSeconds / 3600);
+                    const minutes = Math.floor((totalSeconds % 3600) / 60);
+                    const seconds = Math.floor(totalSeconds % 60);
+                    
+                    // Display format: Xh Ym
+                    let timeDisplay = '';
+                    if (hours > 0) {
+                        timeDisplay += `${hours}h `;
+                    }
+                    timeDisplay += `${minutes}m`;
+
+                    timeLeftElement.textContent = `Time Left: ${timeDisplay}`;
+
+                    // Urgency styling: less than 1 hour left
+                    if (hours === 0 && minutes < 60) {
+                         timeLeftElement.style.color = rootStyle.getPropertyValue('--color-sold-out').trim(); // Get CSS variable
+                    } else {
+                         timeLeftElement.style.color = rootStyle.getPropertyValue('--secondary-color').trim();
+                    }
+                });
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 10000); // Update countdown every 10 seconds
+
+
+            // --- 5. ORDERS SCREEN: VOUCHER LOGIC ---
+            window.applyVoucher = function() {
+                const input = document.getElementById('voucher-input');
+                const status = document.querySelector('.voucher-status');
+                const voucherCode = input.value.trim().toUpperCase();
+
+                status.classList.remove('success');
+                status.textContent = ''; 
+
+                if (voucherCode === 'SAVEYOUR5') {
+                    status.textContent = '✅ Voucher "SAVEYOUR5" applied! BND 5.00 discount confirmed.';
+                    status.classList.add('success');
+                    input.value = '';
+                } else if (voucherCode) {
+                    status.textContent = `❌ Error: Voucher "${voucherCode}" is invalid or expired.`;
+                    status.classList.remove('success');
+                } else {
+                    status.textContent = `Please enter a voucher code to proceed.`;
+                    status.classList.remove('success');
+                }
+            }
+
+            // --- 6. LEAFLET MAP INTEGRATION LOGIC (Full Map Screen) ---
+            
+            // Store Data (Coordinates approximate locations near BSB, Brunei)
+            const storeData = [
+                { name: 'Comfort Greens Cafe (Gadong)', lat: 4.9200, lon: 114.9200, status: '2 Bags Left', price: 'BND 7.00', isSoldOut: false },
+                { name: 'The Little Leaf Bakery (Kiulap)', lat: 4.9090, lon: 114.9350, status: 'Sold Out', price: 'BND 9.00', isSoldOut: true },
+                { name: 'Pepper Lunch (Airport Mall)', lat: 4.9490, lon: 114.9250, status: '5 Bags Left', price: 'BND 8.00', isSoldOut: false },
+                { name: 'Taste of Brunei Bakeries', lat: 4.9400, lon: 114.9450, status: '1 Bag Left', price: 'BND 8.00', isSoldOut: false }
+            ];
+
+            // 3. Custom Icon for Active Bags
+            const activeBagIcon = L.divIcon({
+                className: 'map-icon-active',
+                html: '<div style="width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 5px #333;"><i class="fas fa-shopping-bag" style="color: white; font-size: 14px;"></i></div>',
+                iconSize: [30, 30],
+                iconAnchor: [15, 30],
+                popupAnchor: [0, -25]
+            });
+
+            // 4. Custom Icon for Sold Out Bags
+            const soldOutBagIcon = L.divIcon({
+                className: 'map-icon-soldout',
+                html: '<div style="width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; border: 3px solid white; opacity: 0.8; box-shadow: 0 0 5px #333;"><i class="fas fa-times-circle" style="color: white; font-size: 14px;"></i></div>',
+                iconSize: [30, 30],
+                iconAnchor: [15, 30],
+                popupAnchor: [0, -25]
+            });
+
+            function initializeLeafletMap() {
+                const mapElementId = 'interactive-map-full';
+                const mapCenter = [4.9450, 114.9427]; // Center near BSB
+
+                // If the map is already initialized, just update size and return.
+                if (mapInstance) {
+                    mapInstance.invalidateSize();
+                    return;
+                }
+
+                // 1. Map Initialization 
+                mapInstance = L.map(mapElementId).setView(mapCenter, 13);
+                reinitializeLeafletMap(true); // Call reinitialize for the first time to load tiles
+
+                // Get dynamic CSS colors for popup content styling
+                const colorAccent = rootStyle.getPropertyValue('--color-accent').trim();
+                const colorSoldOut = rootStyle.getPropertyValue('--color-sold-out').trim();
+
+                // 5. Add Markers dynamically
+                storeData.forEach(store => {
+                    const icon = store.isSoldOut ? soldOutBagIcon : activeBagIcon;
+                    const statusColor = store.isSoldOut ? colorSoldOut : colorAccent;
+
+                    const popupContent = `
+                        <b>${store.name}</b><br>
+                        <span style="color: ${statusColor}; font-weight: bold;">${store.status}</span><br>
+                        Price: ${store.price}
+                        <hr style="margin: 5px 0;">
+                        ${store.isSoldOut ? '<span>Check back tomorrow.</span>' : '<a href="javascript:void(0)" onclick="alert(\'Reserved 1 bag!\')">Reserve Now!</a>'}
+                    `;
+
+                    L.marker([store.lat, store.lon], { icon: icon }).addTo(mapInstance)
+                        .bindPopup(popupContent);
+                });
+
+                // 6. User Location (Simulated)
+                L.circle(mapCenter, {
+                    color: 'blue',
+                    fillColor: '#30a4ff',
+                    fillOpacity: 0.5,
+                    radius: 300 
+                }).addTo(mapInstance).bindPopup("Your Location (Bandar Seri Begawan)");
+            }
+
+            function reinitializeLeafletMap() {
+                if (!mapInstance) return;
+
+                // Remove old tile layer if it exists
+                if (tileLayerInstance) {
+                    mapInstance.removeLayer(tileLayerInstance);
+                }
+
+                // Determine theme-appropriate tile layer
+                const tileUrl = body.classList.contains('dark-mode')
+                    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' // Dark theme tiles
+                    : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; // Light theme tiles
+
+                // 2. Add the NEW Tile Layer
+                tileLayerInstance = L.tileLayer(tileUrl, {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> | Dark Tiles via CartoDB'
+                }).addTo(mapInstance);
+
+                // Invalidate size in case of theme change affecting container/rendering
+                mapInstance.invalidateSize();
+            }
+            
+            // --- INITIALIZATION ---
+            document.getElementById('screen-discover').classList.add('active-screen');
+
+            // Expose required functions globally
+            window.openNav = openNav;
+            window.closeNav = closeNav;
+            window.initializeLeafletMap = initializeLeafletMap;
+        });
+    </script>
 </body>
 </html>
