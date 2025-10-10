@@ -158,7 +158,16 @@ header {
 #content-area {
     flex-grow: 1;
     overflow-y: auto;
-    padding: 0 0 80px 0; 
+    /* On mobile, we rely on flex-grow and the nav being fixed. */
+    /* Padding is applied inside the screens (e.g., .app-screen). */
+    padding: 0; 
+}
+
+/* Re-apply safe padding *inside* the active screen to ensure content isn't hidden behind the fixed nav */
+.app-screen.active-screen {
+    /* Existing padding: 20px. Increase bottom margin/padding to account for the 65px tall #bottom-nav */
+    padding-bottom: 85px; /* 20px existing + 65px nav height */
+    /* ... other existing styles ... */
 }
 
 /* --- SCREEN TRANSITION ANIMATION --- */
@@ -691,8 +700,15 @@ body.light-mode .favorite-store button {
     height: 65px;
     background-color: var(--surface-color);
     border-top: 1px solid var(--border-subtle);
-    position: sticky;
+    
+    /* *** FIX: Use fixed position and anchor it to the app container *** */
+    position: fixed; /* <-- CHANGED TO FIXED */
     bottom: 0;
+    left: 0;
+    /* Limit the fixed width to the max-width of the app-container for non-desktop views */
+    width: 100%;
+    max-width: 450px; 
+    
     z-index: 10;
     transition: background-color 0.3s, border-color 0.3s;
 }
