@@ -20,18 +20,18 @@
 /* Light Mode Variables - Overrides for .light-mode */
 body.light-mode {
     --primary-color: #00897B; /* Teal */
-    --secondary-color: #e8400c; /* NEW LIGHT MODE ACCENT: Vibrant Red-Orange (High Contrast) */
+    --secondary-color: #009cd5; /* NEW LIGHT MODE ACCENT: Vibrant Red-Orange (High Contrast) */
     --background-color: #edfff7; /* Light Grey */
     --surface-color: #FFFFFF;
-    --text-dark: #333333;
+    --text-dark: #007812;
     --text-medium: #666666;
-    --text-light: #000000;
+    --text-light: #00672d;
     --border-subtle: #E0E0E0;
     --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
     --impact-background: linear-gradient(45deg, #E0F2F7, #BBDEFB);
     /* Map Colors for Leaflet Icons and Popups */
     --color-accent: var(--primary-color);
-    --color-sold-out: #D32F2F;
+    --color-sold-out: #d71313d2;
     --secondary-text-color: #000000; /* Force black text on secondary color in light mode */
 }
 
