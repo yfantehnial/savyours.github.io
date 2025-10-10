@@ -2,11 +2,11 @@
 :root {
     /* Base for Dark Mode */
     --primary-color: #00A36C; /* Deep Emerald Green */
-    --secondary-color: #00FFFF; /* Dark Mode Accent: Vibrant Cyan/Aqua */
+    --secondary-color: #00ffff8a; /* Dark Mode Accent: Vibrant Cyan/Aqua */
     --background-color: #121212;
-    --surface-color: #1E1E1E;
+    --surface-color: #2e2e2e;
     --text-dark: #E0E0E0;
-    --text-medium: #A0A0A0;
+    --text-medium: #edfff7;
     --text-light: #FFFFFF;
     --border-subtle: #333333;
     --card-shadow: 0 4px 12px rgba(0,0,0,0.4);
@@ -21,7 +21,7 @@
 body.light-mode {
     --primary-color: #00897B; /* Teal */
     --secondary-color: #FF5722; /* NEW LIGHT MODE ACCENT: Vibrant Red-Orange (High Contrast) */
-    --background-color: #F0F2F5; /* Light Grey */
+    --background-color: #edfff7; /* Light Grey */
     --surface-color: #FFFFFF;
     --text-dark: #333333;
     --text-medium: #666666;
