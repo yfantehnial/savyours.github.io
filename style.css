@@ -20,7 +20,7 @@
 /* Light Mode Variables - Overrides for .light-mode */
 body.light-mode {
     --primary-color: #00897B; /* Teal */
-    --secondary-color: #FF5722; /* NEW LIGHT MODE ACCENT: Vibrant Red-Orange (High Contrast) */
+    --secondary-color: #e8400c; /* NEW LIGHT MODE ACCENT: Vibrant Red-Orange (High Contrast) */
     --background-color: #edfff7; /* Light Grey */
     --surface-color: #FFFFFF;
     --text-dark: #333333;
