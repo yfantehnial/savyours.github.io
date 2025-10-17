@@ -1221,3 +1221,11 @@ DESKTOP RESPONSIVENESS (Media Query) 💻
         display: none !important;
     }
 }
+/* --- LOGO IMAGE STYLES --- */
+#app-logo {
+    height: 35px; /* Set a fixed height for a modern look */
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+/* --- END LOGO IMAGE STYLES --- */
