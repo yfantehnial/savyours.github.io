@@ -86,6 +86,24 @@ header {
     width: 100%;
 }
 
+/* --- LOGO CONTAINER STYLES --- */
+#savyours-logo-main {
+    flex-grow: 1; 
+    text-align: center;
+    line-height: 1.2;
+    padding: 0 10px;
+}
+
+/* --- LOGO IMAGE STYLES (NEW) --- */
+#app-logo {
+    height: 35px; /* Set a fixed height for a modern look */
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto; /* Center the image within its container */
+}
+/* --- END LOGO IMAGE STYLES --- */
+
 /* --- SLOGAN STYLES (Below Top Row) --- */
 #savyours-slogan {
     text-align: center;
@@ -1021,6 +1039,11 @@ DESKTOP RESPONSIVENESS (Media Query) 💻
         text-align: left;
         flex-grow: 0;
     }
+    
+    /* Center the desktop logo image within its container for flexibility */
+    #app-logo {
+        margin: 0; 
+    }
 
     #savyours-slogan {
         display: none; /* Hide the slogan when space is tight on a fixed header */
@@ -1046,7 +1069,7 @@ DESKTOP RESPONSIVENESS (Media Query) 💻
         justify-content: flex-start;
         align-items: center;
         background-color: var(--surface-color);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        box-shadow: 0 0 5px rgba(0,0,0,0.05);
         padding: 0 20px;
         position: sticky; /* Keep it below the header on scroll */
         top: 60px; /* Position it right below the fixed header */
@@ -1205,11 +1228,3 @@ DESKTOP RESPONSIVENESS (Media Query) 💻
         display: none !important;
     }
 }
-/* --- LOGO IMAGE STYLES --- */
-#app-logo {
-    height: 35px; /* Set a fixed height for a modern look */
-    width: auto;
-    object-fit: contain;
-    display: block;
-}
-/* --- END LOGO IMAGE STYLES --- */
