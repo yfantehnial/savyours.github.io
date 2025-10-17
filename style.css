@@ -2,7 +2,7 @@
 :root {
     /* Base for Dark Mode */
     --primary-color: #00A36C; /* Deep Emerald Green */
-    --secondary-color: #00ffff8a; /* Dark Mode Accent: Vibrant Cyan/Aqua */
+    --secondary-color: #3fb500; /* Dark Mode Accent: Vibrant Cyan/Aqua */
     --background-color: #121212;
     --surface-color: #2e2e2e;
     --text-dark: #E0E0E0;
