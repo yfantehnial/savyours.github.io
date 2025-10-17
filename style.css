@@ -794,6 +794,164 @@ body.light-mode .favorite-store button {
     font-weight: 700;
     border-bottom: none;
 }
+
+/* ======================================================
+PURCHASE MODAL STYLES (New)
+======================================================
+*/
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 100; /* Above everything */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dim background */
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--surface-color);
+    color: var(--text-dark);
+    margin: 15% auto; /* Center the modal content vertically */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    animation: slideUp 0.3s ease-out;
+    transition: background-color 0.3s;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-medium);
+}
+
+.modal-content h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-subtle);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+#modal-store-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+#modal-location-time {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin-bottom: 15px;
+}
+
+.price-details-modal p {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.price-new-modal {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.price-old-modal {
+    text-decoration: line-through;
+    color: var(--color-sold-out);
+    font-size: 0.9rem;
+}
+
+#modal-quantity-select {
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border-subtle);
+    background-color: var(--background-color);
+    color: var(--text-dark);
+    font-size: 1rem;
+}
+
+#modal-note {
+    background-color: var(--background-color);
+    border-left: 3px solid var(--secondary-color);
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--text-medium);
+}
+#modal-note .material-icons {
+    font-size: 1em;
+    vertical-align: middle;
+    color: var(--secondary-color);
+}
+
+#modal-total-section {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 15px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#modal-total-section h4 {
+    font-size: 1.4rem;
+    color: var(--text-light);
+}
+
+#modal-total-amount {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+#reserve-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--secondary-color);
+    color: var(--secondary-text-color);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+#reserve-button:active {
+    transform: scale(0.98);
+}
+body.light-mode #reserve-button {
+    color: #000000; /* Ensure black text in light mode for contrast */
+}
+
+
 /*
 ======================================================
 DESKTOP RESPONSIVENESS (Media Query) 💻
