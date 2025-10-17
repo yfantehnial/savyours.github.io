@@ -692,59 +692,12 @@ body.light-mode .favorite-store button {
 }
 
 
-/* FOOTER NAVIGATION (Tab Bar) */
-#bottom-nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 65px;
-    background-color: var(--surface-color);
-    border-top: 1px solid var(--border-subtle);
-    
-    /* *** FIX: Use fixed position and anchor it to the app container *** */
-    position: fixed; /* <-- CHANGED TO FIXED */
-    bottom: 0;
-    left: 0;
-    /* Limit the fixed width to the max-width of the app-container for non-desktop views */
-    width: 100%;
-    max-width: 450px; 
-    
-    z-index: 10;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text-medium);
-    font-size: 0.7rem;
-    padding: 5px;
-    transition: color 0.3s, transform 0.2s;
-}
-
-.nav-item:hover {
-    transform: translateY(-2px);
-}
-
-.nav-item.active {
-    color: var(--primary-color);
-    font-weight: 600;
-}
-
-/* DESKTOP NAVIGATION (Hidden on mobile) */
-#desktop-nav {
-    display: none; /* Hidden by default on mobile */
-}
-
-
 /* HAMBURGER MENU STYLES (Sidebar) */
 .sidebar {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 20;
+    z-index: 20; /* High z-index to appear on top of content and overlay */
     top: 0;
     left: 0;
     background-color: var(--surface-color); 
@@ -796,13 +749,79 @@ body.light-mode .favorite-store button {
 }
 
 /* ======================================================
-PURCHASE MODAL STYLES (New)
+SIDEBAR OVERLAY FIX (New)
+======================================================
+*/
+#overlay {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 19; /* Just below the sidebar's z-index of 20 */
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: opacity 0.4s;
+    display: none; /* Starts hidden */
+    opacity: 0; 
+    max-width: 450px; /* Constrain to app container width on mobile view */
+}
+
+
+/* FOOTER NAVIGATION (Tab Bar) */
+#bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 65px;
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--border-subtle);
+    
+    /* *** FIX: Use fixed position and anchor it to the app container *** */
+    position: fixed; /* <-- CHANGED TO FIXED */
+    bottom: 0;
+    left: 0;
+    /* Limit the fixed width to the max-width of the app-container for non-desktop views */
+    width: 100%;
+    max-width: 450px; 
+    
+    z-index: 10;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-medium);
+    font-size: 0.7rem;
+    padding: 5px;
+    transition: color 0.3s, transform 0.2s;
+}
+
+.nav-item:hover {
+    transform: translateY(-2px);
+}
+
+.nav-item.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* DESKTOP NAVIGATION (Hidden on mobile) */
+#desktop-nav {
+    display: none; /* Hidden by default on mobile */
+}
+
+
+/* ======================================================
+PURCHASE MODAL STYLES
 ======================================================
 */
 .modal-overlay {
     display: none; /* Hidden by default */
     position: fixed;
-    z-index: 100; /* Above everything */
+    z-index: 100; /* Highest z-index to appear on top of everything (sidebar z-index 20) */
     left: 0;
     top: 0;
     width: 100%;
@@ -1195,5 +1214,10 @@ DESKTOP RESPONSIVENESS (Media Query) 💻
     }
     .favorite-store {
         padding: 15px;
+    }
+    
+    /* Hide the mobile sidebar overlay on desktop */
+    #overlay {
+        display: none !important;
     }
 }
