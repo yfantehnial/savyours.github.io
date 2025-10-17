@@ -81,7 +81,7 @@
                 <h2>Available Surprise Bags</h2>
             
                 <div id="available-bags-list">
-                    <div class="bag-card" data-screen="bag-details" data-store-name="Comfort Greens Cafe" data-location="Gadong" data-available="true" data-cutoff-time="18:30">
+                    <div class="bag-card" data-screen="bag-details" data-store-name="Comfort Greens Cafe" data-location="Gadong" data-available="true" data-cutoff-time="18:30" data-price-new="7.00" data-price-old="21.00" data-pickup-time="6:00 PM - 6:30 PM" onclick="openPurchaseModal(this)">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4xCYarsb8rvlhM_2AqAu81tD7BKkXxOuHUw&s" alt="Comfort Greens Cafe Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/00A36C/ffffff?text=Cafe+Bag';">
                         <div class="bag-info">
                             <h3>Comfort Greens Cafe (Gadong)</h3>
@@ -95,7 +95,7 @@
                         </div>
                     </div>
 
-                    <div class="bag-card sold-out-card" data-screen="bag-details" data-store-name="The Little Leaf Bakery" data-location="Kiulap" data-available="false" data-cutoff-time="19:00">
+                    <div class="bag-card sold-out-card" data-screen="bag-details" data-store-name="The Little Leaf Bakery" data-location="Kiulap" data-available="false" data-cutoff-time="19:00" data-price-new="9.00" data-price-old="27.00" data-pickup-time="7:30 PM - 8:00 PM">
                         <img src="https://scontent.fbwn2-1.fna.fbcdn.net/v/t39.30808-6/467467739_591186743471957_1505292326824038053_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=YFe2y0DZroAQ7kNvwGL34t5&_nc_oc=AdluJ_G_y25BWLXFwXpqIYuMfjKZxyc9JTJgmsoZ11TOXRRXY4XEXz9V92p8pLhQEh0&_nc_zt=23&_nc_ht=scontent.fbwn2-1.fna&_nc_gid=hLzckSZkKXIo7Jafucanrg&oh=00_AfdsgeYj2PcfNP82tYQOfqv8tmFH-O_gfaXhctBtz1s9NQ&oe=68EE61CE" alt="Little Leaf Bakery Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/A00000/ffffff?text=Sold+Out';">
                         <div class="bag-info">
                             <h3>The Little Leaf Bakery (Kiulap)</h3>
@@ -109,7 +109,7 @@
                         </div>
                     </div>
 
-                    <div class="bag-card" data-screen="bag-details" data-store-name="Pepper Lunch" data-location="Airport Mall" data-available="true" data-cutoff-time="17:30">
+                    <div class="bag-card" data-screen="bag-details" data-store-name="Pepper Lunch" data-location="Airport Mall" data-available="true" data-cutoff-time="17:30" data-price-new="8.00" data-price-old="24.00" data-pickup-time="5:00 PM - 5:30 PM" onclick="openPurchaseModal(this)">
                         <img src="https://scontent.fbwn2-1.fna.fbcdn.net/v/t39.30808-6/514369409_24549360767999351_6484982747927165062_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=7qVI9kE2yw0Q7kNvwEd3OEG&_nc_oc=Admn3EP91KLCM6eCwBZxxRYvoovkJA4qOznRc7p4XZ63yJwTteNyvWGtqaJ7OHP2wJg&_nc_zt=23&_nc_ht=scontent.fbwn2-1.fna&_nc_gid=_9khu6FdSMRThA2hTIJzFg&oh=00_Afd3pWQEKmPGgOpblWevkop-CeLE-ZD-D92kDdihfKV7CA&oe=68EE5D43" alt="Pepper Lunch Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/00897B/ffffff?text=Meal+Bag';">
                         <div class="bag-info">
                             <h3>Pepper Lunch (Airport Mall)</h3>
@@ -220,12 +220,38 @@
 
     </div>
 
+    <div id="purchase-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="material-icons close-modal" onclick="closePurchaseModal()">close</span>
+            <h2>Confirm Your Rescue</h2>
+            <div id="modal-bag-info">
+                <h3 id="modal-store-name">Store Name</h3>
+                <p id="modal-location-time"></p>
+                <div class="price-details-modal">
+                    <p>You Pay: <span id="modal-price-new" class="price-new-modal">BND 0.00</span></p>
+                    <p>Original Value: <span id="modal-price-old" class="price-old-modal">BND 0.00</span></p>
+                    <p>Quantity: <select id="modal-quantity-select" onchange="updateModalTotal()">
+                        <option value="1">1 Bag</option>
+                        <option value="2">2 Bags</option>
+                    </select></p>
+                </div>
+                <div id="modal-note">
+                    <p><span class="material-icons">info</span> **Note:** Contents are a surprise! Bags contain perfectly good food that would otherwise go to waste.</p>
+                </div>
+                <div id="modal-total-section">
+                    <h4>Total Due: <span id="modal-total-amount">BND 0.00</span></h4>
+                </div>
+            </div>
+            <button id="reserve-button" onclick="reserveBag()">Reserve & Pay Now</button>
+        </div>
+    </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     
     <script>
         // Store the map instance and tile layer instance globally
 let mapInstance = null;
 let tileLayerInstance = null; 
+let currentBagData = {}; // Global object to hold the data of the bag currently in the modal
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -403,6 +429,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 timeLeftElement.classList.add('sold-out-text');
                 bagsLeftElement.textContent = 'Expired';
                 bagsLeftElement.classList.add('sold-out');
+                // Remove the purchase modal click event for expired items
+                card.onclick = null;
                 return;
             }
 
@@ -425,6 +453,10 @@ document.addEventListener('DOMContentLoaded', () => {
                  timeLeftElement.style.color = rootStyle.getPropertyValue('--color-sold-out').trim();
             } else {
                  timeLeftElement.style.color = rootStyle.getPropertyValue('--secondary-color').trim();
+            }
+            // Re-add the purchase modal click event for available items
+            if (!card.onclick) {
+                card.onclick = function() { openPurchaseModal(this); };
             }
         });
     }
@@ -551,13 +583,96 @@ document.addEventListener('DOMContentLoaded', () => {
         mapInstance.invalidateSize();
     }
     
+    // --- 7. PURCHASE MODAL LOGIC ---
+
+    window.openPurchaseModal = function(bagElement) {
+        // Prevent opening the modal for sold-out cards (though click event should be removed by updateCountdown)
+        if (bagElement.classList.contains('sold-out-card')) return;
+
+        // 1. Collect Bag Data
+        const storeName = bagElement.getAttribute('data-store-name');
+        const location = bagElement.getAttribute('data-location');
+        const pickupTime = bagElement.getAttribute('data-pickup-time');
+        const priceNew = parseFloat(bagElement.getAttribute('data-price-new'));
+        const priceOld = parseFloat(bagElement.getAttribute('data-price-old'));
+        
+        // Find the bags left element to determine max quantity
+        const bagsLeftText = bagElement.querySelector('.bags-left').textContent;
+        const bagsLeftMatch = bagsLeftText.match(/(\d+)/);
+        const maxBags = bagsLeftMatch ? parseInt(bagsLeftMatch[0]) : 1; 
+
+        // Save data to global object
+        currentBagData = {
+            storeName,
+            location,
+            pickupTime,
+            priceNew,
+            priceOld,
+            maxBags
+        };
+
+        // 2. Populate Modal Content
+        document.getElementById('modal-store-name').textContent = storeName;
+        document.getElementById('modal-location-time').innerHTML = 
+            `<span class="material-icons" style="font-size: 1em; vertical-align: middle;">location_on</span> ${location}<br>` + 
+            `<span class="material-icons" style="font-size: 1em; vertical-align: middle;">schedule</span> Pickup: ${pickupTime}`;
+        document.getElementById('modal-price-new').textContent = `BND ${priceNew.toFixed(2)}`;
+        document.getElementById('modal-price-old').textContent = `BND ${priceOld.toFixed(2)}`;
+
+        // 3. Update Quantity Selector
+        const select = document.getElementById('modal-quantity-select');
+        select.innerHTML = '';
+        for (let i = 1; i <= maxBags; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `${i} Bag${i > 1 ? 's' : ''}`;
+            select.appendChild(option);
+        }
+        select.value = '1'; // Default to 1 bag
+        
+        // 4. Calculate and Display Total
+        updateModalTotal();
+
+        // 5. Show Modal
+        document.getElementById('purchase-modal').classList.add('active');
+    }
+
+    window.closePurchaseModal = function() {
+        document.getElementById('purchase-modal').classList.remove('active');
+    }
+
+    window.updateModalTotal = function() {
+        const priceNew = currentBagData.priceNew;
+        const quantity = parseInt(document.getElementById('modal-quantity-select').value);
+        const total = priceNew * quantity;
+        document.getElementById('modal-total-amount').textContent = `BND ${total.toFixed(2)}`;
+    }
+
+    window.reserveBag = function() {
+        const store = currentBagData.storeName;
+        const quantity = document.getElementById('modal-quantity-select').value;
+        const total = document.getElementById('modal-total-amount').textContent;
+
+        // Mock purchase feedback
+        alert(`Reservation successful! You have secured ${quantity} bag(s) from ${store} for a total of ${total}. Check your orders tab for the pickup code!`);
+        
+        // Close the modal
+        closePurchaseModal();
+    }
+
+
     // --- INITIALIZATION ---
     document.getElementById('screen-discover').classList.add('active-screen');
 
     // Expose required functions globally (called from HTML onclick attributes)
     window.openNav = openNav;
     window.closeNav = closeNav;
+    window.applyVoucher = applyVoucher;
     window.initializeLeafletMap = initializeLeafletMap;
+    window.openPurchaseModal = openPurchaseModal;
+    window.closePurchaseModal = closePurchaseModal;
+    window.updateModalTotal = updateModalTotal;
+    window.reserveBag = reserveBag;
 });
     </script>
 </body>
