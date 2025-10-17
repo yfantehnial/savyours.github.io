@@ -264,7 +264,7 @@ h2 {
     width: 110vw; 
     
     /* Set a fixed height for the banner */
-    height: 180px;
+    height: 150px;
     
     /* Ensures the carousel snaps cleanly to the start of each card */]
     scroll-snap-align: start; 
