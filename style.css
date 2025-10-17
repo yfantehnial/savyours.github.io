@@ -261,7 +261,7 @@ h2 {
     flex: 0 0 auto;
     
     /* Set a width for the image to snap to (e.g., 80% of the viewport) */
-    width: 80vw; 
+    width: 100vw; 
     
     /* Set a fixed height for the banner */
     height: 180px;
