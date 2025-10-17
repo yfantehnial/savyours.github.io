@@ -86,22 +86,6 @@ header {
     width: 100%;
 }
 
-/* --- LOGO STYLES (Title Only) --- */
-#savyours-logo-main {
-    flex-grow: 1; 
-    text-align: center;
-    line-height: 1.2;
-    padding: 0 10px;
-}
-#savyours-logo-main h1 {
-    font-size: 1.4rem;
-    font-weight: 900;
-    color: var(--primary-color);
-    margin: 0;
-    padding: 0;
-    border: none;
-}
-
 /* --- SLOGAN STYLES (Below Top Row) --- */
 #savyours-slogan {
     text-align: center;
