@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Savyours - Rescue Delicious Food in Brunei</title>
+    <title>jimatbah - Rescue Delicious Food in Brunei</title>
     <link rel="stylesheet" href="style.css">
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -32,7 +32,7 @@
             <h3>Support</h3>
             <a href="#">Help with an Order</a>
             <a href="#">How It Works</a>
-            <a href="#">Sign Up Food Business</a>
+            <a href="javascript:void(0)" onclick="showScreen('screen-business-signup'); closeNav();">Sign Up Food Business</a>
             <a href="#">Careers</a>
         </div>
         <div class="menu-section">
@@ -47,8 +47,8 @@
         <header>
             <div class="header-top-row">
                 <span class="material-icons menu-icon" onclick="openNav()">menu</span>
-                <div id="savyours-logo-main">
-                    <img src="logo.png" alt="Savyours Logo" id="app-logo">
+                <div id="jimatbah-logo-main">
+                    <img src="logo.png" alt="jimatbah Logo" id="app-logo">
                 </div>
                 <div class="header-icons">
                     <div id="sholat-time" class="brunei-feature">
@@ -59,12 +59,36 @@
                     <span class="material-icons">info</span>
                 </div>
             </div>
-            <p id="savyours-slogan">save money, enjoy great food, and help the planet - all before dinner!</p>
+            <p id="jimatbah-slogan">save money, enjoy great food, and help the planet - all before dinner!</p>
         </header>
 
         <main id="content-area">
 
-            <section id="screen-discover" class="app-screen active-screen">
+            <section id="screen-welcome" class="app-screen screen-padding active-screen">
+                <div id="welcome-content">
+                    <img src="https://placehold.co/150x150/00A36C/ffffff?text=Icon" alt="jimatbah Hero Icon" class="welcome-icon">
+                    <h1>Jimatbah: Rescue Delicious Food</h1>
+                    <p class="section-description">Join thousands in Brunei fighting food waste by rescuing delicious surplus meals, pastries, and produce from local businesses—all at a great price!</p>
+                    
+                    <div class="welcome-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">25+</span>
+                            <span class="stat-label">Partner Stores</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">1000+</span>
+                            <span class="stat-label">Bags Saved</span>
+                        </div>
+                    </div>
+
+                    <button class="cta-button primary" onclick="showScreen('screen-discover');">
+                        Explore Available Bags Now!
+                    </button>
+                    <a href="javascript:void(0)" onclick="openNav()" class="welcome-link">Already a Partner? Sign In.</a>
+                </div>
+            </section>
+
+            <section id="screen-discover" class="app-screen">
                 <div id="location-bar">
                     <span class="material-icons icon-pin">location_on</span>
                     <input type="text" placeholder="Enter your location in Brunei..." value="Bandar Seri Begawan">
@@ -72,17 +96,11 @@
                 </div>
                 
                 <h2>Featured Rescues Today</h2>
-           <div id="banner-carousel">
-    <div class="banner-card">
-        <img src="promo_discount.jpg" alt="Limited time offer on bags">
-    </div>
-    <div class="banner-card">
-        <img src="promo1.png" alt="New store partnership announcement">
-    </div>
-    <div class="banner-card">
-        <img src="promo2.png" alt="Refer a friend banner">
-    </div>
-    </div>
+                <div id="banner-carousel">
+                    <div class="banner-card promo">BND 5 Off First Rescue!</div>
+                    <div class="banner-card impact">You've Saved 25kg CO₂e!</div>
+                    <div class="banner-card new-store">New Store: Flour Garden Bakery!</div>
+                </div>
 
                 <h2>Available Surprise Bags</h2>
             
@@ -102,7 +120,7 @@
                     </div>
 
                     <div class="bag-card sold-out-card" data-screen="bag-details" data-store-name="The Little Leaf Bakery" data-location="Kiulap" data-available="false" data-cutoff-time="19:00" data-price-new="9.00" data-price-old="27.00" data-pickup-time="7:30 PM - 8:00 PM">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7sgubRlaqGS7kM-hCFIcr1zEcSxL6uqAaKw&s" alt="Little Leaf Bakery Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/A00000/ffffff?text=Sold+Out';">
+                        <img src="https://scontent.fbwn2-1.fna.fbcdn.net/v/t39.30808-6/467467739_591186743471957_1505292326824038053_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=YFe2y0DZroAQ7kNvwGL34t5&_nc_oc=AdluJ_G_y25BWLXFwXpqIYuMfjKZxyc9JTJgmsoZ11TOXRRXY4XEXz9V92p8pLhQEh0&_nc_zt=23&_nc_ht=scontent.fbwn2-1.fna&_nc_gid=hLzckSZkKXIo7Jafucanrg&oh=00_AfdsgeYj2PcfNP82tYQOfqv8tmFH-O_gfaXhctBtz1s9NQ&oe=68EE61CE" alt="Little Leaf Bakery Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/A00000/ffffff?text=Sold+Out';">
                         <div class="bag-info">
                             <h3>The Little Leaf Bakery (Kiulap)</h3>
                             <p class="time-left sold-out-text">Time Left: **SOLD OUT**</p>
@@ -115,21 +133,64 @@
                         </div>
                     </div>
 
-                    <div class="bag-card" data-screen="bag-details" data-store-name="Roasted Sip" data-location="Airport Mall" data-available="true" data-cutoff-time="17:30" data-price-new="3.00" data-price-old="6.50" data-pickup-time="5:00 PM - 5:30 PM" onclick="openPurchaseModal(this)">
-                        <img src="https://roastedsip.com/images/1718174385.png" alt="Roasted sip Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/00897B/ffffff?text=Meal+Bag';">
+                    <div class="bag-card" data-screen="bag-details" data-store-name="Pepper Lunch" data-location="Airport Mall" data-available="true" data-cutoff-time="17:30" data-price-new="8.00" data-price-old="24.00" data-pickup-time="5:00 PM - 5:30 PM" onclick="openPurchaseModal(this)">
+                        <img src="https://scontent.fbwn2-1.fna.fbcdn.net/v/t39.30808-6/514369409_24549360767999351_6484982747927165062_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=7qVI9kE2yw0Q7kNvwEd3OEG&_nc_oc=Admn3EP91KLCM6eCwBZxxRYvoovkJA4qOznRc7p4XZ63yJwTteNyvWGtqaJ7OHP2wJg&_nc_zt=23&_nc_ht=scontent.fbwn2-1.fna&_nc_gid=_9khu6FdSMRThA2hTIJzFg&oh=00_Afd3pWQEKmPGgOpblWevkop-CeLE-ZD-D92kDdihfKV7CA&oe=68EE5D43" alt="Pepper Lunch Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/00897B/ffffff?text=Meal+Bag';">
                         <div class="bag-info">
-                            <h3>Roasted Sip</h3>
+                            <h3>Pepper Lunch (Airport Mall)</h3>
                             <p class="time-left">Time Left: **3h 05m**</p>
                             <p class="pickup-time">Pickup: 5:00 PM - 5:30 PM</p>
                             <div class="price-details">
-                                <span class="price-new">BND 3.00</span>
-                                <span class="price-old">BND 6.50</span>
+                                <span class="price-new">BND 8.00</span>
+                                <span class="price-old">BND 24.00</span>
                                 <span class="bags-left">5 Bags Left</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+            
+            <section id="screen-business-signup" class="app-screen screen-padding">
+                <h2>Partner with jimatbah 💚</h2>
+                <p class="section-description">Join the movement! Sell your surplus food, reduce waste, and reach new customers.</p>
+                
+                <form id="business-signup-form">
+                    <div class="form-group">
+                        <label for="store-name">Store/Business Name *</label>
+                        <input type="text" id="store-name" name="store-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-person">Contact Person *</label>
+                        <input type="text" id="contact-person" name="contact-person" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number (WhatsApp Preferred) *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="food-type">Type of Food/Product *</label>
+                        <select id="food-type" name="food-type" required>
+                            <option value="">Select Category</option>
+                            <option value="Bakery">Bakery / Pastries</option>
+                            <option value="Cafe">Cafe / Lunch Items</option>
+                            <option value="Restaurant">Restaurant / Dinner Items</option>
+                            <option value="Grocery">Grocery / Produce</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">What time of day do you typically have surplus?</label>
+                        <textarea id="message" name="message" rows="4" placeholder="E.g., After 5 PM, or at closing time."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="cta-button primary">Submit Application</button>
+                    <p class="terms-note">By submitting, you agree to our <a href="#">Partner Terms and Conditions</a>.</p>
+                </form>
+            </section>
+
 
             <section id="screen-map" class="app-screen">
                 <h2>Bags Near You (Interactive Map)</h2>
@@ -141,12 +202,12 @@
                 <div class="bag-card favorite-store">
                     <h3>Comfort Greens Cafe (Gadong)</h3>
                     <p class="store-status">2 Bags available today!</p>
-                    <button>View Bag</button>
+                    <button onclick="showScreen('screen-discover')">View Bag</button>
                 </div>
                 <div class="bag-card favorite-store">
-                    <h3>Roasted Sip</h3>
+                    <h3>Pepper Lunch (Airport Mall)</h3>
                     <p class="store-status">5 Bags available today!</p>
-                    <button>View Bag</button>
+                    <button onclick="showScreen('screen-discover')">View Bag</button>
                 </div>
                 <div class="bag-card favorite-store faded">
                     <h3>The Cakery Brunei</h3>
@@ -202,7 +263,7 @@
         </main>
 
         <nav id="bottom-nav">
-            <a href="#" class="nav-item active" data-target="discover">
+            <a href="#" class="nav-item" data-target="discover">
                 <span class="material-icons">explore</span>
                 <span class="nav-label">Discover</span>
             </a>
@@ -251,6 +312,17 @@
             <button id="reserve-button" onclick="reserveBag()">Reserve & Pay Now</button>
         </div>
     </div>
+    
+    <div id="success-animation-modal" class="modal-overlay">
+        <div class="success-content">
+            <div class="checkmark-circle">
+                <span class="material-icons checkmark-icon">check</span>
+            </div>
+            <h2>Rescue Confirmed!</h2>
+            <p id="success-message">Your surprise bag is reserved. Check your orders tab for the pickup code!</p>
+        </div>
+    </div>
+
     <div id="overlay" onclick="closeNav()"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     
@@ -259,6 +331,46 @@
 let mapInstance = null;
 let tileLayerInstance = null; 
 let currentBagData = {}; // Global object to hold the data of the bag currently in the modal
+
+
+// --- GLOBAL NAVIGATION FUNCTION ---
+window.showScreen = function(targetId) {
+    const navItems = document.querySelectorAll('#bottom-nav .nav-item');
+    const appScreens = document.querySelectorAll('.app-screen');
+
+    // Deactivate all screens
+    appScreens.forEach(screen => screen.classList.remove('active-screen'));
+
+    // Activate the selected screen
+    const targetScreen = document.getElementById(targetId);
+    if (targetScreen) {
+        targetScreen.classList.add('active-screen');
+        document.getElementById('content-area').scrollTop = 0; // Scroll to top
+
+        // If switching to a main nav screen, update the bottom navigation icons
+        const mainNavTargets = ['discover', 'map', 'favorites', 'orders', 'profile'];
+        const targetNav = targetId.replace('screen-', '');
+
+        navItems.forEach(nav => nav.classList.remove('active'));
+
+        if (mainNavTargets.includes(targetNav)) {
+            const activeNavItem = document.querySelector(`#bottom-nav .nav-item[data-target="${targetNav}"]`);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+        }
+        
+        // Special handling for the map screen
+        if (targetId === 'screen-map') {
+            // Need a slight delay to ensure the screen is visible before Leaflet checks container size
+            setTimeout(() => {
+                initializeLeafletMap();
+                reinitializeLeafletMap(); 
+            }, 100);
+        }
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -269,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rootStyle = getComputedStyle(document.documentElement);
 
     // Initialize theme from localStorage, default to 'dark-mode'
-    const savedTheme = localStorage.getItem('savyours-theme') || 'dark-mode';
+    const savedTheme = localStorage.getItem('jimatbah-theme') || 'dark-mode';
     body.classList.remove('dark-mode', 'light-mode');
     body.classList.add(savedTheme);
     updateThemeToggleIcons(savedTheme);
@@ -292,376 +404,80 @@ document.addEventListener('DOMContentLoaded', () => {
                 themeToggleSidebar.childNodes[0].nodeValue = 'Light Mode ';
             }
         }
-        // Invalidate map size in case container dimensions changed due to theme/UI shifts
-        if (mapInstance) {
-            mapInstance.invalidateSize();
-        }
     }
 
     function toggleTheme() {
         const isDarkMode = body.classList.contains('dark-mode');
         const newTheme = isDarkMode ? 'light-mode' : 'dark-mode';
-        
         body.classList.remove('dark-mode', 'light-mode');
         body.classList.add(newTheme);
-        localStorage.setItem('savyours-theme', newTheme);
+        localStorage.setItem('jimatbah-theme', newTheme);
         updateThemeToggleIcons(newTheme);
+
+        // Re-initialize map on theme change
+        if (mapInstance) {
+            reinitializeLeafletMap();
+        }
     }
 
     themeToggleHeader.addEventListener('click', toggleTheme);
     if (themeToggleSidebar) {
         themeToggleSidebar.addEventListener('click', (e) => {
-            e.preventDefault(); 
+            e.preventDefault();
             toggleTheme();
             closeNav();
         });
     }
 
-    // --- 1. NAVIGATION LOGIC ---
+    // --- 1. NAVIGATION LOGIC --- 
     const navItems = document.querySelectorAll('#bottom-nav .nav-item');
-    const appScreens = document.querySelectorAll('.app-screen');
-
     navItems.forEach(item => {
         item.addEventListener('click', function(event) {
             event.preventDefault();
-
-            // Deactivate all screens and nav items
-            appScreens.forEach(screen => screen.classList.remove('active-screen'));
-            navItems.forEach(nav => nav.classList.remove('active'));
-
-            // Activate the selected screen and nav item
-            const targetId = this.getAttribute('data-target');
-            const targetScreen = document.getElementById(`screen-${targetId}`);
-            if (targetScreen) {
-                // Short delay ensures screen is visible before adding the class (improves transition)
-                setTimeout(() => {
-                    targetScreen.classList.add('active-screen');
-                    document.getElementById('content-area').scrollTop = 0; // Scroll to top on screen switch
-                }, 50);
-            }
-            this.classList.add('active');
-
-            closeNav(); 
-
-            // Special handling for the map screen
-            if (targetId === 'map') {
-                setTimeout(() => {
-                    // Initialize the map (if first time) and ensure tiles are loaded (always light)
-                    initializeLeafletMap();
-                    reinitializeLeafletMap(); 
-                }, 100); 
-            }
+            const targetId = `screen-${this.getAttribute('data-target')}`;
+            window.showScreen(targetId);
+            closeNav();
         });
     });
 
     // --- 2. HAMBURGER MENU (SIDEBAR) LOGIC ---
     window.openNav = function() {
         document.getElementById("sidebar-menu").style.width = "280px";
-        
-        // --- FIX: Overlay Activation ---
         const overlay = document.getElementById("overlay");
         if (overlay) {
             overlay.style.display = "block";
-            setTimeout(() => { overlay.style.opacity = "1"; }, 10); 
+            setTimeout(() => { overlay.style.opacity = "1"; }, 10);
         }
-        // -----------------------------
     }
 
     window.closeNav = function() {
         document.getElementById("sidebar-menu").style.width = "0";
-
-        // --- FIX: Overlay Deactivation ---
         const overlay = document.getElementById("overlay");
         if (overlay) {
             overlay.style.opacity = "0";
-            setTimeout(() => { overlay.style.display = "none"; }, 400); 
+            setTimeout(() => { overlay.style.display = "none"; }, 300);
         }
-        // --------------------------------
-    }
-
-    // --- 3. BRUNEI-SPECIFIC FEATURE: SHOLAT TIME LOGIC (Mock Data) ---
-    const sholatTimes = [
-        // Prayer times are approximate for Brunei/BSB
-        { name: "Fajr", time: "04:51" },
-        { name: "Sunrise", time: "06:08" },
-        { name: "Dhuhr", time: "12:10" },
-        { name: "Asar", time: "15:23" }, 
-        { name: "Maghrib", time: "18:12" }, 
-        { name: "Isha", time: "19:21" }  
-    ];
-
-    function updateSholatTime() {
-        const now = new Date();
-        const nowMinutes = now.getHours() * 60 + now.getMinutes();
-        let nextPrayer = null;
-
-        for (const prayer of sholatTimes) {
-            const [hour, minute] = prayer.time.split(':').map(Number);
-            const prayerMinutes = hour * 60 + minute;
-
-            if (prayerMinutes > nowMinutes) {
-                nextPrayer = prayer;
-                break;
-            }
-        }
-
-        const sholatElement = document.getElementById('next-sholat');
-        if (sholatElement) {
-            if (nextPrayer) {
-                const [hour, minute] = nextPrayer.time.split(':');
-                const displayTime = new Date(0, 0, 0, hour, minute).toLocaleTimeString('en-US', {
-                    hour: 'numeric', minute: 'numeric', hour12: true
-                });
-                sholatElement.textContent = `Next: ${nextPrayer.name} at ${displayTime}`;
-            } else {
-                const [fajrHour, fajrMinute] = sholatTimes[0].time.split(':').map(Number);
-                const fajrDisplayTime = new Date(0, 0, 0, fajrHour, fajrMinute).toLocaleTimeString('en-US', {
-                    hour: 'numeric', minute: 'numeric', hour12: true
-                });
-                sholatElement.textContent = `Next: Fajr Tomorrow at ${fajrDisplayTime}`;
-            }
-        }
-    }
-
-    updateSholatTime();
-    setInterval(updateSholatTime, 60000); // Update every minute
-
-
-    // --- 4. DISCOVER SCREEN: DYNAMIC COUNTDOWN TIMER 🔥 ---
-    
-    function updateCountdown() {
-        const now = new Date();
-        const bagCards = document.querySelectorAll('.bag-card[data-available="true"]');
-
-        bagCards.forEach(card => {
-            const timeLeftElement = card.querySelector('.time-left');
-            const bagsLeftElement = card.querySelector('.bags-left');
-            const cutoffTimeStr = card.dataset.cutoffTime; // e.g., "18:30"
-            
-            if (!cutoffTimeStr || !timeLeftElement) return;
-
-            const [ch, cm] = cutoffTimeStr.split(':').map(Number);
-            // Create a cutoff time object for today
-            const cutoffTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ch, cm, 0);
-
-            if (cutoffTime.getTime() < now.getTime()) {
-                // Bag has expired for today
-                card.classList.add('sold-out-card');
-                card.setAttribute('data-available', 'false');
-                timeLeftElement.textContent = 'Time Left: EXPIRED';
-                timeLeftElement.classList.add('sold-out-text');
-                bagsLeftElement.textContent = 'Expired';
-                bagsLeftElement.classList.add('sold-out');
-                // Remove the purchase modal click event for expired items
-                card.onclick = null;
-                return;
-            }
-
-            const milliseconds = cutoffTime.getTime() - now.getTime();
-            const totalSeconds = Math.floor(milliseconds / 1000);
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            
-            // Format: Xh Ym
-            let timeDisplay = '';
-            if (hours > 0) {
-                timeDisplay += `${hours}h `;
-            }
-            timeDisplay += `${minutes}m`;
-
-            timeLeftElement.textContent = `Time Left: ${timeDisplay}`;
-
-            // Urgency styling: less than 1 hour left
-            if (hours === 0 && minutes < 60) {
-                 timeLeftElement.style.color = rootStyle.getPropertyValue('--color-sold-out').trim();
-            } else {
-                 timeLeftElement.style.color = rootStyle.getPropertyValue('--secondary-color').trim();
-            }
-            // Re-add the purchase modal click event for available items
-            if (!card.onclick) {
-                card.onclick = function() { openPurchaseModal(this); };
-            }
-        });
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 10000); // Update every 10 seconds
-
-
-    // --- 5. ORDERS SCREEN: VOUCHER LOGIC ---
-    window.applyVoucher = function() {
-        const input = document.getElementById('voucher-input');
-        const status = document.querySelector('.voucher-status');
-        const voucherCode = input.value.trim().toUpperCase();
-
-        status.classList.remove('success');
-        status.textContent = ''; 
-
-        if (voucherCode === 'SAVEYOUR5') {
-            status.textContent = '✅ Voucher "SAVEYOUR5" applied! BND 5.00 discount confirmed.';
-            status.classList.add('success');
-            input.value = '';
-        } else if (voucherCode) {
-            status.textContent = `❌ Error: Voucher "${voucherCode}" is invalid or expired.`;
-            status.classList.remove('success');
-        } else {
-            status.textContent = `Please enter a voucher code to proceed.`;
-            status.classList.remove('success');
-        }
-    }
-
-
-    // --- 6. LEAFLET MAP INTEGRATION LOGIC (Full Map Screen) ---
-    
-    // Store Data (Coordinates approximate locations near BSB, Brunei)
-    const storeData = [
-        { name: 'Comfort Greens Cafe (Gadong)', lat: 4.9200, lon: 114.9200, status: '2 Bags Left', price: 'BND 7.00', isSoldOut: false },
-        { name: 'The Little Leaf Bakery (Kiulap)', lat: 4.9090, lon: 114.9350, status: 'Sold Out', price: 'BND 9.00', isSoldOut: true },
-        { name: 'Roasted Sip', lat: 4.9490, lon: 114.9250, status: '5 Bags Left', price: 'BND 3.00', isSoldOut: false },
-        { name: 'Taste of Brunei Bakeries', lat: 4.9400, lon: 114.9450, status: '1 Bag Left', price: 'BND 8.00', isSoldOut: false }
-    ];
-
-    // Define Custom Marker Icons
-    const activeBagIcon = L.divIcon({
-        className: 'map-icon-active',
-        html: '<div style="width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 5px #333;"><i class="fas fa-shopping-bag" style="color: white; font-size: 14px;"></i></div>',
-        iconSize: [30, 30],
-        iconAnchor: [15, 30],
-        popupAnchor: [0, -25]
-    });
-
-    const soldOutBagIcon = L.divIcon({
-        className: 'map-icon-soldout',
-        html: '<div style="width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; border: 3px solid white; opacity: 0.8; box-shadow: 0 0 5px #333;"><i class="fas fa-times-circle" style="color: white; font-size: 14px;"></i></div>',
-        iconSize: [30, 30],
-        iconAnchor: [15, 30],
-        popupAnchor: [0, -25]
-    });
-
-    function initializeLeafletMap() {
-        const mapElementId = 'interactive-map-full';
-        const mapCenter = [4.9450, 114.9427]; // Center near BSB
-
-        // Only initialize if the map is not already initialized
-        if (mapInstance) {
-            mapInstance.invalidateSize();
-            return;
-        }
-
-        // 1. Map Initialization 
-        mapInstance = L.map(mapElementId).setView(mapCenter, 13);
-        reinitializeLeafletMap(true); 
-
-        // Get dynamic CSS colors for popup content styling (for theming within the light map)
-        const colorAccent = rootStyle.getPropertyValue('--color-accent').trim();
-        const colorSoldOut = rootStyle.getPropertyValue('--color-sold-out').trim();
-
-        // 5. Add Markers dynamically
-        storeData.forEach(store => {
-            const icon = store.isSoldOut ? soldOutBagIcon : activeBagIcon;
-            const statusColor = store.isSoldOut ? colorSoldOut : colorAccent;
-
-            // Use inline styles derived from CSS variables for consistent pop-up appearance
-            const popupContent = `
-                <b>${store.name}</b><br>
-                <span style="color: ${statusColor}; font-weight: bold;">${store.status}</span><br>
-                Price: ${store.price}
-                <hr style="margin: 5px 0;">
-                ${store.isSoldOut ? '<span>Check back tomorrow.</span>' : '<a href="javascript:void(0)" onclick="alert(\'Reserved 1 bag!\')">Reserve Now!</a>'}
-            `;
-
-            L.marker([store.lat, store.lon], { icon: icon }).addTo(mapInstance)
-                .bindPopup(popupContent);
-        });
-
-        // 6. User Location (Simulated)
-        L.circle(mapCenter, {
-            color: 'blue',
-            fillColor: '#30a4ff',
-            fillOpacity: 0.5,
-            radius: 300 
-        }).addTo(mapInstance).bindPopup("Your Location (Bandar Seri Begawan)");
-    }
-
-    /**
-     * @description Ensures the tile layer is present. **Fixed to always use the light OpenStreetMap tiles.**
-     */
-    function reinitializeLeafletMap() {
-        if (!mapInstance) return;
-
-        // Remove old tile layer if it exists
-        if (tileLayerInstance) {
-            mapInstance.removeLayer(tileLayerInstance);
-        }
-
-        // 💡 FIX: Always use the standard light map tile URL for visibility
-        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; 
-
-        // 2. Add the NEW Tile Layer
-        tileLayerInstance = L.tileLayer(tileUrl, {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(mapInstance);
-
-        mapInstance.invalidateSize();
     }
     
-    // --- 7. PURCHASE MODAL LOGIC ---
+    // --- 3. PURCHASE MODAL LOGIC ---
+    // Note: The `priceNew` data attribute must be a string that can be parsed as a float (e.g., "7.00").
+    window.openPurchaseModal = function(cardElement) {
+        const storeName = cardElement.getAttribute('data-store-name');
+        const location = cardElement.getAttribute('data-location');
+        const pickupTime = cardElement.getAttribute('data-pickup-time');
+        const priceNew = parseFloat(cardElement.getAttribute('data-price-new'));
+        const priceOld = cardElement.getAttribute('data-price-old');
 
-    window.openPurchaseModal = function(bagElement) {
-        // Prevent opening the modal for sold-out cards (though click event should be removed by updateCountdown)
-        if (bagElement.classList.contains('sold-out-card')) return;
-        
-        // Ensure sidebar is closed if it's open
-        if (document.getElementById("sidebar-menu").style.width !== "0px") {
-             closeNav(); 
-        }
+        currentBagData = { storeName, priceNew }; // Store essential data globally
 
-        // 1. Collect Bag Data
-        const storeName = bagElement.getAttribute('data-store-name');
-        const location = bagElement.getAttribute('data-location');
-        const pickupTime = bagElement.getAttribute('data-pickup-time');
-        const priceNew = parseFloat(bagElement.getAttribute('data-price-new'));
-        const priceOld = parseFloat(bagElement.getAttribute('data-price-old'));
-        
-        // Find the bags left element to determine max quantity
-        const bagsLeftText = bagElement.querySelector('.bags-left').textContent;
-        const bagsLeftMatch = bagsLeftText.match(/(\d+)/);
-        const maxBags = bagsLeftMatch ? parseInt(bagsLeftMatch[0]) : 1; 
-
-        // Save data to global object
-        currentBagData = {
-            storeName,
-            location,
-            pickupTime,
-            priceNew,
-            priceOld,
-            maxBags
-        };
-
-        // 2. Populate Modal Content
         document.getElementById('modal-store-name').textContent = storeName;
-        document.getElementById('modal-location-time').innerHTML = 
-            `<span class="material-icons" style="font-size: 1em; vertical-align: middle;">location_on</span> ${location}<br>` + 
-            `<span class="material-icons" style="font-size: 1em; vertical-align: middle;">schedule</span> Pickup: ${pickupTime}`;
+        document.getElementById('modal-location-time').textContent = `Pickup: ${pickupTime} (${location})`;
         document.getElementById('modal-price-new').textContent = `BND ${priceNew.toFixed(2)}`;
-        document.getElementById('modal-price-old').textContent = `BND ${priceOld.toFixed(2)}`;
-
-        // 3. Update Quantity Selector
-        const select = document.getElementById('modal-quantity-select');
-        select.innerHTML = '';
-        for (let i = 1; i <= maxBags; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = `${i} Bag${i > 1 ? 's' : ''}`;
-            select.appendChild(option);
-        }
-        select.value = '1'; // Default to 1 bag
+        document.getElementById('modal-price-old').textContent = `BND ${priceOld}`;
+        document.getElementById('modal-quantity-select').value = 1; // Reset quantity
         
-        // 4. Calculate and Display Total
-        updateModalTotal();
+        updateModalTotal(); // Calculate initial total
 
-        // 5. Show Modal
         document.getElementById('purchase-modal').classList.add('active');
     }
 
@@ -675,32 +491,161 @@ document.addEventListener('DOMContentLoaded', () => {
         const total = priceNew * quantity;
         document.getElementById('modal-total-amount').textContent = `BND ${total.toFixed(2)}`;
     }
-
+    
+    // --- 4. RESERVE BAG & SUCCESS ANIMATION LOGIC (UPDATED) ---
     window.reserveBag = function() {
         const store = currentBagData.storeName;
         const quantity = document.getElementById('modal-quantity-select').value;
         const total = document.getElementById('modal-total-amount').textContent;
+        const successModal = document.getElementById('success-animation-modal');
+        const successMessage = document.getElementById('success-message');
 
-        // Mock purchase feedback
-        alert(`Reservation successful! You have secured ${quantity} bag(s) from ${store} for a total of ${total}. Check your orders tab for the pickup code!`);
-        
-        // Close the modal
+        // 1. Close the Purchase Modal immediately
         closePurchaseModal();
+
+        // 2. Update the success message
+        successMessage.innerHTML = `You secured ${quantity} bag(s) from <b>${store}</b> for ${total}. Check your orders tab for the pickup code!`;
+
+        // 3. Show the success animation modal
+        successModal.classList.add('active');
+
+        // 4. Set a timer to automatically hide the success modal and switch screens
+        setTimeout(() => {
+            successModal.classList.remove('active');
+            window.showScreen('screen-orders'); // Automatically switch to the orders screen
+        }, 2000); // Animation displays for 2 seconds (2000ms)
     }
 
 
-    // --- INITIALIZATION ---
-    document.getElementById('screen-discover').classList.add('active-screen');
+    // --- 5. VOUCHER LOGIC ---
+    window.applyVoucher = function() {
+        const input = document.getElementById('voucher-input');
+        const status = document.querySelector('.voucher-status');
+        if (input.value.toUpperCase() === 'SAVEYOUR5') {
+            status.textContent = 'SAVEYOUR5 applied! BND 5.00 discount will be applied at checkout.';
+            status.classList.add('success');
+        } else if (input.value.trim() === '') {
+            status.textContent = '';
+            status.classList.remove('success');
+        } else {
+            status.textContent = 'Invalid voucher code.';
+            status.classList.remove('success');
+        }
+    }
 
-    // Expose required functions globally (called from HTML onclick attributes)
-    window.openNav = openNav;
-    window.closeNav = closeNav;
-    window.applyVoucher = applyVoucher;
-    window.initializeLeafletMap = initializeLeafletMap;
-    window.openPurchaseModal = openPurchaseModal;
-    window.closePurchaseModal = closePurchaseModal;
-    window.updateModalTotal = updateModalTotal;
-    window.reserveBag = reserveBag;
+    // --- 6. LEAFLET MAP LOGIC ---
+    const markers = [
+        { name: "Comfort Greens Cafe", lat: 4.8895, lon: 114.9398, available: true, pickup: "6:00 PM - 6:30 PM", price: "BND 7.00" },
+        { name: "The Little Leaf Bakery", lat: 4.8870, lon: 114.9213, available: false, pickup: "7:30 PM - 8:00 PM", price: "BND 9.00" },
+        { name: "Pepper Lunch", lat: 4.9390, lon: 114.9300, available: true, pickup: "5:00 PM - 5:30 PM", price: "BND 8.00" },
+    ];
+
+    function getCustomIcon(marker) {
+        // Use CSS variables for color consistency
+        const isAvailable = marker.available;
+        const color = isAvailable ? `var(--primary-color)` : `var(--color-sold-out)`;
+        const className = isAvailable ? 'map-icon-active' : 'map-icon-soldout';
+        const icon = isAvailable ? 'restaurant' : 'not_interested';
+        
+        const iconHtml = `
+            <div style="background-color: ${color}; 
+                        width: 30px; height: 30px; 
+                        border-radius: 50%; 
+                        color: white; 
+                        display: flex; 
+                        justify-content: center; 
+                        align-items: center; 
+                        font-size: 16px;">
+                <i class="material-icons">${icon}</i>
+            </div>`;
+
+        return L.divIcon({
+            className: className,
+            html: iconHtml,
+            iconSize: [30, 30],
+            iconAnchor: [15, 15],
+            popupAnchor: [0, -15]
+        });
+    }
+
+    window.initializeLeafletMap = function() {
+        if (!mapInstance) {
+            mapInstance = L.map('interactive-map-full', {
+                center: [4.945, 114.945], // Center near Bandar Seri Begawan
+                zoom: 13,
+                maxZoom: 17,
+                minZoom: 12,
+                zoomControl: false 
+            });
+            
+            updateMapTiles(document.body.classList.contains('dark-mode'));
+
+            markers.forEach(marker => {
+                const popupContent = `
+                    <b>${marker.name}</b><br>
+                    ${marker.available ? `<span style="color:var(--primary-color); font-weight:bold;">Available: ${marker.price}</span>` : `<span style="color:var(--color-sold-out); font-weight:bold;">Sold Out</span>`}<br>
+                    Pickup: ${marker.pickup}
+                    <hr style="margin: 5px 0;">
+                    <a href="#" onclick="showScreen('screen-discover')">View Details</a>
+                `;
+                L.marker([marker.lat, marker.lon], { icon: getCustomIcon(marker) })
+                    .bindPopup(popupContent)
+                    .addTo(mapInstance);
+            });
+        }
+    }
+
+    window.reinitializeLeafletMap = function() {
+        if (mapInstance) {
+            mapInstance.invalidateSize();
+            updateMapTiles(document.body.classList.contains('dark-mode'));
+        }
+    }
+
+    function updateMapTiles(isDarkMode) {
+        const lightUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        const darkUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'; 
+        
+        if (tileLayerInstance) {
+            mapInstance.removeLayer(tileLayerInstance);
+        }
+
+        const tileUrl = isDarkMode ? darkUrl : lightUrl;
+        tileLayerInstance = L.tileLayer(tileUrl, {
+            attribution: isDarkMode ? 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> | Tiles &copy; <a href="https://carto.com/attributions">Carto</a>' : 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(mapInstance);
+
+        mapInstance.eachLayer(function(layer) {
+            if (layer instanceof L.Marker) {
+                // Find original marker data to correctly update icon color
+                const markerName = layer.getPopup().getContent().split('<b>')[1].split('</b>')[0];
+                layer.setIcon(getCustomIcon(markers.find(m => m.name === markerName)));
+                layer.setZIndexOffset(900); 
+            }
+        });
+    }
+
+    // --- 7. Business Signup Form Handler ---
+    const signupForm = document.getElementById('business-signup-form');
+    if (signupForm) {
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const storeName = document.getElementById('store-name').value;
+            alert(`Thank you, ${storeName}! Your application has been submitted successfully. We will be in touch shortly.`);
+            signupForm.reset();
+            window.showScreen('screen-discover');
+        });
+    }
+
+    // --- INITIALIZATION ---
+    // The screen-welcome already has the 'active-screen' class in the HTML.
+    // Ensure the bottom nav reflects the initial state (Discover) after the Welcome screen is dismissed.
+    const discoverNav = document.querySelector('#bottom-nav .nav-item[data-target="discover"]');
+    if (discoverNav) {
+         discoverNav.classList.add('active'); // Start Discover button active (though Welcome is visible)
+    }
+
 });
     </script>
 </body>
