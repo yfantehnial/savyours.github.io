@@ -2,7 +2,8 @@
 :root {
     /* Base for Dark Mode */
     --primary-color: #00A36C; /* Deep Emerald Green */
-    --secondary-color: #3fb500; /* Dark Mode Accent: Vibrant Cyan/Aqua */
+    --primary-color-alpha: rgba(0, 163, 108, 0.4); /* Used for focus shadows */
+    --secondary-color: #00ffff8a; /* Dark Mode Accent: Vibrant Cyan/Aqua */
     --background-color: #121212;
     --surface-color: #2e2e2e;
     --text-dark: #E0E0E0;
@@ -20,7 +21,8 @@
 /* Light Mode Variables - Overrides for .light-mode */
 body.light-mode {
     --primary-color: #00897B; /* Teal */
-    --secondary-color: #009cd5; /* NEW LIGHT MODE ACCENT: Vibrant Red-Orange (High Contrast) */
+    --primary-color-alpha: rgba(0, 137, 123, 0.3); /* Used for focus shadows */
+    --secondary-color: #009cd5; /* NEW LIGHT MODE ACCENT: Vibrant Cyan */
     --background-color: #edfff7; /* Light Grey */
     --surface-color: #FFFFFF;
     --text-dark: #007812;
@@ -160,39 +162,53 @@ header {
 #content-area {
     flex-grow: 1;
     overflow-y: auto;
-    /* On mobile, we rely on flex-grow and the nav being fixed. */
-    /* Padding is applied inside the screens (e.g., .app-screen). */
     padding: 0; 
 }
 
-/* Re-apply safe padding *inside* the active screen to ensure content isn't hidden behind the fixed nav */
-.app-screen.active-screen {
-    /* Existing padding: 20px. Increase bottom margin/padding to account for the 65px tall #bottom-nav */
-    padding-bottom: 85px; /* 20px existing + 65px nav height */
-    /* ... other existing styles ... */
-}
-
-/* --- SCREEN TRANSITION ANIMATION --- */
+/* --- SCREEN TRANSITION ANIMATION (STABLE) --- */
 .app-screen {
-    display: none;
+    /* Base styles for all screens in the content area */
     padding: 20px;
+    position: relative; 
+    
+    /* Control visibility and positioning using opacity and Z-index */
     opacity: 0;
-    transform: translateX(100%);
-    position: absolute; 
+    pointer-events: none; /* Make non-active screens unclickable */
+    transform: translateX(50px);
+    
+    /* Ensure non-active screens don't take up space in the layout flow */
+    position: absolute; /* Keep absolute for mobile overlay behavior */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     overflow-y: auto;
+
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    
+    /* Apply safe padding for content to clear the bottom nav on mobile */
+    padding-bottom: 85px; /* 20px base + 65px nav height */
 }
 
 .active-screen {
-    display: block;
+    /* Overrides for the currently visible screen */
     opacity: 1;
+    pointer-events: auto; /* Make active screen clickable */
     transform: translateX(0);
     z-index: 5;
-    position: relative; 
+    position: absolute; /* Default for mobile stacking */
+}
+
+/* DESKTOP STABILITY FIX: On desktop, remove absolute positioning and return to flow */
+@media (min-width: 900px) {
+    .app-screen {
+        position: static; /* Let screens flow naturally in the grid cell */
+        padding-top: 20px; 
+        padding-bottom: 20px; /* Remove mobile nav padding */
+    }
+    .active-screen {
+        position: relative; /* Use relative to respect grid flow on desktop */
+    }
 }
 
 h2 {
@@ -202,6 +218,142 @@ h2 {
     border-bottom: 2px solid var(--border-subtle);
     padding-bottom: 5px;
     transition: color 0.3s, border-color 0.3s;
+}
+
+/* --- WELCOME SCREEN STYLES (NEW) --- */
+
+#screen-welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%; 
+    padding-top: 0;
+    /* Remove bottom padding on welcome screen to center it better */
+    padding-bottom: 0; 
+}
+
+#welcome-content {
+    max-width: 300px;
+    padding: 20px;
+}
+
+.welcome-icon {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 25px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#welcome-content h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    border-bottom: none;
+}
+
+#welcome-content .section-description {
+    font-size: 1rem;
+    color: var(--text-medium);
+    margin-bottom: 30px;
+}
+
+.welcome-stats {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding: 10px 0;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.welcome-link {
+    display: block;
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+#welcome-content .cta-button {
+    width: 100%;
+}
+
+
+/* --- BUSINESS SIGNUP FORM STYLES (NEW) --- */
+#screen-business-signup h2 {
+    color: var(--primary-color);
+}
+#business-signup-form {
+    padding-top: 10px;
+}
+.form-group {
+    margin-bottom: 18px;
+}
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+#business-signup-form input[type="text"],
+#business-signup-form input[type="email"],
+#business-signup-form input[type="tel"],
+#business-signup-form textarea,
+#business-signup-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    background-color: var(--surface-color);
+    color: var(--text-dark);
+    font-size: 1rem;
+    transition: border-color 0.3s, background-color 0.3s;
+    outline: none;
+}
+#business-signup-form textarea {
+    resize: vertical;
+}
+#business-signup-form input:focus,
+#business-signup-form textarea:focus,
+#business-signup-form select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-color-alpha); 
+}
+.terms-note {
+    font-size: 0.8rem;
+    color: var(--text-medium);
+    text-align: center;
+    margin-top: 15px;
+}
+.terms-note a {
+    color: var(--primary-color);
+    text-decoration: none;
 }
 
 /* DISCOVER SCREEN SPECIFIC STYLES */
@@ -232,70 +384,49 @@ h2 {
     transition: color 0.3s;
 }
 
-/*
- * BANNER CAROUSEL (Image-based with Scroll Snap)
- * This section overrides the previous grid-based layout.
- */
-
+/* Horizontal Scrollable Banner */
 #banner-carousel {
-    /* Set up as a Flex container for horizontal arrangement */
-    display: flex; 
-    
-    /* Enable horizontal scrolling */
+    display: flex;
     overflow-x: scroll;
-    
-    /* Crucial for a smooth, carousel-like feel */
-    scroll-snap-type: x mandatory;
-    
-    /* Spacing between image cards */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
     gap: 15px;
-    
-    /* Ensure no wrapping */
-    flex-wrap: nowrap; 
-    
-    padding: 0 20px 0 20px; /* Add padding to the sides to show a hint of the next image */
+    scrollbar-width: none;
+}
+#banner-carousel::-webkit-scrollbar {
+    display: none;
 }
 
 .banner-card {
-    /* Essential: Prevents the card from shrinking and allows scrolling */
-    flex: 0 0 auto;
-    
-    /* Set a width for the image to snap to (e.g., 80% of the viewport) */
-    width: 110vw; 
-    
-    /* Set a fixed height for the banner */
-    height: 180px;
-    
-    /* Ensures the carousel snaps cleanly to the start of each card */]
-    scroll-snap-align: start; 
-    
-    /* Styling */
+    min-width: 280px;
+    height: 120px;
+    background: linear-gradient(135deg, var(--surface-color), #282828); 
     border-radius: 12px;
-    overflow: hidden; /* Ensures the image stays within the rounded corners */
-    box-shadow: var(--card-shadow);
+    padding: 18px;
+    color: var(--text-light);
+    font-weight: 600;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-subtle);
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
 }
-
-/* Style for the image element itself */
-.banner-card img {
-    width: 100%;
-    height: 100%;
-    
-    /* Ensures the image covers the card without distortion (it will crop if necessary) */
-    object-fit: cover;
-    
-    /* Removes the generic border/styling from your old .banner-card */
-    border: none;
-    background-color: transparent;
+body.light-mode .banner-card {
+    background: linear-gradient(135deg, var(--surface-color), #F8F8F8); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: var(--text-dark);
 }
-
-/* Optional: Hide the scrollbar for a cleaner mobile experience */
-#banner-carousel::-webkit-scrollbar {
-    display: none; /* WebKit (Chrome, Safari, newer Edge) */
+/* PROMO CARD: Use secondary color for background. Text color is dynamic. */
+.banner-card.promo { 
+    background: linear-gradient(135deg, var(--secondary-color), #e94c1a); 
+    color: var(--secondary-text-color); 
 }
-#banner-carousel {
-    -ms-overflow-style: none;  /* IE and older Edge */
-    scrollbar-width: none;     /* Firefox */
+body.light-mode .banner-card.promo {
+    background: linear-gradient(135deg, var(--secondary-color), #e94c1a); 
+    color: #000000; /* Force black text for high contrast on light orange/red */
 }
+.banner-card.impact { background: linear-gradient(135deg, var(--primary-color), #007D54); color: var(--text-light); }
 
 /* Available Bags List (Cards) */
 .bag-card {
@@ -588,7 +719,6 @@ body.light-mode .favorite-store button {
     color: var(--primary-color);
     font-weight: 600;
 }
-
 .order-header {
     margin-top: 20px;
     color: var(--secondary-color); /* Uses secondary color */
@@ -610,7 +740,6 @@ body.light-mode .favorite-store button {
     border-left-color: var(--text-medium);
     opacity: 0.7;
 }
-
 .order-card h4 {
     font-size: 1.1rem;
     color: var(--text-light);
@@ -634,8 +763,6 @@ body.light-mode .favorite-store button {
 .order-card button:active {
     transform: translateY(0);
 }
-
-
 /* PROFILE SCREEN STYLES */
 #impact-section {
     background: var(--impact-background);
@@ -667,7 +794,6 @@ body.light-mode .favorite-store button {
     color: var(--text-medium);
     font-size: 0.8rem;
 }
-
 .profile-links {
     background-color: var(--surface-color);
     border-radius: 12px;
@@ -703,271 +829,241 @@ body.light-mode .favorite-store button {
     padding: 12px;
     border-radius: 8px;
     margin-top: 20px;
-    font-weight: 600;
     cursor: pointer;
+    font-weight: 600;
     transition: background-color 0.3s, transform 0.2s;
 }
-.logout-btn:hover {
-    background-color: #b71c1c;
-}
-.logout-btn:active {
-    transform: scale(0.99);
-}
 
-
-/* HAMBURGER MENU STYLES (Sidebar) */
+/* --- SIDEBAR STYLES --- */
 .sidebar {
     height: 100%;
-    width: 0;
+    width: 0; 
     position: fixed;
-    z-index: 20; /* High z-index to appear on top of content and overlay */
+    z-index: 20; /* Above all content */
     top: 0;
     left: 0;
     background-color: var(--surface-color); 
     overflow-x: hidden;
-    transition: width 0.4s ease-out; 
-    padding-top: 80px;
-    box-shadow: 5px 0 15px rgba(0,0,0,0.5);
-    max-width: 320px;
-    transition: background-color 0.3s, box-shadow 0.3s, width 0.4s ease-out;
+    padding-top: 60px;
+    transition: 0.3s;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.5);
 }
-
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    color: var(--text-dark);
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+.sidebar a:hover {
+    background-color: var(--border-subtle);
+}
 .sidebar .closebtn {
     position: absolute;
     top: 0;
-    right: 25px;
+    right: 15px;
     font-size: 36px;
     margin-left: 50px;
-    text-decoration: none;
-    color: var(--text-dark);
+    color: var(--text-medium);
 }
-
-.sidebar a {
-    padding: 15px 25px;
-    text-decoration: none;
-    font-size: 1rem;
-    color: var(--text-dark);
-    display: block;
-    transition: background-color 0.3s;
-}
-
-.sidebar a:hover {
-    background-color: rgba(0, 163, 108, 0.1); 
-}
-
-.menu-section {
-    margin-bottom: 20px;
-    padding: 0 0 10px 0;
+.sidebar .menu-section {
+    padding: 10px 0;
     border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 10px;
 }
-
-.menu-section h3 {
-    padding: 0 25px 10px;
+.sidebar .menu-section h3 {
     color: var(--primary-color);
-    font-size: 0.9rem;
+    font-size: 1rem;
+    padding: 0 15px 5px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
     font-weight: 700;
     border-bottom: none;
 }
-
-/* ======================================================
-SIDEBAR OVERLAY FIX (New)
-======================================================
-*/
+#theme-toggle-sidebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#theme-toggle-sidebar .theme-icon {
+    font-size: 1.2rem;
+    color: var(--text-medium);
+}
+/* Overlay for the sidebar */
 #overlay {
+    position: fixed;
     height: 100%;
     width: 100%;
-    position: fixed;
-    z-index: 19; /* Just below the sidebar's z-index of 20 */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 15;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    transition: opacity 0.4s;
-    display: none; /* Starts hidden */
-    opacity: 0; 
-    max-width: 450px; /* Constrain to app container width on mobile view */
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
 
-
-/* FOOTER NAVIGATION (Tab Bar) */
+/* --- BOTTOM NAVIGATION --- */
 #bottom-nav {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 450px;
     height: 65px;
     background-color: var(--surface-color);
-    border-top: 1px solid var(--border-subtle);
-    
-    /* *** FIX: Use fixed position and anchor it to the app container *** */
-    position: fixed; /* <-- CHANGED TO FIXED */
-    bottom: 0;
-    left: 0;
-    /* Limit the fixed width to the max-width of the app-container for non-desktop views */
-    width: 100%;
-    max-width: 450px; 
-    
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
     z-index: 10;
-    transition: background-color 0.3s, border-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .nav-item {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     text-decoration: none;
     color: var(--text-medium);
+    transition: color 0.3s, background-color 0.3s;
     font-size: 0.7rem;
-    padding: 5px;
-    transition: color 0.3s, transform 0.2s;
+    padding-top: 5px;
 }
-
-.nav-item:hover {
-    transform: translateY(-2px);
+.nav-item .material-icons {
+    font-size: 24px;
+    margin-bottom: 2px;
 }
-
 .nav-item.active {
     color: var(--primary-color);
-    font-weight: 600;
 }
-
-/* DESKTOP NAVIGATION (Hidden on mobile) */
-#desktop-nav {
-    display: none; /* Hidden by default on mobile */
+.nav-item.active .material-icons {
+    color: var(--primary-color);
 }
 
 
-/* ======================================================
-PURCHASE MODAL STYLES
-======================================================
-*/
+/* --- PURCHASE MODAL STYLES --- */
 .modal-overlay {
-    display: none; /* Hidden by default */
     position: fixed;
-    z-index: 100; /* Highest z-index to appear on top of everything (sidebar z-index 20) */
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Dim background */
-    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
     justify-content: center;
-    align-items: center;
-    transition: opacity 0.3s ease;
+    align-items: flex-end; /* Start from the bottom for purchase modal */
+    z-index: 20;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
 }
 
 .modal-overlay.active {
-    display: flex;
+    visibility: visible;
     opacity: 1;
 }
 
 .modal-content {
-    background-color: var(--surface-color);
-    color: var(--text-dark);
-    margin: 15% auto; /* Center the modal content vertically */
+    background-color: var(--background-color);
+    width: 100%;
+    max-width: 450px;
     padding: 25px;
-    border-radius: 15px;
-    box-shadow: var(--card-shadow);
-    position: relative;
-    width: 90%;
-    max-width: 400px;
-    animation: slideUp 0.3s ease-out;
-    transition: background-color 0.3s;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
 }
 
-@keyframes slideUp {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
 }
 
 .close-modal {
     position: absolute;
     top: 10px;
-    right: 15px;
-    font-size: 24px;
+    right: 10px;
     cursor: pointer;
     color: var(--text-medium);
+    font-size: 24px;
 }
-
 .modal-content h2 {
     color: var(--primary-color);
-    border-bottom: 2px solid var(--border-subtle);
-    padding-bottom: 10px;
     margin-bottom: 15px;
-    font-size: 1.3rem;
+    border-bottom: 2px solid var(--border-subtle);
 }
 
+#modal-bag-info {
+    margin-bottom: 20px;
+}
 #modal-store-name {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.4rem;
     color: var(--text-light);
     margin-bottom: 5px;
+    border-bottom: none;
 }
-
 #modal-location-time {
-    font-size: 0.9rem;
     color: var(--text-medium);
+    font-size: 1rem;
     margin-bottom: 15px;
 }
 
+.price-details-modal {
+    background-color: var(--surface-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-subtle);
+}
 .price-details-modal p {
-    margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    margin-bottom: 5px;
     font-size: 1rem;
 }
-
+.price-details-modal p:last-child {
+    margin-bottom: 0;
+}
 .price-new-modal {
-    font-size: 1.1rem;
     font-weight: 700;
     color: var(--primary-color);
 }
-
 .price-old-modal {
     text-decoration: line-through;
-    color: var(--color-sold-out);
-    font-size: 0.9rem;
+    color: var(--text-medium);
 }
-
 #modal-quantity-select {
-    padding: 5px 10px;
-    border-radius: 6px;
+    padding: 5px;
+    border-radius: 5px;
     border: 1px solid var(--border-subtle);
     background-color: var(--background-color);
     color: var(--text-dark);
-    font-size: 1rem;
 }
 
 #modal-note {
-    background-color: var(--background-color);
-    border-left: 3px solid var(--secondary-color);
+    background-color: var(--surface-color);
     padding: 10px;
-    margin: 15px 0;
-    border-radius: 6px;
+    border-radius: 8px;
+    border-left: 5px solid var(--secondary-color);
     font-size: 0.9rem;
     color: var(--text-medium);
+    margin-bottom: 15px;
 }
-#modal-note .material-icons {
-    font-size: 1em;
-    vertical-align: middle;
+#modal-note span {
     color: var(--secondary-color);
+    margin-right: 5px;
 }
 
 #modal-total-section {
+    text-align: right;
     border-top: 1px solid var(--border-subtle);
     padding-top: 15px;
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
-
 #modal-total-section h4 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: var(--text-light);
 }
-
 #modal-total-amount {
     color: var(--primary-color);
     font-weight: 700;
@@ -976,209 +1072,154 @@ PURCHASE MODAL STYLES
 #reserve-button {
     width: 100%;
     padding: 15px;
-    background-color: var(--secondary-color);
-    color: var(--secondary-text-color);
+    background-color: var(--primary-color);
+    color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
-    margin-top: 20px;
     transition: background-color 0.3s, transform 0.2s;
 }
 #reserve-button:active {
-    transform: scale(0.98);
+    transform: scale(0.99);
+    background-color: #008f5d;
 }
-body.light-mode #reserve-button {
-    color: #000000; /* Ensure black text in light mode for contrast */
+
+/* --- SUCCESS ANIMATION OVERLAY (NEW) --- */
+
+/* Re-use the modal-overlay class but center the content */
+#success-animation-modal {
+    align-items: center; /* Center vertically (unlike the purchase modal) */
+}
+
+.success-content {
+    background-color: var(--surface-color);
+    width: 300px;
+    padding: 30px 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.7);
+    transform: scale(0.8);
+    transition: transform 0.3s ease-out;
+}
+.modal-overlay.active .success-content {
+    transform: scale(1);
+}
+
+.checkmark-circle {
+    width: 80px;
+    height: 80px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0);
+    /* Animation applied dynamically when modal is activated by JS */
+}
+
+.checkmark-icon {
+    font-size: 50px;
+    color: white;
+}
+
+.success-content h2 {
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    border-bottom: none;
+}
+
+#success-message {
+    color: var(--text-medium);
+    font-size: 0.9rem;
+}
+#success-message b {
+    color: var(--text-dark);
+    font-weight: 600;
 }
 
 
-/*
-======================================================
-DESKTOP RESPONSIVENESS (Media Query) 💻
-======================================================
-*/
+/* KEYFRAMES FOR ANIMATION */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* --- DESKTOP/LARGE SCREEN LAYOUT (min-width: 900px) --- */
 @media (min-width: 900px) {
-
-    /* --- 1. GLOBAL CONTAINER MODIFICATIONS --- */
     
-    body {
-        display: block;
-        min-height: 100vh;
-        padding-top: 50px; /* Add space for the new fixed desktop header/nav */
-    }
-
+    /* Center the app container vertically and horizontally on large screens */
     #app-container {
-        max-width: 1200px;
-        height: auto;
-        max-height: none;
-        margin: 0 auto;
-        box-shadow: none;
-        border-radius: 0;
-        display: block; 
-    }
-
-    #content-area {
-        padding-bottom: 40px; 
-        overflow-y: visible;
-        position: relative; 
-        top: auto; 
-        left: auto;
-        padding-top: 20px; /* Add top padding to the content area */
+        max-width: 900px;
+        height: 90vh;
+        max-height: 1000px; 
+        border-radius: 20px;
+        display: grid;
+        grid-template-columns: 250px 1fr; /* Sidebar for main navigation and content area */
+        grid-template-rows: auto 1fr;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     
-    /* --- 2. HEADER MODIFICATIONS --- */
-    
+    /* HEADER: Span two columns, keep top row layout */
     header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        flex-direction: row; /* Back to a single row */
-        align-items: center;
-        padding: 10px 20px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        z-index: 50; 
+        grid-column: 1 / -1;
+        border-radius: 20px 20px 0 0;
+        position: static;
+        padding-bottom: 15px;
     }
-
-    .header-top-row {
-        justify-content: flex-start; 
-        gap: 20px;
-        width: auto;
+    .header-icons {
+        gap: 25px;
     }
-
-    /* Hide the mobile menu button and info icon */
     .menu-icon {
-        display: none;
+        display: none; /* Hide hamburger icon on desktop */
     }
-    .info-icon-mobile {
+    #sholat-time {
+        display: flex; /* Always show desktop feature */
+    }
+
+    /* SIDEBAR: Primary navigation on desktop */
+    #sidebar-menu {
+        position: static;
+        width: 100%;
+        height: 100%;
+        padding-top: 20px;
+        box-shadow: none;
+        border-right: 1px solid var(--border-subtle);
+    }
+    .sidebar .closebtn {
+        display: none; /* No need for close button */
+    }
+    .sidebar .menu-section {
+        border-bottom: none;
+    }
+    .sidebar .menu-section h3 {
+        padding-top: 10px;
+    }
+    #overlay {
         display: none !important;
     }
 
-    #savyours-logo-main {
-        text-align: left;
-        flex-grow: 0;
+    /* MAIN CONTENT AREA: Second column */
+    #content-area {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+        overflow-y: auto;
+        position: relative; /* Needed for map absolute positioning */
     }
     
-    /* Center the desktop logo image within its container for flexibility */
-    #app-logo {
-        margin: 0; 
-    }
-
-    #savyours-slogan {
-        display: none; /* Hide the slogan when space is tight on a fixed header */
-    }
-
-    /* Show the Sholat Time feature on desktop */
-    .desktop-only {
-        display: flex !important;
-        margin-right: 0 !important;
-        padding-right: 0 !important;
-        border-right: none !important;
-        font-size: 0.9rem;
-    }
-    
-    .header-icons {
-        margin-left: auto; /* Pushes icons to the right side of the fixed header */
-        gap: 15px;
-    }
-
-    /* --- 3. DESKTOP NAVIGATION BAR --- */
-    #desktop-nav {
-        display: flex; /* Show the new navigation */
-        justify-content: flex-start;
-        align-items: center;
-        background-color: var(--surface-color);
-        box-shadow: 0 0 5px rgba(0,0,0,0.05);
-        padding: 0 20px;
-        position: sticky; /* Keep it below the header on scroll */
-        top: 60px; /* Position it right below the fixed header */
-        z-index: 20;
-        border-bottom: 1px solid var(--border-subtle);
-    }
-
-    #desktop-nav .nav-item, #desktop-nav .nav-item-desktop {
-        padding: 15px 20px;
-        font-size: 1rem;
-        color: var(--text-dark);
-        font-weight: 500;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        transform: none;
-    }
-    #desktop-nav .nav-item.active {
-        color: var(--primary-color);
-        font-weight: 700;
-        border-bottom: 3px solid var(--primary-color);
-        transform: none; 
-    }
-    #desktop-nav .nav-item:hover, #desktop-nav .nav-item-desktop:hover {
-        color: var(--primary-color);
-        background-color: rgba(0, 163, 108, 0.05);
-        transform: none;
-    }
-    .nav-spacer {
-        flex-grow: 1; /* Pushes the right-aligned icons away */
-    }
-    #desktop-nav .nav-item-desktop .material-icons {
-        margin-right: 5px;
-        font-size: 1.2rem;
-    }
-
-    /* --- 4. SCREEN FLOW FIX --- */
-    
-    .app-screen {
-        position: relative;
-        height: auto;
-        overflow-y: visible;
-        padding: 20px;
-        transform: translateX(0); 
-        opacity: 1;
-        transition: none;
-    }
-    
-    /* --- 5. CONTENT LAYOUT (GRID) --- */
-
-    #screen-discover {
-        padding: 20px;
-    }
-    
-    #available-bags-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 20px;
-        margin-top: 20px;
-    }
-
-    /* Redefine the bag card layout from horizontal to vertical stacking */
-    .bag-card {
-        flex-direction: column;
-        height: auto;
-        padding: 0;
-        position: relative; 
-    }
-
-    .bag-image {
-        width: 100%;
-        height: 180px; 
-        border-radius: 12px 12px 0 0;
-        opacity: 1;
-    }
-    
-    .bag-info {
-        padding: 15px;
-        min-height: 140px; 
-    }
-    
-    .bags-left {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        z-index: 5;
-    }
-
     /* Redefine Banner Carousel as a regular grid */
     #banner-carousel {
         overflow-x: hidden; 
@@ -1230,22 +1271,17 @@ DESKTOP RESPONSIVENESS (Media Query) 💻
         gap: 20px;
     }
     #impact-section {
-        grid-column: 1 / 2;
-    }
-    .profile-links {
-        grid-column: 2 / 3;
-    }
-    #screen-favorites {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-    }
-    .favorite-store {
-        padding: 15px;
+        grid-column: 1 / -1;
     }
     
-    /* Hide the mobile sidebar overlay on desktop */
-    #overlay {
-        display: none !important;
+    /* Ensure Welcome screen fills desktop grid area */
+    #screen-welcome {
+        padding-bottom: 20px; /* Reset mobile padding */
+    }
+    
+    /* Ensure forms scale well on desktop */
+    #business-signup-form {
+        max-width: 600px;
+        margin: 0 auto;
     }
 }
