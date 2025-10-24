@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Savyours - Rescue Delicious Food in Brunei</title>
     <link rel="stylesheet" href="style.css">
-    
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body class="dark-mode"> 
+
+<body class="dark-mode">
 
     <div id="sidebar-menu" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -41,14 +43,14 @@
             <a href="#">Terms of Service</a>
         </div>
         <div class="menu-section">
-             <a href="#" class="logout-link" onclick="logout()">
+            <a href="#" class="logout-link" onclick="logout()">
                 <span class="material-icons" style="vertical-align: middle;">logout</span> Log Out
-             </a>
+            </a>
         </div>
     </div>
 
     <div id="app-container">
-        
+
         <section id="screen-auth" class="auth-screen active-screen">
             <div class="auth-box">
                 <img src="logo.png" alt="Savyours Logo" id="auth-logo">
@@ -60,9 +62,10 @@
 
                 <button class="primary-auth-btn" onclick="login()">Log In</button>
                 <button class="secondary-auth-btn" onclick="login()">Sign Up</button>
-                
+
                 <hr>
-                <p class="small-link" onclick="showScreen('business-signup')">Are you a food business? **Sign Up Here**</p>
+                <p class="small-link" onclick="showScreen('business-signup')">Are you a food business? **Sign Up Here**
+                </p>
             </div>
         </section>
 
@@ -74,7 +77,7 @@
                     <span id="next-sholat-signup">Next Prayer: Loading...</span>
                 </div>
             </div>
-            
+
             <div class="auth-box">
                 <h1>Rescue Food With Us</h1>
                 <p>Register your food business to start saving surplus food and earning revenue.</p>
@@ -83,17 +86,17 @@
                 <input type="text" placeholder="Contact Person">
                 <input type="email" placeholder="Business Email">
                 <input type="tel" placeholder="Phone Number">
-                
+
                 <hr style="margin-top: 25px;">
-                
+
                 <h2>Initial Bag Details</h2>
                 <p style="margin-bottom: 10px; font-size: 0.9rem;">Help us understand the food you typically offer.</p>
-                
+
                 <input type="text" placeholder="Surprise Bag Name (e.g., Bakery Mix Bag)">
                 <input type="number" placeholder="Regular Bag Value (e.g., 25.00)" min="1" step="0.01">
                 <input type="number" placeholder="Rescue Price (e.g., 8.00)" min="1" step="0.01">
                 <textarea placeholder="Description of what the bag usually contains (e.g., assorted pastries, bread, and sandwiches)" rows="3"></textarea>
-                
+
                 <div class="file-upload-container">
                     <label for="business-image-upload" class="file-upload-label">
                         <span class="material-icons">cloud_upload</span> Upload Business/Food Image
@@ -115,10 +118,11 @@
                         <img src="logo.png" alt="Savyours Logo" id="app-logo">
                     </div>
                     <div class="header-icons">
-                        <div id="sholat-time" class="brunei-feature desktop-only">
-                            <span class="material-icons">mosque</span>
-                            <span id="next-sholat">Next Prayer: Maghrib at 6:15 PM</span>
-                        </div>
+                        <div id="sholat-time" class="brunei-feature">
+                        <span class="material-icons">mosque</span>
+                        <span id="next-sholat">Next Prayer: Maghrib at 6:15 PM</span>
+                    </div>
+
                         <span class="material-icons" id="theme-toggle-header">dark_mode</span>
                         <span class="material-icons info-icon-mobile">info</span>
                     </div>
@@ -134,7 +138,7 @@
                         <input type="text" placeholder="Enter your location in Brunei..." value="Bandar Seri Begawan">
                         <span class="material-icons icon-search">search</span>
                     </div>
-                    
+
                     <h2>Featured Rescues Today</h2>
                     <div id="banner-carousel">
                         <div class="banner-card promo">BND 5 Off First Rescue!</div>
@@ -143,9 +147,12 @@
                     </div>
 
                     <h2>Available Surprise Bags</h2>
-                
+
                     <div id="available-bags-list">
-                        <div class="bag-card" data-screen="bag-details" data-store-name="Comfort Greens Cafe" data-location="Gadong" data-available="true" data-cutoff-time="18:30" data-price-new="7.00" data-price-old="21.00" data-pickup-time="6:00 PM - 6:30 PM" onclick="openPurchaseModal(this)">
+                        <div class="bag-card" data-screen="bag-details" data-store-name="Comfort Greens Cafe"
+                            data-location="Gadong" data-available="true" data-cutoff-time="18:30" data-price-new="7.00"
+                            data-price-old="21.00" data-pickup-time="6:00 PM - 6:30 PM"
+                            onclick="openPurchaseModal(this)">
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4xCYarsb8rvlhM_2AqAu81tD7BKkXxOuHUw&s" alt="Comfort Greens Cafe Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/00A36C/ffffff?text=Cafe+Bag';">
                             <div class="bag-info">
                                 <h3>Comfort Greens Cafe (Gadong)</h3>
@@ -159,7 +166,10 @@
                             </div>
                         </div>
 
-                        <div class="bag-card sold-out-card" data-screen="bag-details" data-store-name="The Little Leaf Bakery" data-location="Kiulap" data-available="false" data-cutoff-time="19:00" data-price-new="9.00" data-price-old="27.00" data-pickup-time="7:30 PM - 8:00 PM">
+                        <div class="bag-card sold-out-card" data-screen="bag-details"
+                            data-store-name="The Little Leaf Bakery" data-location="Kiulap" data-available="false"
+                            data-cutoff-time="19:00" data-price-new="9.00" data-price-old="27.00"
+                            data-pickup-time="7:30 PM - 8:00 PM">
                             <img src="https://scontent.fbwn2-1.fna.fbcdn.net/v/t39.30808-6/467467739_591186743471957_1505292326824038053_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=YFe2y0DZroAQ7kNvwGL34t1&_nc_oc=AdluJ_G_y25BWLXFwXpqIYuMfjKZxyc9JTJgmsoZ11TOXRRXY4XEXz9V92p8pLhQEh0&_nc_zt=23&_nc_ht=scontent.fbwn2-1.fna&_nc_gid=hLzckSZkKXIo7Jafucanrg&oh=00_AfdsgeYj2PcfNP82tYQOfqv8tmFH-O_gfaXhctBtz1s9NQ&oe=68EE61CE" alt="Little Leaf Bakery Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/A00000/ffffff?text=Sold+Out';">
                             <div class="bag-info">
                                 <h3>The Little Leaf Bakery (Kiulap)</h3>
@@ -173,7 +183,10 @@
                             </div>
                         </div>
 
-                        <div class="bag-card" data-screen="bag-details" data-store-name="Mum Bakery" data-location="Manggis" data-available="true" data-cutoff-time="17:00" data-price-new="5.50" data-price-old="16.50" data-pickup-time="4:30 PM - 5:00 PM" onclick="openPurchaseModal(this)">
+                        <div class="bag-card" data-screen="bag-details" data-store-name="Mum Bakery"
+                            data-location="Manggis" data-available="true" data-cutoff-time="17:00" data-price-new="5.50"
+                            data-price-old="16.50" data-pickup-time="4:30 PM - 5:00 PM"
+                            onclick="openPurchaseModal(this)">
                             <img src="https://placehold.co/120x120/FFD700/000000?text=Mum+Bakery" alt="Mum Bakery Surprise Bag" class="bag-image">
                             <div class="bag-info">
                                 <h3>Mum Bakery (Manggis)</h3>
@@ -186,8 +199,11 @@
                                 </div>
                             </div>
                         </div>
-                        
-                         <div class="bag-card" data-screen="bag-details" data-store-name="Le Doux Patisserie" data-location="Kiarong" data-available="true" data-cutoff-time="20:00" data-price-new="12.00" data-price-old="36.00" data-pickup-time="8:00 PM - 8:30 PM" onclick="openPurchaseModal(this)">
+
+                        <div class="bag-card" data-screen="bag-details" data-store-name="Le Doux Patisserie"
+                            data-location="Kiarong" data-available="true" data-cutoff-time="20:00"
+                            data-price-new="12.00" data-price-old="36.00" data-pickup-time="8:00 PM - 8:30 PM"
+                            onclick="openPurchaseModal(this)">
                             <img src="https://placehold.co/120x120/FF69B4/ffffff?text=Patisserie" alt="Le Doux Patisserie Bag" class="bag-image">
                             <div class="bag-info">
                                 <h3>Le Doux Patisserie (Kiarong)</h3>
@@ -200,8 +216,10 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="bag-card sold-out-card" data-screen="bag-details" data-store-name="Coffeeby7t1" data-location="Tanjung Bunut" data-available="false" data-cutoff-time="14:00" data-price-new="6.50" data-price-old="19.50" data-pickup-time="2:00 PM - 2:30 PM">
+
+                        <div class="bag-card sold-out-card" data-screen="bag-details" data-store-name="Coffeeby7t1"
+                            data-location="Tanjung Bunut" data-available="false" data-cutoff-time="14:00"
+                            data-price-new="6.50" data-price-old="19.50" data-pickup-time="2:00 PM - 2:30 PM">
                             <img src="https://placehold.co/120x120/A00000/ffffff?text=Coffee+Sold+Out" alt="Coffeeby7t1 Surprise Bag" class="bag-image">
                             <div class="bag-info">
                                 <h3>Coffeeby7t1 (Tanjung Bunut)</h3>
@@ -214,22 +232,28 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="bag-card" data-screen="bag-details" data-store-name="Laze Cafe" data-location="Serusop" data-available="true" data-cutoff-time="18:45" data-price-new="8.50" data-price-old="25.50" data-pickup-time="6:00 PM - 6:45 PM" onclick="openPurchaseModal(this)">
+
+                        <div class="bag-card" data-screen="bag-details" data-store-name="Laze Cafe"
+                            data-location="Serusop" data-available="true" data-cutoff-time="18:45" data-price-new="8.50"
+                            data-price-old="25.50" data-pickup-time="6:00 PM - 6:45 PM"
+                            onclick="openPurchaseModal(this)">
                             <img src="https://placehold.co/120x120/00897B/ffffff?text=Laze+Cafe" alt="Laze Cafe Surprise Bag" class="bag-image">
                             <div class="bag-info">
                                 <h3>Laze Cafe (Serusop)</h3>
                                 <p class="time-left">Time Left: **1h 15m**</p>
                                 <p class="pickup-time">Pickup: 6:00 PM - 6:45 PM</p>
-                            <div class="price-details">
-                                <span class="price-new">BND 8.50</span>
-                                <span class="price-old">BND 25.50</span>
-                                <span class="bags-left">4 Bags Left</span>
-                            </div>
+                                <div class="price-details">
+                                    <span class="price-new">BND 8.50</span>
+                                    <span class="price-old">BND 25.50</span>
+                                    <span class="bags-left">4 Bags Left</span>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="bag-card" data-screen="bag-details" data-store-name="Namu Korean BBQ and Cafe" data-location="Bandar" data-available="true" data-cutoff-time="21:00" data-price-new="15.00" data-price-old="45.00" data-pickup-time="9:00 PM - 9:30 PM" onclick="openPurchaseModal(this)">
+
+                        <div class="bag-card" data-screen="bag-details" data-store-name="Namu Korean BBQ and Cafe"
+                            data-location="Bandar" data-available="true" data-cutoff-time="21:00" data-price-new="15.00"
+                            data-price-old="45.00" data-pickup-time="9:00 PM - 9:30 PM"
+                            onclick="openPurchaseModal(this)">
                             <img src="https://placehold.co/120x120/333333/ffffff?text=Korean+Food" alt="Namu Korean BBQ Surprise Bag" class="bag-image">
                             <div class="bag-info">
                                 <h3>Namu Korean BBQ and Cafe (Bandar)</h3>
@@ -276,7 +300,7 @@
                         <button onclick="applyVoucher()">Apply</button>
                         <p class="voucher-status"></p>
                     </div>
-                    
+
                     <h3 class="order-header">Active Order (1)</h3>
                     <div class="order-card active">
                         <p>Order #BN00123</p>
@@ -296,7 +320,7 @@
 
                 <section id="screen-profile" class="app-screen">
                     <h2>My Profile</h2>
-                    
+
                     <div id="impact-section">
                         <h3>Your Savings & Impact 🌍</h3>
                         <p>Total Bags Rescued: <span id="bags-count">25</span></p>
@@ -338,7 +362,7 @@
                 </a>
             </nav>
         </div>
-        </div>
+    </div>
 
     <div id="purchase-modal" class="modal-overlay">
         <div class="modal-content">
@@ -356,7 +380,8 @@
                     </select></p>
                 </div>
                 <div id="modal-note">
-                    <p><span class="material-icons">info</span> **Note:** Contents are a surprise! Bags contain perfectly good food that would otherwise go to waste.</p>
+                    <p><span class="material-icons">info</span> **Note:** Contents are a surprise! Bags contain
+                        perfectly good food that would otherwise go to waste.</p>
                 </div>
                 <div id="modal-total-section">
                     <h4>Total Due: <span id="modal-total-amount">BND 0.00</span></h4>
@@ -365,7 +390,7 @@
             <button id="reserve-button" onclick="reserveBag()">Reserve & Pay Now</button>
         </div>
     </div>
-    
+
     <div id="success-popup" class="success-popup-overlay">
         <div class="success-popup-content">
             <span class="material-icons success-icon">check_circle</span>
@@ -375,12 +400,12 @@
             <button class="primary-auth-btn" onclick="hideSuccessPopup()">Awesome!</button>
         </div>
     </div>
-    
+
     <div id="overlay" onclick="closeNav()"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    
+
     <script>
-// Store the map instance and tile layer instance globally
+        // Store the map instance and tile layer instance globally
 let mapInstance = null;
 let tileLayerInstance = null; 
 let currentBagData = {}; // Global object to hold the data of the bag currently in the modal
@@ -913,4 +938,5 @@ document.addEventListener('DOMContentLoaded', () => {
 });
     </script>
 </body>
+
 </html>
