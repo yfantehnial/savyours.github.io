@@ -67,8 +67,15 @@
         </section>
 
         <section id="screen-business-signup" class="auth-screen">
+            <div class="top-bar-business-signup">
+                <span class="material-icons back-icon" onclick="showScreen('auth')">arrow_back</span>
+                <div id="sholat-time-signup" class="brunei-feature">
+                    <span class="material-icons">mosque</span>
+                    <span id="next-sholat-signup">Next Prayer: Loading...</span>
+                </div>
+            </div>
+            
             <div class="auth-box">
-                <span class="material-icons close-modal" onclick="showScreen('auth')">arrow_back</span>
                 <h1>Rescue Food With Us</h1>
                 <p>Register your food business to start saving surplus food and earning revenue.</p>
 
@@ -598,13 +605,23 @@ document.addEventListener('DOMContentLoaded', () => {
              nextPrayer = sholatTimes[0]; 
         }
 
-        const sholatElement = document.getElementById('next-sholat');
-        if (sholatElement) {
+        const sholatElementMain = document.getElementById('next-sholat');
+        const sholatElementSignup = document.getElementById('next-sholat-signup'); // NEW: Get the signup screen element
+
+        if (sholatElementMain || sholatElementSignup) {
             const [hour, minute] = nextPrayer.time.split(':');
             const displayTime = new Date(0, 0, 0, hour, minute).toLocaleTimeString('en-US', {
                 hour: 'numeric', minute: 'numeric', hour12: true
             });
-            sholatElement.textContent = `Next: ${nextPrayer.name} at ${displayTime}`;
+            const textContent = `Next: ${nextPrayer.name} at ${displayTime}`;
+
+            if (sholatElementMain) {
+                sholatElementMain.textContent = textContent;
+            }
+            // NEW: Update the signup screen element
+            if (sholatElementSignup) {
+                sholatElementSignup.textContent = textContent;
+            }
         }
     }
 
