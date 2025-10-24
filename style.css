@@ -497,8 +497,8 @@ h2 {
 }
 
 .banner-card {
-    min-width: 280px;
-    height: 120px;
+    min-width: 340px;
+    height: 175px;
     background: linear-gradient(135deg, var(--surface-color), #282828);
     border-radius: 12px;
     color: var(--text-light);
