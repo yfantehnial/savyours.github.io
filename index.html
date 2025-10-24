@@ -54,7 +54,7 @@
         <section id="screen-auth" class="auth-screen active-screen">
             <div class="auth-box">
                 <img src="logo.png" alt="Savyours Logo" id="auth-logo">
-                <h1>Welcome to Savyours</h1>
+                <h1>Welcome to JimatBah</h1>
                 <p>Rescue delicious food, save money, and fight food waste in Brunei.</p>
 
                 <input type="email" id="auth-email" placeholder="Email Address">
@@ -72,6 +72,10 @@
         <section id="screen-business-signup" class="auth-screen">
             <div class="top-bar-business-signup">
                 <span class="material-icons back-icon" onclick="showScreen('auth')">arrow_back</span>
+                <div id="sholat-time-signup" class="brunei-feature">
+                    <span class="material-icons">mosque</span>
+                    <span id="next-sholat-signup">Next Prayer: Loading...</span>
+                </div>
             </div>
 
             <div class="auth-box">
@@ -166,7 +170,7 @@
                             data-store-name="The Little Leaf Bakery" data-location="Kiulap" data-available="false"
                             data-cutoff-time="19:00" data-price-new="9.00" data-price-old="27.00"
                             data-pickup-time="7:30 PM - 8:00 PM">
-                            <img src="https://scontent.fbwn2-1.fna.fbcdn.net/v/t39.30808-6/467467739_591186743471957_1505292326824038053_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=YFe2y0DZroAQ7kNvwGL34t1&_nc_oc=AdluJ_G_y25BWLXFwXpqIYuMfjKZxyc9JTJgmsoZ11TOXRRXY4XEXz9V92p8pLhQEh0&_nc_zt=23&_nc_ht=scontent.fbwn2-1.fna&_nc_gid=hLzckSZkKXIo7Jafucanrg&oh=00_AfdsgeYj2PcfNP82tYQOfqv8tmFH-O_gfaXhctBtz1s9NQ&oe=68EE61CE" alt="Little Leaf Bakery Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/A00000/ffffff?text=Sold+Out';">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-oNMtLXPnx3zVEhvTagljuLhE6Ld5tUK9wdv0fdLvt_rm4grwOqDPDmAQ0pnYbkD9T0I&usqp=CAU" alt="Little Leaf Bakery Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/A00000/ffffff?text=Sold+Out';">
                             <div class="bag-info">
                                 <h3>The Little Leaf Bakery (Kiulap)</h3>
                                 <p class="time-left sold-out-text">Time Left: **SOLD OUT**</p>
@@ -183,7 +187,7 @@
                             data-location="Manggis" data-available="true" data-cutoff-time="17:00" data-price-new="5.50"
                             data-price-old="16.50" data-pickup-time="4:30 PM - 5:00 PM"
                             onclick="openPurchaseModal(this)">
-                            <img src="https://placehold.co/120x120/FFD700/000000?text=Mum+Bakery" alt="Mum Bakery Surprise Bag" class="bag-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxtyjI7ygYEfO091TuVM3CxVjAPPX4ftxu7A&s" alt="Mum Bakery Surprise Bag" class="bag-image">
                             <div class="bag-info">
                                 <h3>Mum Bakery (Manggis)</h3>
                                 <p class="time-left">Time Left: **3h 30m**</p>
@@ -200,7 +204,7 @@
                             data-location="Kiarong" data-available="true" data-cutoff-time="20:00"
                             data-price-new="12.00" data-price-old="36.00" data-pickup-time="8:00 PM - 8:30 PM"
                             onclick="openPurchaseModal(this)">
-                            <img src="https://placehold.co/120x120/FF69B4/ffffff?text=Patisserie" alt="Le Doux Patisserie Bag" class="bag-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs807k5KeRvcHuk5OwBfyHb2lF-HfGSEtzdQ&s" alt="Le Doux Patisserie Bag" class="bag-image">
                             <div class="bag-info">
                                 <h3>Le Doux Patisserie (Kiarong)</h3>
                                 <p class="time-left">Time Left: **3h 05m**</p>
@@ -216,7 +220,7 @@
                         <div class="bag-card sold-out-card" data-screen="bag-details" data-store-name="Coffeeby7t1"
                             data-location="Tanjung Bunut" data-available="false" data-cutoff-time="14:00"
                             data-price-new="6.50" data-price-old="19.50" data-pickup-time="2:00 PM - 2:30 PM">
-                            <img src="https://placehold.co/120x120/A00000/ffffff?text=Coffee+Sold+Out" alt="Coffeeby7t1 Surprise Bag" class="bag-image">
+                            <img src="https://images.deliveryhero.io/image/fd-kh/products/938085.jpg?width=%s" alt="Coffeeby7t1 Surprise Bag" class="bag-image">
                             <div class="bag-info">
                                 <h3>Coffeeby7t1 (Tanjung Bunut)</h3>
                                 <p class="time-left sold-out-text">Time Left: **SOLD OUT**</p>
@@ -233,7 +237,7 @@
                             data-location="Serusop" data-available="true" data-cutoff-time="18:45" data-price-new="8.50"
                             data-price-old="25.50" data-pickup-time="6:00 PM - 6:45 PM"
                             onclick="openPurchaseModal(this)">
-                            <img src="https://placehold.co/120x120/00897B/ffffff?text=Laze+Cafe" alt="Laze Cafe Surprise Bag" class="bag-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL8aFozf_9XIyfXV5Zgln7t7DCa3fm3rR9sA&s" alt="Laze Cafe Surprise Bag" class="bag-image">
                             <div class="bag-info">
                                 <h3>Laze Cafe (Serusop)</h3>
                                 <p class="time-left">Time Left: **1h 15m**</p>
@@ -250,7 +254,7 @@
                             data-location="Bandar" data-available="true" data-cutoff-time="21:00" data-price-new="15.00"
                             data-price-old="45.00" data-pickup-time="9:00 PM - 9:30 PM"
                             onclick="openPurchaseModal(this)">
-                            <img src="https://placehold.co/120x120/333333/ffffff?text=Korean+Food" alt="Namu Korean BBQ Surprise Bag" class="bag-image">
+                            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2d/93/17/45/sundubu-jjigae-is-a-spicy.jpg?w=900&h=500&s=1" alt="Namu Korean BBQ Surprise Bag" class="bag-image">
                             <div class="bag-info">
                                 <h3>Namu Korean BBQ and Cafe (Bandar)</h3>
                                 <p class="time-left">Time Left: **1h 00m**</p>
