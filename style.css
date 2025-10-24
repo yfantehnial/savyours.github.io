@@ -89,7 +89,7 @@ header {
 }
 
 /* --- LOGO CONTAINER STYLES --- */
-#savyours-logo-main {
+#jimatbah-logo-main {
     flex-grow: 1; 
     text-align: center;
     line-height: 1.2;
@@ -107,7 +107,7 @@ header {
 /* --- END LOGO IMAGE STYLES --- */
 
 /* --- SLOGAN STYLES (Below Top Row) --- */
-#savyours-slogan {
+#jimatbah-slogan {
     text-align: center;
     font-size: 0.65rem;
     color: var(--text-medium);
