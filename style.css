@@ -1,6 +1,6 @@
 /* GLOBAL STYLES & FONT */
 :root {
-    /* Base for Dark Mode */
+/* Base for Dark Mode */
     --primary-color: #00A36C; /* Deep Emerald Green */
     --secondary-color: #00ffff8a; /* Dark Mode Accent: Vibrant Cyan/Aqua */
     --background-color: #121212;
@@ -134,6 +134,21 @@ NEW AUTH SCREEN STYLES
 .auth-box input:focus {
     border-color: var(--primary-color);
 }
+/* New style for Business Signup Textarea */
+#screen-business-signup textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    background-color: var(--background-color);
+    color: var(--text-dark);
+    font-size: 1rem;
+    outline: none;
+    resize: vertical;
+    transition: border-color 0.3s;
+}
+
 .primary-auth-btn, .secondary-auth-btn {
     width: 100%;
     padding: 12px;
@@ -174,6 +189,52 @@ body.light-mode .secondary-auth-btn {
     margin-bottom: 15px;
     color: var(--text-dark);
 }
+
+/* ======================================================
+BUSINESS SIGNUP FORM ENHANCEMENTS (FILE UPLOAD)
+======================================================
+*/
+
+.file-upload-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: var(--background-color);
+    border: 1px dashed var(--primary-color);
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.file-upload-label {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: background-color 0.3s;
+}
+
+.file-upload-label .material-icons {
+    font-size: 1.2rem;
+    margin-right: 5px;
+}
+
+.file-name-display {
+    flex-grow: 1;
+    margin-left: 10px;
+    font-size: 0.85rem;
+    color: var(--text-medium);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 
 /* ======================================================
 END AUTH SCREEN STYLES
@@ -1092,6 +1153,79 @@ PURCHASE MODAL STYLES
 }
 body.light-mode #reserve-button {
     color: #000000; /* Ensure black text in light mode for contrast */
+}
+
+/* ======================================================
+NEW RESERVATION SUCCESS POPUP STYLES
+======================================================
+*/
+.success-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 101; /* Higher than purchase modal */
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.success-popup-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.success-popup-content {
+    background-color: var(--surface-color);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    width: 80%;
+    max-width: 350px;
+    transform: scale(0.8);
+    animation: bounceIn 0.5s forwards;
+    transition: background-color 0.3s;
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.success-popup-content h3 {
+    font-size: 1.6rem;
+    color: var(--text-light);
+    margin-bottom: 10px;
+    border-bottom: none;
+}
+
+.success-popup-content p {
+    font-size: 1rem;
+    color: var(--text-medium);
+    margin-bottom: 5px;
+}
+
+.pickup-reminder {
+    margin-top: 15px !important;
+    font-style: italic;
+}
+
+.success-popup-content button {
+    margin-top: 25px;
+    width: 100%;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
 }
 
 
