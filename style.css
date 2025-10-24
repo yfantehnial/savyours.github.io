@@ -67,6 +67,120 @@ body {
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
+/* New wrapper to hide content until login */
+#app-content-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ======================================================
+NEW AUTH SCREEN STYLES
+======================================================
+*/
+.auth-screen {
+    display: none; /* Hidden by default, shown by JS */
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--background-color);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    overflow-y: auto;
+}
+.auth-screen.active-screen {
+    display: flex;
+}
+.auth-box {
+    width: 100%;
+    max-width: 350px;
+    padding: 25px;
+    background-color: var(--surface-color);
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+}
+#auth-logo {
+    height: 50px;
+    margin-bottom: 15px;
+}
+.auth-box h1 {
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    font-size: 1.8rem;
+}
+.auth-box p {
+    color: var(--text-medium);
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+.auth-box input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    background-color: var(--background-color);
+    color: var(--text-dark);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.auth-box input:focus {
+    border-color: var(--primary-color);
+}
+.primary-auth-btn, .secondary-auth-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.2s;
+}
+.primary-auth-btn {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+.secondary-auth-btn {
+    background-color: var(--secondary-color);
+    color: var(--secondary-text-color);
+}
+body.light-mode .secondary-auth-btn {
+    color: #000000;
+}
+.auth-box hr {
+    border: none;
+    border-top: 1px solid var(--border-subtle);
+    margin: 20px 0 15px;
+}
+.small-link {
+    font-size: 0.8rem !important;
+    cursor: pointer;
+    color: var(--primary-color) !important;
+    font-weight: 600;
+}
+/* Style to make back button in business signup visible */
+#screen-business-signup .close-modal {
+    position: static;
+    display: block;
+    align-self: flex-start;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+}
+
+/* ======================================================
+END AUTH SCREEN STYLES
+======================================================
+*/
+
+
 /* HEADER (Updated to place slogan underneath) */
 header {
     display: flex;
@@ -734,6 +848,14 @@ body.light-mode .favorite-store button {
     background-color: rgba(0, 163, 108, 0.1); 
 }
 
+.sidebar .logout-link {
+    color: #D32F2F;
+    font-weight: bold;
+}
+.sidebar .logout-link:hover {
+    background-color: rgba(211, 47, 47, 0.1);
+}
+
 .menu-section {
     margin-bottom: 20px;
     padding: 0 0 10px 0;
@@ -996,6 +1118,17 @@ DESKTOP RESPONSIVENESS (Media Query) 💻
         box-shadow: none;
         border-radius: 0;
         display: block; 
+    }
+    
+    /* Ensure app content wrapper respects the desktop container structure */
+    #app-content-wrapper {
+        display: block !important; /* Override inline style from JS */
+    }
+    
+    /* Auth and Business screens should stretch full height on desktop */
+    .auth-screen {
+        height: 100vh;
+        max-height: 900px; 
     }
 
     #content-area {
