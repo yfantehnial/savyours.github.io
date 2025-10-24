@@ -76,8 +76,26 @@
                 <input type="text" placeholder="Contact Person">
                 <input type="email" placeholder="Business Email">
                 <input type="tel" placeholder="Phone Number">
+                
+                <hr style="margin-top: 25px;">
+                
+                <h2>Initial Bag Details</h2>
+                <p style="margin-bottom: 10px; font-size: 0.9rem;">Help us understand the food you typically offer.</p>
+                
+                <input type="text" placeholder="Surprise Bag Name (e.g., Bakery Mix Bag)">
+                <input type="number" placeholder="Regular Bag Value (e.g., 25.00)" min="1" step="0.01">
+                <input type="number" placeholder="Rescue Price (e.g., 8.00)" min="1" step="0.01">
+                <textarea placeholder="Description of what the bag usually contains (e.g., assorted pastries, bread, and sandwiches)" rows="3"></textarea>
+                
+                <div class="file-upload-container">
+                    <label for="business-image-upload" class="file-upload-label">
+                        <span class="material-icons">cloud_upload</span> Upload Business/Food Image
+                    </label>
+                    <input type="file" id="business-image-upload" accept="image/*" style="display: none;">
+                    <span id="file-name-display" class="file-name-display">No file chosen.</span>
+                </div>
 
-                <button class="primary-auth-btn" style="margin-top: 15px;">Submit Registration</button>
+                <button class="primary-auth-btn" style="margin-top: 25px;">Submit Registration</button>
                 <p class="small-link" style="margin-top: 15px;">We will contact you within 48 hours!</p>
             </div>
         </section>
@@ -196,11 +214,11 @@
                                 <h3>Laze Cafe (Serusop)</h3>
                                 <p class="time-left">Time Left: **1h 15m**</p>
                                 <p class="pickup-time">Pickup: 6:00 PM - 6:45 PM</p>
-                                <div class="price-details">
-                                    <span class="price-new">BND 8.50</span>
-                                    <span class="price-old">BND 25.50</span>
-                                    <span class="bags-left">4 Bags Left</span>
-                                </div>
+                            <div class="price-details">
+                                <span class="price-new">BND 8.50</span>
+                                <span class="price-old">BND 25.50</span>
+                                <span class="bags-left">4 Bags Left</span>
+                            </div>
                             </div>
                         </div>
                         
@@ -340,11 +358,22 @@
             <button id="reserve-button" onclick="reserveBag()">Reserve & Pay Now</button>
         </div>
     </div>
+    
+    <div id="success-popup" class="success-popup-overlay">
+        <div class="success-popup-content">
+            <span class="material-icons success-icon">check_circle</span>
+            <h3>Reservation Complete!</h3>
+            <p id="success-message">Your surprise bag is secured!</p>
+            <p class="pickup-reminder">Check the **Orders** tab for your pickup code and details.</p>
+            <button class="primary-auth-btn" onclick="hideSuccessPopup()">Awesome!</button>
+        </div>
+    </div>
+    
     <div id="overlay" onclick="closeNav()"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     
     <script>
-        // Store the map instance and tile layer instance globally
+// Store the map instance and tile layer instance globally
 let mapInstance = null;
 let tileLayerInstance = null; 
 let currentBagData = {}; // Global object to hold the data of the bag currently in the modal
@@ -361,6 +390,19 @@ const storeData = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    // --- NEW: Business Signup Image Upload Display Logic ---
+    const fileInput = document.getElementById('business-image-upload');
+    const fileNameDisplay = document.getElementById('file-name-display');
+    if (fileInput && fileNameDisplay) {
+        fileInput.addEventListener('change', (event) => {
+            if (event.target.files.length > 0) {
+                fileNameDisplay.textContent = event.target.files[0].name;
+            } else {
+                fileNameDisplay.textContent = 'No file chosen.';
+            }
+        });
+    }
 
     // --- NEW: AUTHENTICATION AND SCREEN SWITCHING LOGIC ---
     const appWrapper = document.getElementById('app-content-wrapper');
@@ -551,21 +593,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // If no prayer found today, assume the next is Fajr tomorrow
+        if (!nextPrayer) {
+             nextPrayer = sholatTimes[0]; 
+        }
+
         const sholatElement = document.getElementById('next-sholat');
         if (sholatElement) {
-            if (nextPrayer) {
-                const [hour, minute] = nextPrayer.time.split(':');
-                const displayTime = new Date(0, 0, 0, hour, minute).toLocaleTimeString('en-US', {
-                    hour: 'numeric', minute: 'numeric', hour12: true
-                });
-                sholatElement.textContent = `Next: ${nextPrayer.name} at ${displayTime}`;
-            } else {
-                const [fajrHour, fajrMinute] = sholatTimes[0].time.split(':').map(Number);
-                const fajrDisplayTime = new Date(0, 0, 0, fajrHour, fajrMinute).toLocaleTimeString('en-US', {
-                    hour: 'numeric', minute: 'numeric', hour12: true
-                });
-                sholatElement.textContent = `Next: Fajr Tomorrow at ${fajrDisplayTime}`;
-            }
+            const [hour, minute] = nextPrayer.time.split(':');
+            const displayTime = new Date(0, 0, 0, hour, minute).toLocaleTimeString('en-US', {
+                hour: 'numeric', minute: 'numeric', hour12: true
+            });
+            sholatElement.textContent = `Next: ${nextPrayer.name} at ${displayTime}`;
         }
     }
 
@@ -744,7 +783,12 @@ document.addEventListener('DOMContentLoaded', () => {
         mapInstance.invalidateSize();
     }
     
-    // --- 7. PURCHASE MODAL LOGIC ---
+    // --- 7. PURCHASE MODAL LOGIC (UPDATED reserveBag) ---
+
+    // Function to hide the success popup (NEW)
+    window.hideSuccessPopup = function() {
+        document.getElementById('success-popup').classList.remove('active');
+    }
 
     window.openPurchaseModal = function(bagElement) {
         // Prevent opening the modal for sold-out cards (though click event should be removed by updateCountdown)
@@ -819,11 +863,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const quantity = document.getElementById('modal-quantity-select').value;
         const total = document.getElementById('modal-total-amount').textContent;
 
-        // Mock purchase feedback
-        alert(`Reservation successful! You have secured ${quantity} bag(s) from ${store} for a total of ${total}. Check your orders tab for the pickup code!`);
-        
-        // Close the modal
+        // 1. Close the purchase modal
         closePurchaseModal();
+
+        // 2. Update the success message and show the popup
+        document.getElementById('success-message').innerHTML = 
+            `Your order for **${quantity} bag(s)** from **${store}** for ${total} is secured!`;
+
+        const successPopup = document.getElementById('success-popup');
+        successPopup.classList.add('active');
+        
+        // 3. Automatically close the popup after 4 seconds
+        setTimeout(hideSuccessPopup, 4000);
     }
 
 
@@ -841,6 +892,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.updateModalTotal = updateModalTotal;
     window.reserveBag = reserveBag;
     window.logout = logout; // Exposed logout function
+    window.hideSuccessPopup = hideSuccessPopup; // Exposed new function
 });
     </script>
 </body>
