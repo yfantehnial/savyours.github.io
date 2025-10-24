@@ -501,7 +501,6 @@ h2 {
     height: 120px;
     background: linear-gradient(135deg, var(--surface-color), #282828);
     border-radius: 12px;
-    padding: 18px;
     color: var(--text-light);
     font-weight: 600;
     flex-shrink: 0;
