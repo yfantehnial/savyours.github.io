@@ -988,7 +988,7 @@ body.light-mode .favorite-store button {
 .logout-btn {
     width: 100%;
     background-color: #D32F2F;
-    color: var(--text-light);
+    color: var(--background-color);
     border: none;
     padding: 12px;
     border-radius: 8px;
