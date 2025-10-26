@@ -105,7 +105,7 @@ NEW AUTH SCREEN STYLES
 
 /* Adjust auth-screen padding to account for the fixed top bar */
 #screen-business-signup {
-    padding-top: 60px;
+    padding-top: 550px;
     /* Assuming top bar is about 50px tall + 10px spacing */
 }
 
