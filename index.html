@@ -1,941 +1,1115 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Savyours - Rescue Delicious Food in Brunei</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
 
-<body class="dark-mode">
-
+  <body class="dark-mode">
     <div id="sidebar-menu" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="menu-section">
-            <h3>Settings</h3>
-            <a href="#">Account Details</a>
-            <a href="#">Payment Method</a>
-            <a href="#">Special Rewards</a>
-            <a href="#">Notifications</a>
-            <a href="#" id="theme-toggle-sidebar">
-                Dark Mode <span class="material-icons theme-icon">dark_mode</span>
-            </a>
-        </div>
-        <div class="menu-section">
-            <h3>Community</h3>
-            <a href="#">Recommend a Store</a>
-            <a href="#" onclick="showScreen('business-signup'); closeNav();">Sign Up Food Business</a>
-        </div>
-        <div class="menu-section">
-            <h3>Support</h3>
-            <a href="#">Help with an Order</a>
-            <a href="#">How It Works</a>
-            <a href="#">Careers</a>
-        </div>
-        <div class="menu-section">
-            <h3>Others</h3>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-        </div>
-        <div class="menu-section">
-            <a href="#" class="logout-link" onclick="logout()">
-                <span class="material-icons" style="vertical-align: middle;">logout</span> Log Out
-            </a>
-        </div>
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+        >&times;</a
+      >
+      <div class="menu-section">
+        <h3>Settings</h3>
+        <a href="#">Account Details</a>
+        <a href="#">Payment Method</a>
+        <a href="#">Special Rewards</a>
+        <a href="#">Notifications</a>
+        <a href="#" id="theme-toggle-sidebar">
+          Dark Mode <span class="material-icons theme-icon">dark_mode</span>
+        </a>
+      </div>
+      <div class="menu-section">
+        <h3>Community</h3>
+        <a href="#">Recommend a Store</a>
+        <a href="#" onclick="showScreen('business-signup'); closeNav();"
+          >Sign Up Food Business</a
+        >
+      </div>
+      <div class="menu-section">
+        <h3>Support</h3>
+        <a href="#">Help with an Order</a>
+        <a href="#">How It Works</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="menu-section">
+        <h3>Others</h3>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <div class="menu-section">
+        <a href="#" class="logout-link" onclick="logout()">
+          <span class="material-icons" style="vertical-align: middle;"
+            >logout</span
+          >
+          Log Out
+        </a>
+      </div>
     </div>
 
     <div id="app-container">
+      <section id="screen-auth" class="auth-screen active-screen">
+        <div class="auth-box">
+          <img src="logo.png" alt="Savyours Logo" id="auth-logo" />
+          <h1>Welcome to JimatBah</h1>
+          <p>
+            Rescue delicious food, save money, and fight food waste in Brunei.
+          </p>
 
-        <section id="screen-auth" class="auth-screen active-screen">
-            <div class="auth-box">
-                <img src="logo.png" alt="Savyours Logo" id="auth-logo">
-                <h1>Welcome to JimatBah</h1>
-                <p>Rescue delicious food, save money, and fight food waste in Brunei.</p>
+          <input type="email" id="auth-email" placeholder="Email Address" />
+          <input type="password" id="auth-password" placeholder="Password" />
 
-                <input type="email" id="auth-email" placeholder="Email Address">
-                <input type="password" id="auth-password" placeholder="Password">
+          <button class="primary-auth-btn" onclick="login()">Log In</button>
+          <button class="secondary-auth-btn" onclick="login()">Sign Up</button>
 
-                <button class="primary-auth-btn" onclick="login()">Log In</button>
-                <button class="secondary-auth-btn" onclick="login()">Sign Up</button>
-
-                <hr>
-                <p class="small-link" onclick="showScreen('business-signup')">Are you a food business? <strong>Sign Up Here</strong>
-                </p>
-            </div>
-        </section>
-
-        <section id="screen-business-signup" class="auth-screen">
-            <div class="top-bar-business-signup">
-                <span class="material-icons back-icon" onclick="showScreen('auth')">arrow_back</span>
-                <div id="sholat-time-signup" class="brunei-feature">
-                    <span class="material-icons">mosque</span>
-                    <span id="next-sholat-signup">Next Prayer: Loading...</span>
-                </div>
-            </div>
-
-            <div class="auth-box">
-                <h1>Rescue Food With Us</h1>
-                <p>Register your food business to start saving surplus food and earning revenue.</p>
-
-                <input type="text" placeholder="Business Name">
-                <input type="text" placeholder="Contact Person">
-                <input type="email" placeholder="Business Email">
-                <input type="tel" placeholder="Phone Number">
-
-                <hr style="margin-top: 25px;">
-
-                <h2>Initial Bag Details</h2>
-                <p style="margin-bottom: 10px; font-size: 0.9rem;">Help us understand the food you typically offer.</p>
-
-                <input type="text" placeholder="Item Name (e.g., Bakery Mix Bag)">
-                <input type="number" placeholder="Regular Bag Value (e.g., 25.00)" min="1" step="0.01">
-                <input type="number" placeholder="Rescue Price (e.g., 8.00)" min="1" step="0.01">
-                <textarea placeholder="Description of what the bag usually contains (e.g., assorted pastries, bread, and sandwiches)" rows="3"></textarea>
-
-                <div class="file-upload-container">
-                    <label for="business-image-upload" class="file-upload-label">
-                        <span class="material-icons">cloud_upload</span> Upload Business/Food Image
-                    </label>
-                    <input type="file" id="business-image-upload" accept="image/*" style="display: none;">
-                    <span id="file-name-display" class="file-name-display">No file chosen.</span>
-                </div>
-
-                <button class="primary-auth-btn" style="margin-top: 25px;">Submit To Display</button>
-            </div>
-        </section>
-
-        <div id="app-content-wrapper" style="display: none;">
-            <header>
-                <div class="header-top-row">
-                    <span class="material-icons menu-icon" onclick="openNav()">menu</span>
-                    <div id="savyours-logo-main">
-                        <img src="logo.png" alt="Savyours Logo" id="app-logo">
-                    </div>
-                    <div class="header-icons">
-                        <div id="sholat-time" class="brunei-feature">
-                        <span class="material-icons">mosque</span>
-                        <span id="next-sholat">Next Prayer: Maghrib at 6:15 PM</span>
-                    </div>
-
-                        <span class="material-icons" id="theme-toggle-header">dark_mode</span>
-                        <span class="material-icons info-icon-mobile">info</span>
-                    </div>
-                </div>
-                <p id="savyours-slogan">save money, enjoy great food, and help the planet - all before dinner!</p>
-            </header>
-
-            <main id="content-area">
-
-                <section id="screen-discover" class="app-screen">
-                    <div id="location-bar">
-                        <span class="material-icons icon-pin">location_on</span>
-                        <input type="text" placeholder="Enter your location in Brunei..." value="Bandar Seri Begawan">
-                        <span class="material-icons icon-search">search</span>
-                    </div>
-
-                    <h2>Featured Rescues Today</h2>
-                    <div id="banner-carousel">
-                        <img src="1.png" class="banner-card promo">
-                        <img src="2.png" class="banner-card promo">
-                        <img src="3.png" class="banner-card promo">
-                    </div>
-
-                    <h2>Available Surprise Bags</h2>
-
-                    <div id="available-bags-list">
-                        <div class="bag-card" data-screen="bag-details" data-store-name="Comfort Greens Cafe"
-                            data-location="Gadong" data-available="true" data-cutoff-time="18:30" data-price-new="4.00"
-                            data-price-old="6.50" data-pickup-time="6:00 PM - 6:30 PM"
-                            onclick="openPurchaseModal(this)">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4xCYarsb8rvlhM_2AqAu81tD7BKkXxOuHUw&s" alt="Comfort Greens Cafe Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/00A36C/ffffff?text=Cafe+Bag';">
-                            <div class="bag-info">
-                                <h3>Comfort Greens Cafe (Gadong)</h3>
-                                <p class="time-left">Time Left: <strong>1h 30m</strong></p>
-                                <p class="pickup-time">Pickup: 6:00 PM - 6:30 PM</p>
-                                <div class="price-details">
-                                    <span class="price-new">BND 4.00</span>
-                                    <span class="price-old">BND 6.50</span>
-                                    <span class="bags-left">2 Bags Left</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bag-card sold-out-card" data-screen="bag-details"
-                            data-store-name="The Little Leaf Bakery" data-location="Kiulap" data-available="false"
-                            data-cutoff-time="19:00" data-price-new="9.00" data-price-old="15.00"
-                            data-pickup-time="7:30 PM - 8:00 PM">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-oNMtLXPnx3zVEhvTagljuLhE6Ld5tUK9wdv0fdLvt_rm4grwOqDPDmAQ0pnYbkD9T0I&usqp=CAU" alt="Little Leaf Bakery Surprise Bag" class="bag-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/A00000/ffffff?text=Sold+Out';">
-                            <div class="bag-info">
-                                <h3>The Little Leaf Bakery (Kiulap)</h3>
-                                <p class="time-left sold-out-text">Time Left: <strong>SOLD OUT</strong></p>
-                                <p class="pickup-time">Pickup: 7:30 PM - 8:00 PM</p>
-                                <div class="price-details">
-                                    <span class="price-new">BND 6.00</span>
-                                    <span class="price-old">BND 15.00</span>
-                                    <span class="bags-left sold-out">Sold Out</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bag-card" data-screen="bag-details" data-store-name="Mum Bakery"
-                            data-location="Manggis" data-available="true" data-cutoff-time="17:00" data-price-new="2.50"
-                            data-price-old="3.00" data-pickup-time="4:30 PM - 5:00 PM"
-                            onclick="openPurchaseModal(this)">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxtyjI7ygYEfO091TuVM3CxVjAPPX4ftxu7A&s" alt="Mum Bakery Surprise Bag" class="bag-image">
-                            <div class="bag-info">
-                                <h3>Mum Bakery (Manggis)</h3>
-                                <p class="time-left">Time Left: <strong>3h 30m</strong></p>
-                                <p class="pickup-time">Pickup: 4:30 PM - 5:00 PM</p>
-                                <div class="price-details">
-                                    <span class="price-new">BND 2.50</span>
-                                    <span class="price-old">BND 3.00</span>
-                                    <span class="bags-left">3 Bags Left</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bag-card" data-screen="bag-details" data-store-name="Le Doux Patisserie"
-                            data-location="Kiarong" data-available="true" data-cutoff-time="20:00"
-                            data-price-new="6.00" data-price-old="10.50" data-pickup-time="8:00 PM - 8:30 PM"
-                            onclick="openPurchaseModal(this)">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs807k5KeRvcHuk5OwBfyHb2lF-HfGSEtzdQ&s" alt="Le Doux Patisserie Bag" class="bag-image">
-                            <div class="bag-info">
-                                <h3>Le Doux Patisserie (Kiarong)</h3>
-                                <p class="time-left">Time Left: <strong>3h 05m</strong></p>
-                                <p class="pickup-time">Pickup: 8:00 PM - 8:30 PM</p>
-                                <div class="price-details">
-                                    <span class="price-new">BND 6.00</span>
-                                    <span class="price-old">BND 10.50</span>
-                                    <span class="bags-left">1 Bag Left</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bag-card sold-out-card" data-screen="bag-details" data-store-name="Coffeeby7t1"
-                            data-location="Tanjung Bunut" data-available="false" data-cutoff-time="14:00"
-                            data-price-new="4.75" data-price-old="6.50" data-pickup-time="2:00 PM - 2:30 PM">
-                            <img src="https://images.deliveryhero.io/image/fd-kh/products/938085.jpg?width=%s" alt="Coffeeby7t1 Surprise Bag" class="bag-image">
-                            <div class="bag-info">
-                                <h3>Coffeeby7t1 (Tanjung Bunut)</h3>
-                                <p class="time-left sold-out-text">Time Left: <strong>SOLD OUT</strong></p>
-                                <p class="pickup-time">Pickup: 2:00 PM - 2:30 PM</p>
-                                <div class="price-details">
-                                    <span class="price-new">BND 4.75</span>
-                                    <span class="price-old">BND 6.50</span>
-                                    <span class="bags-left sold-out">Sold Out</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bag-card" data-screen="bag-details" data-store-name="Laze Cafe"
-                            data-location="Serusop" data-available="true" data-cutoff-time="18:45" data-price-new="7.00"
-                            data-price-old="23.00" data-pickup-time="6:00 PM - 6:45 PM"
-                            onclick="openPurchaseModal(this)">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL8aFozf_9XIyfXV5Zgln7t7DCa3fm3rR9sA&s" alt="Laze Cafe Surprise Bag" class="bag-image">
-                            <div class="bag-info">
-                                <h3>Laze Cafe (Serusop)</h3>
-                                <p class="time-left">Time Left: <strong>1h 15m</strong></p>
-                                <p class="pickup-time">Pickup: 6:00 PM - 6:45 PM</p>
-                                <div class="price-details">
-                                    <span class="price-new">BND 7.00</span>
-                                    <span class="price-old">BND 15</span>
-                                    <span class="bags-left">4 Bags Left</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bag-card" data-screen="bag-details" data-store-name="Namu Korean BBQ and Cafe"
-                            data-location="Bandar" data-available="true" data-cutoff-time="21:00" data-price-new="15.00"
-                            data-price-old="45.00" data-pickup-time="9:00 PM - 9:30 PM"
-                            onclick="openPurchaseModal(this)">
-                            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2d/93/17/45/sundubu-jjigae-is-a-spicy.jpg?w=900&h=500&s=1" alt="Namu Korean BBQ Surprise Bag" class="bag-image">
-                            <div class="bag-info">
-                                <h3>Namu Korean BBQ and Cafe (Bandar)</h3>
-                                <p class="time-left">Time Left: <strong>1h 00m</strong></p>
-                                <p class="pickup-time">Pickup: 9:00 PM - 9:30 PM</p>
-                                <div class="price-details">
-                                    <span class="price-new">BND 15.00</span>
-                                    <span class="price-old">BND 45.00</span>
-                                    <span class="bags-left">2 Bags Left</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="screen-map" class="app-screen">
-                    <h2>Bags Near You (Interactive Map)</h2>
-                    <div id="interactive-map-full" class="map-view"></div>
-                </section>
-
-                <section id="screen-favorites" class="app-screen">
-                    <h2>Your Favorite Rescuers 💖</h2>
-                    <div class="bag-card favorite-store">
-                        <h3>Comfort Greens Cafe (Gadong)</h3>
-                        <p class="store-status">2 Bags available today!</p>
-                        <button>View Bag</button>
-                    </div>
-                    <div class="bag-card favorite-store">
-                        <h3>Mum Bakery (Manggis)</h3>
-                        <p class="store-status">3 Bags available today!</p>
-                        <button>View Bag</button>
-                    </div>
-                    <div class="bag-card favorite-store faded">
-                        <h3>The Cakery Brunei</h3>
-                        <p class="store-status">No bags currently available.</p>
-                    </div>
-                </section>
-
-                <section id="screen-orders" class="app-screen">
-                    <h2>My Orders</h2>
-                    <div id="voucher-section">
-                        <h3>Vouchers & Promos</h3>
-                        <input type="text" id="voucher-input" placeholder="Enter voucher code (e.g., SAVEYOUR5)">
-                        <button onclick="applyVoucher()">Apply</button>
-                        <p class="voucher-status"></p>
-                    </div>
-
-                    <h3 class="order-header">Active Order (1)</h3>
-                    <div class="order-card active">
-                        <p>Order #BN00123</p>
-                        <h4>Comfort Greens Cafe (Gadong)</h4>
-                        <p>Pickup Window: <strong>Today, 6:00 PM - 6:30 PM</strong></p>
-                        <p class="order-total">Total Paid: BND 4.00</p>
-                        <button>View Pickup Code</button>
-                    </div>
-
-                    <h3 class="order-header">Past Orders (2)</h3>
-                    <div class="order-card past">
-                        <p>Order #BN00122 - Completed</p>
-                        <h4>Sweet Treats Bakery (Gadong)</h4>
-                        <p class="order-date">Date: 04 Oct 2025</p>
-                    </div>
-                </section>
-
-                <section id="screen-profile" class="app-screen">
-                    <h2>My Profile</h2>
-
-                    <div id="impact-section">
-                        <h3>Your Savings & Impact 🌍</h3>
-                        <p>Total Bags Rescued: <span id="bags-count">25</span></p>
-                        <p>Money Saved: <span id="money-saved">BND 125.00</span></p>
-                        <p>CO₂e Avoided: <span id="co2-avoided">67.5 kg</span></p>
-                        <small>The equivalent of driving a car 250 km!</small>
-                    </div>
-
-                    <div class="profile-links">
-                        <h3>Account & Settings</h3>
-                        <p onclick="openNav()">Account Details <span class="material-icons">chevron_right</span></p>
-                        <p onclick="openNav()">Payment Method <span class="material-icons">chevron_right</span></p>
-                        <button class="logout-btn" onclick="logout()">Log Out</button>
-                    </div>
-                </section>
-
-            </main>
-
-            <nav id="bottom-nav">
-                <a href="#" class="nav-item active" data-target="discover">
-                    <span class="material-icons">explore</span>
-                    <span class="nav-label">Discover</span>
-                </a>
-                <a href="#" class="nav-item" data-target="map">
-                    <span class="material-icons">map</span>
-                    <span class="nav-label">Map</span>
-                </a>
-                <a href="#" class="nav-item" data-target="favorites">
-                    <span class="material-icons">favorite_border</span>
-                    <span class="nav-label">Favorites</span>
-                </a>
-                <a href="#" class="nav-item" data-target="orders">
-                    <span class="material-icons">receipt_long</span>
-                    <span class="nav-label">Orders</span>
-                </a>
-                <a href="#" class="nav-item" data-target="profile">
-                    <span class="material-icons">person</span>
-                    <span class="nav-label">Profile</span>
-                </a>
-            </nav>
+          <hr />
+          <p class="small-link" onclick="showScreen('business-signup')">
+            Are you a food business? <strong>Sign Up Here</strong>
+          </p>
         </div>
+      </section>
+
+      <section id="screen-business-signup" class="auth-screen">
+        <div class="top-bar-business-signup">
+          <span class="material-icons back-icon" onclick="showScreen('auth')"
+            >arrow_back</span
+          >
+          <div id="sholat-time-signup" class="brunei-feature">
+            <span class="material-icons">mosque</span>
+            <span id="next-sholat-signup">Next Prayer: Loading...</span>
+          </div>
+          <span class="material-icons" id="theme-toggle-header">dark_mode</span>
+        </div>
+
+        <div class="auth-box">
+          <h1>Rescue Food With Us</h1>
+          <p>
+            Register your food business to start saving surplus food and earning
+            revenue.
+          </p>
+
+          <input type="text" placeholder="Business Name" />
+          <input type="text" placeholder="Contact Person" />
+          <input type="email" placeholder="Business Email" />
+          <input type="tel" placeholder="Phone Number" />
+
+          <hr style="margin-top: 25px;" />
+
+          <h2>Initial Bag Details</h2>
+          <p style="margin-bottom: 10px; font-size: 0.9rem;">
+            Help us understand the food you typically offer.
+          </p>
+
+          <input type="text" placeholder="Item Name (e.g., Bakery Mix Bag)" />
+          <input
+            type="number"
+            placeholder="Regular Bag Value (e.g., 25.00)"
+            min="1"
+            step="0.01"
+          />
+          <input
+            type="number"
+            placeholder="Rescue Price (e.g., 8.00)"
+            min="1"
+            step="0.01"
+          />
+          <textarea
+            placeholder="Description of what the bag usually contains (e.g., assorted pastries, bread, and sandwiches)"
+            rows="3"
+          ></textarea>
+
+          <div class="file-upload-container">
+            <label for="business-image-upload" class="file-upload-label">
+              <span class="material-icons">cloud_upload</span> Upload
+              Business/Food Image
+            </label>
+            <input
+              type="file"
+              id="business-image-upload"
+              accept="image/*"
+              style="display: none;"
+            />
+            <span id="file-name-display" class="file-name-display"
+              >No file chosen.</span
+            >
+          </div>
+
+          <button class="primary-auth-btn" style="margin-top: 25px;">
+            Submit To Display
+          </button>
+        </div>
+      </section>
+
+      <div id="app-content-wrapper" style="display: none;">
+        <header>
+          <div class="header-top-row">
+            <span class="material-icons menu-icon" onclick="openNav()"
+              >menu</span
+            >
+            <div id="savyours-logo-main">
+              <img src="logo.png" alt="Savyours Logo" id="app-logo" />
+            </div>
+            <div class="header-icons">
+              <div id="sholat-time" class="brunei-feature">
+                <span class="material-icons">mosque</span>
+                <span id="next-sholat">Next Prayer: Maghrib at 6:15 PM</span>
+              </div>
+
+              <span class="material-icons" id="theme-toggle-header"
+                >dark_mode</span
+              >
+            </div>
+          </div>
+          <p id="savyours-slogan">
+            save money, enjoy great food, and help the planet - all before
+            dinner!
+          </p>
+        </header>
+
+        <main id="content-area">
+          <section id="screen-discover" class="app-screen">
+            <div id="location-bar">
+              <span class="material-icons icon-pin">location_on</span>
+              <input
+                type="text"
+                placeholder="Enter your location in Brunei..."
+                value="Bandar Seri Begawan"
+              />
+              <span class="material-icons icon-search">search</span>
+            </div>
+
+            <h2>Featured Rescues Today</h2>
+            <div id="banner-carousel">
+              <img src="1.png" class="banner-card promo" />
+              <img src="2.png" class="banner-card promo" />
+              <img src="3.png" class="banner-card promo" />
+            </div>
+
+            <h2>Available Surprise Bags</h2>
+
+            <div id="available-bags-list">
+              <div
+                class="bag-card"
+                data-screen="bag-details"
+                data-store-name="Comfort Greens Cafe"
+                data-location="Gadong"
+                data-available="true"
+                data-cutoff-time="18:30"
+                data-price-new="4.00"
+                data-price-old="6.50"
+                data-pickup-time="6:00 PM - 6:30 PM"
+                onclick="openPurchaseModal(this)"
+              >
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4xCYarsb8rvlhM_2AqAu81tD7BKkXxOuHUw&s"
+                  alt="Comfort Greens Cafe Surprise Bag"
+                  class="bag-image"
+                  onerror="this.onerror=null;this.src='https://placehold.co/120x120/00A36C/ffffff?text=Cafe+Bag';"
+                />
+                <div class="bag-info">
+                  <h3>Comfort Greens Cafe (Gadong)</h3>
+                  <p class="time-left">Time Left: <strong>1h 30m</strong></p>
+                  <p class="pickup-time">Pickup: 6:00 PM - 6:30 PM</p>
+                  <div class="price-details">
+                    <span class="price-new">BND 4.00</span>
+                    <span class="price-old">BND 6.50</span>
+                    <span class="bags-left">2 Bags Left</span>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bag-card sold-out-card"
+                data-screen="bag-details"
+                data-store-name="The Little Leaf Bakery"
+                data-location="Kiulap"
+                data-available="false"
+                data-cutoff-time="19:00"
+                data-price-new="9.00"
+                data-price-old="15.00"
+                data-pickup-time="7:30 PM - 8:00 PM"
+              >
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-oNMtLXPnx3zVEhvTagljuLhE6Ld5tUK9wdv0fdLvt_rm4grwOqDPDmAQ0pnYbkD9T0I&usqp=CAU"
+                  alt="Little Leaf Bakery Surprise Bag"
+                  class="bag-image"
+                  onerror="this.onerror=null;this.src='https://placehold.co/120x120/A00000/ffffff?text=Sold+Out';"
+                />
+                <div class="bag-info">
+                  <h3>The Little Leaf Bakery (Kiulap)</h3>
+                  <p class="time-left sold-out-text">
+                    Time Left: <strong>SOLD OUT</strong>
+                  </p>
+                  <p class="pickup-time">Pickup: 7:30 PM - 8:00 PM</p>
+                  <div class="price-details">
+                    <span class="price-new">BND 6.00</span>
+                    <span class="price-old">BND 15.00</span>
+                    <span class="bags-left sold-out">Sold Out</span>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bag-card"
+                data-screen="bag-details"
+                data-store-name="Mum Bakery"
+                data-location="Manggis"
+                data-available="true"
+                data-cutoff-time="17:00"
+                data-price-new="2.50"
+                data-price-old="3.00"
+                data-pickup-time="4:30 PM - 5:00 PM"
+                onclick="openPurchaseModal(this)"
+              >
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxtyjI7ygYEfO091TuVM3CxVjAPPX4ftxu7A&s"
+                  alt="Mum Bakery Surprise Bag"
+                  class="bag-image"
+                />
+                <div class="bag-info">
+                  <h3>Mum Bakery (Manggis)</h3>
+                  <p class="time-left">Time Left: <strong>3h 30m</strong></p>
+                  <p class="pickup-time">Pickup: 4:30 PM - 5:00 PM</p>
+                  <div class="price-details">
+                    <span class="price-new">BND 2.50</span>
+                    <span class="price-old">BND 3.00</span>
+                    <span class="bags-left">3 Bags Left</span>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bag-card"
+                data-screen="bag-details"
+                data-store-name="Le Doux Patisserie"
+                data-location="Kiarong"
+                data-available="true"
+                data-cutoff-time="20:00"
+                data-price-new="6.00"
+                data-price-old="10.50"
+                data-pickup-time="8:00 PM - 8:30 PM"
+                onclick="openPurchaseModal(this)"
+              >
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs807k5KeRvcHuk5OwBfyHb2lF-HfGSEtzdQ&s"
+                  alt="Le Doux Patisserie Bag"
+                  class="bag-image"
+                />
+                <div class="bag-info">
+                  <h3>Le Doux Patisserie (Kiarong)</h3>
+                  <p class="time-left">Time Left: <strong>3h 05m</strong></p>
+                  <p class="pickup-time">Pickup: 8:00 PM - 8:30 PM</p>
+                  <div class="price-details">
+                    <span class="price-new">BND 6.00</span>
+                    <span class="price-old">BND 10.50</span>
+                    <span class="bags-left">1 Bag Left</span>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bag-card sold-out-card"
+                data-screen="bag-details"
+                data-store-name="Coffeeby7t1"
+                data-location="Tanjung Bunut"
+                data-available="false"
+                data-cutoff-time="14:00"
+                data-price-new="4.75"
+                data-price-old="6.50"
+                data-pickup-time="2:00 PM - 2:30 PM"
+              >
+                <img
+                  src="https://images.deliveryhero.io/image/fd-kh/products/938085.jpg?width=%s"
+                  alt="Coffeeby7t1 Surprise Bag"
+                  class="bag-image"
+                />
+                <div class="bag-info">
+                  <h3>Coffeeby7t1 (Tanjung Bunut)</h3>
+                  <p class="time-left sold-out-text">
+                    Time Left: <strong>SOLD OUT</strong>
+                  </p>
+                  <p class="pickup-time">Pickup: 2:00 PM - 2:30 PM</p>
+                  <div class="price-details">
+                    <span class="price-new">BND 4.75</span>
+                    <span class="price-old">BND 6.50</span>
+                    <span class="bags-left sold-out">Sold Out</span>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bag-card"
+                data-screen="bag-details"
+                data-store-name="Laze Cafe"
+                data-location="Serusop"
+                data-available="true"
+                data-cutoff-time="18:45"
+                data-price-new="7.00"
+                data-price-old="23.00"
+                data-pickup-time="6:00 PM - 6:45 PM"
+                onclick="openPurchaseModal(this)"
+              >
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL8aFozf_9XIyfXV5Zgln7t7DCa3fm3rR9sA&s"
+                  alt="Laze Cafe Surprise Bag"
+                  class="bag-image"
+                />
+                <div class="bag-info">
+                  <h3>Laze Cafe (Serusop)</h3>
+                  <p class="time-left">Time Left: <strong>1h 15m</strong></p>
+                  <p class="pickup-time">Pickup: 6:00 PM - 6:45 PM</p>
+                  <div class="price-details">
+                    <span class="price-new">BND 7.00</span>
+                    <span class="price-old">BND 15</span>
+                    <span class="bags-left">4 Bags Left</span>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bag-card"
+                data-screen="bag-details"
+                data-store-name="Namu Korean BBQ and Cafe"
+                data-location="Bandar"
+                data-available="true"
+                data-cutoff-time="21:00"
+                data-price-new="15.00"
+                data-price-old="45.00"
+                data-pickup-time="9:00 PM - 9:30 PM"
+                onclick="openPurchaseModal(this)"
+              >
+                <img
+                  src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2d/93/17/45/sundubu-jjigae-is-a-spicy.jpg?w=900&h=500&s=1"
+                  alt="Namu Korean BBQ Surprise Bag"
+                  class="bag-image"
+                />
+                <div class="bag-info">
+                  <h3>Namu Korean BBQ and Cafe (Bandar)</h3>
+                  <p class="time-left">Time Left: <strong>1h 00m</strong></p>
+                  <p class="pickup-time">Pickup: 9:00 PM - 9:30 PM</p>
+                  <div class="price-details">
+                    <span class="price-new">BND 15.00</span>
+                    <span class="price-old">BND 45.00</span>
+                    <span class="bags-left">2 Bags Left</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="screen-map" class="app-screen">
+            <h2>Bags Near You (Interactive Map)</h2>
+            <div id="interactive-map-full" class="map-view"></div>
+          </section>
+
+          <section id="screen-favorites" class="app-screen">
+            <h2>Your Favorite Rescuers 💖</h2>
+            <div class="bag-card favorite-store">
+              <h3>Comfort Greens Cafe (Gadong)</h3>
+              <p class="store-status">2 Bags available today!</p>
+              <button>View Bag</button>
+            </div>
+            <div class="bag-card favorite-store">
+              <h3>Mum Bakery (Manggis)</h3>
+              <p class="store-status">3 Bags available today!</p>
+              <button>View Bag</button>
+            </div>
+            <div class="bag-card favorite-store faded">
+              <h3>The Cakery Brunei</h3>
+              <p class="store-status">No bags currently available.</p>
+            </div>
+          </section>
+
+          <section id="screen-orders" class="app-screen">
+            <h2>My Orders</h2>
+            <div id="voucher-section">
+              <h3>Vouchers & Promos</h3>
+              <input
+                type="text"
+                id="voucher-input"
+                placeholder="Enter voucher code (e.g., SAVEYOUR5)"
+              />
+              <button onclick="applyVoucher()">Apply</button>
+              <p class="voucher-status"></p>
+            </div>
+
+            <h3 class="order-header">Active Order (1)</h3>
+            <div class="order-card active">
+              <p>Order #BN00123</p>
+              <h4>Comfort Greens Cafe (Gadong)</h4>
+              <p>Pickup Window: <strong>Today, 6:00 PM - 6:30 PM</strong></p>
+              <p class="order-total">Total Paid: BND 4.00</p>
+              <button>View Pickup Code</button>
+            </div>
+
+            <h3 class="order-header">Past Orders (2)</h3>
+            <div class="order-card past">
+              <p>Order #BN00122 - Completed</p>
+              <h4>Sweet Treats Bakery (Gadong)</h4>
+              <p class="order-date">Date: 04 Oct 2025</p>
+            </div>
+          </section>
+
+          <section id="screen-profile" class="app-screen">
+            <h2>My Profile</h2>
+
+            <div id="impact-section">
+              <h3>Your Savings & Impact 🌍</h3>
+              <p>Total Bags Rescued: <span id="bags-count">25</span></p>
+              <p>Money Saved: <span id="money-saved">BND 125.00</span></p>
+              <p>CO₂e Avoided: <span id="co2-avoided">67.5 kg</span></p>
+              <small>The equivalent of driving a car 250 km!</small>
+            </div>
+
+            <div class="profile-links">
+              <h3>Account & Settings</h3>
+              <p onclick="openNav()">
+                Account Details
+                <span class="material-icons">chevron_right</span>
+              </p>
+              <p onclick="openNav()">
+                Payment Method <span class="material-icons">chevron_right</span>
+              </p>
+              <button class="logout-btn" onclick="logout()">Log Out</button>
+            </div>
+          </section>
+        </main>
+
+        <nav id="bottom-nav">
+          <a href="#" class="nav-item active" data-target="discover">
+            <span class="material-icons">explore</span>
+            <span class="nav-label">Discover</span>
+          </a>
+          <a href="#" class="nav-item" data-target="map">
+            <span class="material-icons">map</span>
+            <span class="nav-label">Map</span>
+          </a>
+          <a href="#" class="nav-item" data-target="favorites">
+            <span class="material-icons">favorite_border</span>
+            <span class="nav-label">Favorites</span>
+          </a>
+          <a href="#" class="nav-item" data-target="orders">
+            <span class="material-icons">receipt_long</span>
+            <span class="nav-label">Orders</span>
+          </a>
+          <a href="#" class="nav-item" data-target="profile">
+            <span class="material-icons">person</span>
+            <span class="nav-label">Profile</span>
+          </a>
+        </nav>
+      </div>
     </div>
 
     <div id="purchase-modal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="material-icons close-modal" onclick="closePurchaseModal()">close</span>
-            <h2>Confirm Your Rescue</h2>
-            <div id="modal-bag-info">
-                <h3 id="modal-store-name">Store Name</h3>
-                <p id="modal-location-time"></p>
-                <div class="price-details-modal">
-                    <p>You Pay: <span id="modal-price-new" class="price-new-modal">BND 0.00</span></p>
-                    <p>Original Value: <span id="modal-price-old" class="price-old-modal">BND 0.00</span></p>
-                    <p>Quantity: <select id="modal-quantity-select" onchange="updateModalTotal()">
-                        <option value="1">1 Bag</option>
-                        <option value="2">2 Bags</option>
-                    </select></p>
-                </div>
-                <div id="modal-note">
-                    <p><span class="material-icons">info</span> <strong>Note:</strong> Bags contain
-                        perfectly good food that would otherwise go to waste.</p>
-                </div>
-                <div id="modal-total-section">
-                    <h4>Total Due: <span id="modal-total-amount">BND 0.00</span></h4>
-                </div>
-            </div>
-            <button id="reserve-button" onclick="reserveBag()">Reserve & Pay Now</button>
+      <div class="modal-content">
+        <span class="material-icons close-modal" onclick="closePurchaseModal()"
+          >close</span
+        >
+        <h2>Confirm Your Rescue</h2>
+        <div id="modal-bag-info">
+          <h3 id="modal-store-name">Store Name</h3>
+          <p id="modal-location-time"></p>
+          <div class="price-details-modal">
+            <p>
+              You Pay:
+              <span id="modal-price-new" class="price-new-modal">BND 0.00</span>
+            </p>
+            <p>
+              Original Value:
+              <span id="modal-price-old" class="price-old-modal">BND 0.00</span>
+            </p>
+            <p>
+              Quantity:
+              <select id="modal-quantity-select" onchange="updateModalTotal()">
+                <option value="1">1 Bag</option>
+                <option value="2">2 Bags</option>
+              </select>
+            </p>
+          </div>
+          <div id="modal-note">
+            <p>
+              <span class="material-icons">info</span>
+              <strong>Note:</strong> Bags contain perfectly good food that would
+              otherwise go to waste.
+            </p>
+          </div>
+          <div id="modal-total-section">
+            <h4>Total Due: <span id="modal-total-amount">BND 0.00</span></h4>
+          </div>
         </div>
+        <button id="reserve-button" onclick="reserveBag()">
+          Reserve & Pay Now
+        </button>
+      </div>
     </div>
 
     <div id="success-popup" class="success-popup-overlay">
-        <div class="success-popup-content">
-<img src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUyZmRnbWgxdmtoNnhvbnJ4MWpxbzF2cjJqZXFybnQ0aTE5MHUzYmc4bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/Ph5aF5qbxRZqRxV3E6/giphy.gif" width="100px" height="100px" >
-            <h3>Reservation Complete!</h3>
-            <p id="success-message">Your surprise bag is secured!</p>
-            <p class="pickup-reminder">Check the <strong>Orders</strong> tab for your pickup code and details.</p>
-            <button class="primary-auth-btn" onclick="hideSuccessPopup()">Awesome!</button>
-        </div>
+      <div class="success-popup-content">
+        <img
+          src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUyZmRnbWgxdmtoNnhvbnJ4MWpxbzF2cjJqZXFybnQ0aTE5MHUzYmc4bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/Ph5aF5qbxRZqRxV3E6/giphy.gif"
+          width="100px"
+          height="100px"
+        />
+        <h3>Reservation Complete!</h3>
+        <p id="success-message">Your surprise bag is secured!</p>
+        <p class="pickup-reminder">
+          Check the <strong>Orders</strong> tab for your pickup code and
+          details.
+        </p>
+        <button class="primary-auth-btn" onclick="hideSuccessPopup()">
+          Awesome!
+        </button>
+      </div>
     </div>
 
     <div id="overlay" onclick="closeNav()"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
     <script>
-        // Store the map instance and tile layer instance globally
-let mapInstance = null;
-let tileLayerInstance = null; 
-let currentBagData = {}; // Global object to hold the data of the bag currently in the modal
-
-// Store Data (Coordinates approximate locations near BSB, Brunei)
-const storeData = [
-    { name: 'Comfort Greens Cafe (Gadong)', lat: 4.9200, lon: 114.9200, status: '2 Bags Left', price: 'BND 4.00', isSoldOut: false },
-    { name: 'The Little Leaf Bakery (Kiulap)', lat: 4.9090, lon: 114.9350, status: 'Sold Out', price: 'BND 9.00', isSoldOut: true },
-    { name: 'Mum Bakery (Manggis)', lat: 4.9350, lon: 114.9580, status: '3 Bags Left', price: 'BND 2.50', isSoldOut: false },
-    { name: 'Le Doux Patisserie (Kiarong)', lat: 4.9050, lon: 114.9280, status: '1 Bag Left', price: 'BND 6.00', isSoldOut: false },
-    { name: 'Coffeeby7t1 (Tanjung Bunut)', lat: 4.9300, lon: 114.8800, status: 'Sold Out', price: 'BND 4.75', isSoldOut: true },
-    { name: 'Laze Cafe (Serusop)', lat: 4.9600, lon: 114.9500, status: '4 Bags Left', price: 'BND 7.00', isSoldOut: false },
-    { name: 'Namu Korean BBQ and Cafe (Bandar)', lat: 4.8980, lon: 114.9400, status: '2 Bags Left', price: 'BND 15.00', isSoldOut: false }
-];
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    // --- NEW: Business Signup Image Upload Display Logic ---
-    const fileInput = document.getElementById('business-image-upload');
-    const fileNameDisplay = document.getElementById('file-name-display');
-    if (fileInput && fileNameDisplay) {
-        fileInput.addEventListener('change', (event) => {
-            if (event.target.files.length > 0) {
-                fileNameDisplay.textContent = event.target.files[0].name;
-            } else {
-                fileNameDisplay.textContent = 'No file chosen.';
-            }
-        });
-    }
-
-    // --- NEW: AUTHENTICATION AND SCREEN SWITCHING LOGIC ---
-    const appWrapper = document.getElementById('app-content-wrapper');
-    const authScreen = document.getElementById('screen-auth');
-    const businessScreen = document.getElementById('screen-business-signup');
-    const appScreens = document.querySelectorAll('.app-screen');
-    const allScreens = document.querySelectorAll('#app-container > section'); // Auth and Business screens
-
-    /**
-     * @description Switches between the primary screens (Auth, Business, Discover)
-     * @param {string} targetId - 'auth', 'business-signup', or 'discover'
-     */
-    window.showScreen = function(targetId) {
-        // Deactivate all screens
-        allScreens.forEach(screen => screen.classList.remove('active-screen'));
-        appScreens.forEach(screen => screen.classList.remove('active-screen'));
-
-        if (targetId === 'discover') {
-            // Activate main app view
-            appWrapper.style.display = 'flex';
-            document.getElementById('screen-discover').classList.add('active-screen');
-
-            // Set Discover as the active nav item
-            document.querySelectorAll('#bottom-nav .nav-item').forEach(nav => nav.classList.remove('active'));
-            document.querySelector('#bottom-nav .nav-item[data-target="discover"]').classList.add('active');
-
-        } else if (targetId === 'auth') {
-            appWrapper.style.display = 'none';
-            authScreen.classList.add('active-screen');
-        } else if (targetId === 'business-signup') {
-            appWrapper.style.display = 'none';
-            businessScreen.classList.add('active-screen');
-        }
-    }
-
-    window.login = function() {
-        // Mock login successful
-        showScreen('discover'); 
-        // Force an update to countdown timers right after login
-        updateCountdown();
-    }
-
-    window.logout = function() {
-        // Mock logout
-        showScreen('auth');
-        closeNav(); // Close sidebar if open
-    }
-
-    // --- 0. THEME TOGGLE LOGIC ---
-    const body = document.body;
-    const themeToggleHeader = document.getElementById('theme-toggle-header');
-    const themeToggleSidebar = document.getElementById('theme-toggle-sidebar');
-    const rootStyle = getComputedStyle(document.documentElement);
-
-    // Initialize theme from localStorage, default to 'dark-mode'
-    const savedTheme = localStorage.getItem('savyours-theme') || 'dark-mode';
-    body.classList.remove('dark-mode', 'light-mode');
-    body.classList.add(savedTheme);
-    updateThemeToggleIcons(savedTheme);
-
-    function updateThemeToggleIcons(currentTheme) {
-        const iconElement = themeToggleSidebar ? themeToggleSidebar.querySelector('.theme-icon') : null;
-
-        if (currentTheme === 'dark-mode') {
-            themeToggleHeader.textContent = 'dark_mode';
-            if (iconElement && themeToggleSidebar.firstChild) {
-                iconElement.textContent = 'dark_mode';
-                // Update text node content
-                themeToggleSidebar.childNodes[0].nodeValue = 'Dark Mode ';
-            }
-        } else {
-            themeToggleHeader.textContent = 'light_mode';
-            if (iconElement && themeToggleSidebar.firstChild) {
-                iconElement.textContent = 'light_mode';
-                // Update text node content
-                themeToggleSidebar.childNodes[0].nodeValue = 'Light Mode ';
-            }
-        }
-        // Invalidate map size in case container dimensions changed due to theme/UI shifts
-        if (mapInstance) {
-            mapInstance.invalidateSize();
-        }
-    }
-
-    function toggleTheme() {
-        const isDarkMode = body.classList.contains('dark-mode');
-        const newTheme = isDarkMode ? 'light-mode' : 'dark-mode';
-
-        body.classList.remove('dark-mode', 'light-mode');
-        body.classList.add(newTheme);
-        localStorage.setItem('savyours-theme', newTheme);
-        updateThemeToggleIcons(newTheme);
-    }
-
-    themeToggleHeader.addEventListener('click', toggleTheme);
-    if (themeToggleSidebar) {
-        themeToggleSidebar.addEventListener('click', (e) => {
-            e.preventDefault(); 
-            toggleTheme();
-            closeNav();
-        });
-    }
-
-    // --- 1. NAVIGATION LOGIC ---
-    const navItems = document.querySelectorAll('#bottom-nav .nav-item');
-
-    navItems.forEach(item => {
-        item.addEventListener('click', function(event) {
-            event.preventDefault();
-
-            // Deactivate all screens and nav items
-            appScreens.forEach(screen => screen.classList.remove('active-screen'));
-            navItems.forEach(nav => nav.classList.remove('active'));
-
-            // Activate the selected screen and nav item
-            const targetId = this.getAttribute('data-target');
-            const targetScreen = document.getElementById(`screen-${targetId}`);
-            if (targetScreen) {
-                // Short delay ensures screen is visible before adding the class (improves transition)
-                setTimeout(() => {
-                    targetScreen.classList.add('active-screen');
-                    document.getElementById('content-area').scrollTop = 0; // Scroll to top on screen switch
-                }, 50);
-            }
-            this.classList.add('active');
-
-            closeNav(); 
-
-            // Special handling for the map screen
-            if (targetId === 'map') {
-                setTimeout(() => {
-                    // Initialize the map (if first time) and ensure tiles are loaded (always light)
-                    initializeLeafletMap();
-                    reinitializeLeafletMap(); 
-                }, 100); 
-            }
-        });
-    });
-
-    // --- 2. HAMBURGER MENU (SIDEBAR) LOGIC ---
-    window.openNav = function() {
-        document.getElementById("sidebar-menu").style.width = "280px";
-
-        // --- FIX: Overlay Activation ---
-        const overlay = document.getElementById("overlay");
-        if (overlay) {
-            overlay.style.display = "block";
-            setTimeout(() => { overlay.style.opacity = "1"; }, 10); 
-        }
-        // -----------------------------
-    }
-
-    window.closeNav = function() {
-        document.getElementById("sidebar-menu").style.width = "0";
-
-        // --- FIX: Overlay Deactivation ---
-        const overlay = document.getElementById("overlay");
-        if (overlay) {
-            overlay.style.opacity = "0";
-            setTimeout(() => { overlay.style.display = "none"; }, 400); 
-        }
-        // --------------------------------
-    }
-
-    // --- 3. BRUNEI-SPECIFIC FEATURE: SHOLAT TIME LOGIC (Mock Data) ---
-    const sholatTimes = [
-        // Prayer times are approximate for Brunei/BSB
-        { name: "Fajr", time: "04:51" },
-        { name: "Sunrise", time: "06:08" },
-        { name: "Dhuhr", time: "12:10" },
-        { name: "Asar", time: "15:23" }, 
-        { name: "Maghrib", time: "18:12" }, 
-        { name: "Isha", time: "19:21" }  
-    ];
-
-    function updateSholatTime() {
-        const now = new Date();
-        const nowMinutes = now.getHours() * 60 + now.getMinutes();
-        let nextPrayer = null;
-
-        for (const prayer of sholatTimes) {
-            const [hour, minute] = prayer.time.split(':').map(Number);
-            const prayerMinutes = hour * 60 + minute;
-
-            if (prayerMinutes > nowMinutes) {
-                nextPrayer = prayer;
-                break;
-            }
-        }
-
-        // If no prayer found today, assume the next is Fajr tomorrow
-        if (!nextPrayer) {
-             nextPrayer = sholatTimes[0]; 
-        }
-
-        const sholatElementMain = document.getElementById('next-sholat');
-        const sholatElementSignup = document.getElementById('next-sholat-signup'); // NEW: Get the signup screen element
-
-        if (sholatElementMain || sholatElementSignup) {
-            const [hour, minute] = nextPrayer.time.split(':');
-            const displayTime = new Date(0, 0, 0, hour, minute).toLocaleTimeString('en-US', {
-                hour: 'numeric', minute: 'numeric', hour12: true
-            });
-            const textContent = `Next: ${nextPrayer.name} at ${displayTime}`;
-
-            if (sholatElementMain) {
-                sholatElementMain.textContent = textContent;
-            }
-            // NEW: Update the signup screen element
-            if (sholatElementSignup) {
-                sholatElementSignup.textContent = textContent;
-            }
-        }
-    }
-
-    updateSholatTime();
-    setInterval(updateSholatTime, 60000); // Update every minute
-
-
-    // --- 4. DISCOVER SCREEN: DYNAMIC COUNTDOWN TIMER 🔥 ---
-
-    function updateCountdown() {
-        const now = new Date();
-        const bagCards = document.querySelectorAll('.bag-card[data-available="true"]');
-
-        bagCards.forEach(card => {
-            const timeLeftElement = card.querySelector('.time-left');
-            const bagsLeftElement = card.querySelector('.bags-left');
-            const cutoffTimeStr = card.dataset.cutoffTime; // e.g., "18:30"
-
-            if (!cutoffTimeStr || !timeLeftElement) return;
-
-            const [ch, cm] = cutoffTimeStr.split(':').map(Number);
-            // Create a cutoff time object for today
-            const cutoffTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ch, cm, 0);
-
-            if (cutoffTime.getTime() < now.getTime()) {
-                // Bag has expired for today
-                card.classList.add('sold-out-card');
-                card.setAttribute('data-available', 'false');
-                timeLeftElement.textContent = 'Time Left: EXPIRED';
-                timeLeftElement.classList.add('sold-out-text');
-                bagsLeftElement.textContent = 'Expired';
-                bagsLeftElement.classList.add('sold-out');
-                // Remove the purchase modal click event for expired items
-                card.onclick = null;
-                return;
-            }
-
-            const milliseconds = cutoffTime.getTime() - now.getTime();
-            const totalSeconds = Math.floor(milliseconds / 1000);
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-
-            // Format: Xh Ym
-            let timeDisplay = '';
-            if (hours > 0) {
-                timeDisplay += `${hours}h `;
-            }
-            timeDisplay += `${minutes}m`;
-
-            timeLeftElement.textContent = `Time Left: ${timeDisplay}`;
-
-            // Urgency styling: less than 1 hour left
-            if (hours === 0 && minutes < 60) {
-                 timeLeftElement.style.color = rootStyle.getPropertyValue('--color-sold-out').trim();
-            } else {
-                 timeLeftElement.style.color = rootStyle.getPropertyValue('--secondary-color').trim();
-            }
-            // Re-add the purchase modal click event for available items
-            if (!card.onclick) {
-                card.onclick = function() { openPurchaseModal(this); };
-            }
-        });
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 10000); // Update every 10 seconds
-
-
-    // --- 5. ORDERS SCREEN: VOUCHER LOGIC ---
-    window.applyVoucher = function() {
-        const input = document.getElementById('voucher-input');
-        const status = document.querySelector('.voucher-status');
-        const voucherCode = input.value.trim().toUpperCase();
-
-        status.classList.remove('success');
-        status.textContent = ''; 
-
-        if (voucherCode === 'SAVEYOUR5') {
-            status.textContent = '✅ Voucher "SAVEYOUR5" applied! BND 5.00 discount confirmed.';
-            status.classList.add('success');
-            input.value = '';
-        } else if (voucherCode) {
-            status.textContent = `❌ Error: Voucher "${voucherCode}" is invalid or expired.`;
-            status.classList.remove('success');
-        } else {
-            status.textContent = `Please enter a voucher code to proceed.`;
-            status.classList.remove('success');
-        }
-    }
-
-
-    // --- 6. LEAFLET MAP INTEGRATION LOGIC (Full Map Screen) ---
-
-    // Define Custom Marker Icons
-    const activeBagIcon = L.divIcon({
-        className: 'map-icon-active',
-        html: '<div style="width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 5px #333;"><i class="fas fa-shopping-bag" style="color: white; font-size: 14px;"></i></div>',
-        iconSize: [30, 30],
-        iconAnchor: [15, 30],
-        popupAnchor: [0, -25]
-    });
-
-    const soldOutBagIcon = L.divIcon({
-        className: 'map-icon-soldout',
-        html: '<div style="width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; border: 3px solid white; opacity: 0.8; box-shadow: 0 0 5px #333;"><i class="fas fa-times-circle" style="color: white; font-size: 14px;"></i></div>',
-        iconSize: [30, 30],
-        iconAnchor: [15, 30],
-        popupAnchor: [0, -25]
-    });
-
-    function initializeLeafletMap() {
-        const mapElementId = 'interactive-map-full';
-        const mapCenter = [4.9450, 114.9427]; // Center near BSB
-
-        // Only initialize if the map is not already initialized
-        if (mapInstance) {
-            mapInstance.invalidateSize();
-            return;
-        }
-
-        // 1. Map Initialization 
-        mapInstance = L.map(mapElementId).setView(mapCenter, 13);
-        reinitializeLeafletMap(true); 
-
-        // Get dynamic CSS colors for popup content styling (for theming within the light map)
-        const colorAccent = rootStyle.getPropertyValue('--color-accent').trim();
-        const colorSoldOut = rootStyle.getPropertyValue('--color-sold-out').trim();
-
-        // 5. Add Markers dynamically
-        storeData.forEach(store => {
-            const icon = store.isSoldOut ? soldOutBagIcon : activeBagIcon;
-            const statusColor = store.isSoldOut ? colorSoldOut : colorAccent;
-
-            // Use inline styles derived from CSS variables for consistent pop-up appearance
-            const popupContent = `
-                <b>${store.name}</b><br>
-                <span style="color: ${statusColor}; font-weight: bold;">${store.status}</span><br>
-                Price: ${store.price}
-                <hr style="margin: 5px 0;">
-                ${store.isSoldOut ? '<span>Check back tomorrow.</span>' : '<a href="javascript:void(0)" onclick="alert(\'Reserved 1 bag!\')">Reserve Now!</a>'}
-            `;
-
-            L.marker([store.lat, store.lon], { icon: icon }).addTo(mapInstance)
-                .bindPopup(popupContent);
-        });
-
-        // 6. User Location (Simulated)
-        L.circle(mapCenter, {
-            color: 'blue',
-            fillColor: '#30a4ff',
-            fillOpacity: 0.5,
-            radius: 300 
-        }).addTo(mapInstance).bindPopup("Your Location (Bandar Seri Begawan)");
-    }
-
-    /**
-     * @description Ensures the tile layer is present. **Fixed to always use the light OpenStreetMap tiles.**
-     */
-    function reinitializeLeafletMap() {
-        if (!mapInstance) return;
-
-        // Remove old tile layer if it exists
-        if (tileLayerInstance) {
-            mapInstance.removeLayer(tileLayerInstance);
-        }
-
-        // 💡 FIX: Always use the standard light map tile URL for visibility
-        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; 
-
-        // 2. Add the NEW Tile Layer
-        tileLayerInstance = L.tileLayer(tileUrl, {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(mapInstance);
-
-        mapInstance.invalidateSize();
-    }
-
-    // --- 7. PURCHASE MODAL LOGIC (UPDATED reserveBag) ---
-
-    // Function to hide the success popup (NEW)
-    window.hideSuccessPopup = function() {
-        document.getElementById('success-popup').classList.remove('active');
-    }
-
-    window.openPurchaseModal = function(bagElement) {
-        // Prevent opening the modal for sold-out cards (though click event should be removed by updateCountdown)
-        if (bagElement.classList.contains('sold-out-card')) return;
-
-        // Ensure sidebar is closed if it's open
-        if (document.getElementById("sidebar-menu").style.width !== "0px") {
-             closeNav(); 
-        }
-
-        // 1. Collect Bag Data
-        const storeName = bagElement.getAttribute('data-store-name');
-        const location = bagElement.getAttribute('data-location');
-        const pickupTime = bagElement.getAttribute('data-pickup-time');
-        const priceNew = parseFloat(bagElement.getAttribute('data-price-new'));
-        const priceOld = parseFloat(bagElement.getAttribute('data-price-old'));
-
-        // Find the bags left element to determine max quantity
-        const bagsLeftText = bagElement.querySelector('.bags-left').textContent;
-        const bagsLeftMatch = bagsLeftText.match(/(\d+)/);
-        const maxBags = bagsLeftMatch ? parseInt(bagsLeftMatch[0]) : 1; 
-
-        // Save data to global object
-        currentBagData = {
-            storeName,
-            location,
-            pickupTime,
-            priceNew,
-            priceOld,
-            maxBags
-        };
-
-        // 2. Populate Modal Content
-        document.getElementById('modal-store-name').textContent = storeName;
-        document.getElementById('modal-location-time').innerHTML = 
-            `<span class="material-icons" style="font-size: 1em; vertical-align: middle;">location_on</span> ${location}<br>` + 
-            `<span class="material-icons" style="font-size: 1em; vertical-align: middle;">schedule</span> Pickup: ${pickupTime}`;
-        document.getElementById('modal-price-new').textContent = `BND ${priceNew.toFixed(2)}`;
-        document.getElementById('modal-price-old').textContent = `BND ${priceOld.toFixed(2)}`;
-
-        // 3. Update Quantity Selector
-        const select = document.getElementById('modal-quantity-select');
-        select.innerHTML = '';
-        for (let i = 1; i <= maxBags; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = `${i} Bag${i > 1 ? 's' : ''}`;
-            select.appendChild(option);
-        }
-        select.value = '1'; // Default to 1 bag
-
-        // 4. Calculate and Display Total
-        updateModalTotal();
-
-        // 5. Show Modal
-        document.getElementById('purchase-modal').classList.add('active');
-    }
-
-    window.closePurchaseModal = function() {
-        document.getElementById('purchase-modal').classList.remove('active');
-    }
-
-    window.updateModalTotal = function() {
-        const priceNew = currentBagData.priceNew;
-        const quantity = parseInt(document.getElementById('modal-quantity-select').value);
-        const total = priceNew * quantity;
-        document.getElementById('modal-total-amount').textContent = `BND ${total.toFixed(2)}`;
-    }
-
-    window.reserveBag = function() {
-        const store = currentBagData.storeName;
-        const quantity = document.getElementById('modal-quantity-select').value;
-        const total = document.getElementById('modal-total-amount').textContent;
-
-        // 1. Close the purchase modal
-        closePurchaseModal();
-
-        // 2. Update the success message and show the popup
-        document.getElementById('success-message').innerHTML = 
-            `Your order for <strong>${quantity} bag(s)</strong> from <strong>${store}</strong> for ${total} is secured!`;
-
-        const successPopup = document.getElementById('success-popup');
-        successPopup.classList.add('active');
-
-        // 3. Automatically close the popup after 4 seconds
-        setTimeout(hideSuccessPopup, 4000);
-    }
-
-
-    // --- INITIALIZATION ---
-    // Start on the authentication screen by default
-    showScreen('auth');
-
-    // Expose required functions globally (called from HTML onclick attributes)
-    window.openNav = openNav;
-    window.closeNav = closeNav;
-    window.applyVoucher = applyVoucher;
-    window.initializeLeafletMap = initializeLeafletMap;
-    window.openPurchaseModal = openPurchaseModal;
-    window.closePurchaseModal = closePurchaseModal;
-    window.updateModalTotal = updateModalTotal;
-    window.reserveBag = reserveBag;
-    window.logout = logout; // Exposed logout function
-    window.hideSuccessPopup = hideSuccessPopup; // Exposed new function
-});
+              // Store the map instance and tile layer instance globally
+      let mapInstance = null;
+      let tileLayerInstance = null;
+      let currentBagData = {}; // Global object to hold the data of the bag currently in the modal
+
+      // Store Data (Coordinates approximate locations near BSB, Brunei)
+      const storeData = [
+          { name: 'Comfort Greens Cafe (Gadong)', lat: 4.9200, lon: 114.9200, status: '2 Bags Left', price: 'BND 4.00', isSoldOut: false },
+          { name: 'The Little Leaf Bakery (Kiulap)', lat: 4.9090, lon: 114.9350, status: 'Sold Out', price: 'BND 9.00', isSoldOut: true },
+          { name: 'Mum Bakery (Manggis)', lat: 4.9350, lon: 114.9580, status: '3 Bags Left', price: 'BND 2.50', isSoldOut: false },
+          { name: 'Le Doux Patisserie (Kiarong)', lat: 4.9050, lon: 114.9280, status: '1 Bag Left', price: 'BND 6.00', isSoldOut: false },
+          { name: 'Coffeeby7t1 (Tanjung Bunut)', lat: 4.9300, lon: 114.8800, status: 'Sold Out', price: 'BND 4.75', isSoldOut: true },
+          { name: 'Laze Cafe (Serusop)', lat: 4.9600, lon: 114.9500, status: '4 Bags Left', price: 'BND 7.00', isSoldOut: false },
+          { name: 'Namu Korean BBQ and Cafe (Bandar)', lat: 4.8980, lon: 114.9400, status: '2 Bags Left', price: 'BND 15.00', isSoldOut: false }
+      ];
+
+      document.addEventListener('DOMContentLoaded', () => {
+
+          // --- NEW: Business Signup Image Upload Display Logic ---
+          const fileInput = document.getElementById('business-image-upload');
+          const fileNameDisplay = document.getElementById('file-name-display');
+          if (fileInput && fileNameDisplay) {
+              fileInput.addEventListener('change', (event) => {
+                  if (event.target.files.length > 0) {
+                      fileNameDisplay.textContent = event.target.files[0].name;
+                  } else {
+                      fileNameDisplay.textContent = 'No file chosen.';
+                  }
+              });
+          }
+
+          // --- NEW: AUTHENTICATION AND SCREEN SWITCHING LOGIC ---
+          const appWrapper = document.getElementById('app-content-wrapper');
+          const authScreen = document.getElementById('screen-auth');
+          const businessScreen = document.getElementById('screen-business-signup');
+          const appScreens = document.querySelectorAll('.app-screen');
+          const allScreens = document.querySelectorAll('#app-container > section'); // Auth and Business screens
+
+          /**
+           * @description Switches between the primary screens (Auth, Business, Discover)
+           * @param {string} targetId - 'auth', 'business-signup', or 'discover'
+           */
+          window.showScreen = function(targetId) {
+              // Deactivate all screens
+              allScreens.forEach(screen => screen.classList.remove('active-screen'));
+              appScreens.forEach(screen => screen.classList.remove('active-screen'));
+
+              if (targetId === 'discover') {
+                  // Activate main app view
+                  appWrapper.style.display = 'flex';
+                  document.getElementById('screen-discover').classList.add('active-screen');
+
+                  // Set Discover as the active nav item
+                  document.querySelectorAll('#bottom-nav .nav-item').forEach(nav => nav.classList.remove('active'));
+                  document.querySelector('#bottom-nav .nav-item[data-target="discover"]').classList.add('active');
+
+              } else if (targetId === 'auth') {
+                  appWrapper.style.display = 'none';
+                  authScreen.classList.add('active-screen');
+              } else if (targetId === 'business-signup') {
+                  appWrapper.style.display = 'none';
+                  businessScreen.classList.add('active-screen');
+              }
+          }
+
+          window.login = function() {
+              // Mock login successful
+              showScreen('discover');
+              // Force an update to countdown timers right after login
+              updateCountdown();
+          }
+
+          window.logout = function() {
+              // Mock logout
+              showScreen('auth');
+              closeNav(); // Close sidebar if open
+          }
+
+          // --- 0. THEME TOGGLE LOGIC ---
+          const body = document.body;
+          const themeToggleHeader = document.getElementById('theme-toggle-header');
+          const themeToggleSidebar = document.getElementById('theme-toggle-sidebar');
+          const rootStyle = getComputedStyle(document.documentElement);
+
+          // Initialize theme from localStorage, default to 'dark-mode'
+          const savedTheme = localStorage.getItem('savyours-theme') || 'dark-mode';
+          body.classList.remove('dark-mode', 'light-mode');
+          body.classList.add(savedTheme);
+          updateThemeToggleIcons(savedTheme);
+
+          function updateThemeToggleIcons(currentTheme) {
+              const iconElement = themeToggleSidebar ? themeToggleSidebar.querySelector('.theme-icon') : null;
+
+              if (currentTheme === 'dark-mode') {
+                  themeToggleHeader.textContent = 'dark_mode';
+                  if (iconElement && themeToggleSidebar.firstChild) {
+                      iconElement.textContent = 'dark_mode';
+                      // Update text node content
+                      themeToggleSidebar.childNodes[0].nodeValue = 'Dark Mode ';
+                  }
+              } else {
+                  themeToggleHeader.textContent = 'light_mode';
+                  if (iconElement && themeToggleSidebar.firstChild) {
+                      iconElement.textContent = 'light_mode';
+                      // Update text node content
+                      themeToggleSidebar.childNodes[0].nodeValue = 'Light Mode ';
+                  }
+              }
+              // Invalidate map size in case container dimensions changed due to theme/UI shifts
+              if (mapInstance) {
+                  mapInstance.invalidateSize();
+              }
+          }
+
+          function toggleTheme() {
+              const isDarkMode = body.classList.contains('dark-mode');
+              const newTheme = isDarkMode ? 'light-mode' : 'dark-mode';
+
+              body.classList.remove('dark-mode', 'light-mode');
+              body.classList.add(newTheme);
+              localStorage.setItem('savyours-theme', newTheme);
+              updateThemeToggleIcons(newTheme);
+          }
+
+          themeToggleHeader.addEventListener('click', toggleTheme);
+          if (themeToggleSidebar) {
+              themeToggleSidebar.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  toggleTheme();
+                  closeNav();
+              });
+          }
+
+          // --- 1. NAVIGATION LOGIC ---
+          const navItems = document.querySelectorAll('#bottom-nav .nav-item');
+
+          navItems.forEach(item => {
+              item.addEventListener('click', function(event) {
+                  event.preventDefault();
+
+                  // Deactivate all screens and nav items
+                  appScreens.forEach(screen => screen.classList.remove('active-screen'));
+                  navItems.forEach(nav => nav.classList.remove('active'));
+
+                  // Activate the selected screen and nav item
+                  const targetId = this.getAttribute('data-target');
+                  const targetScreen = document.getElementById(`screen-${targetId}`);
+                  if (targetScreen) {
+                      // Short delay ensures screen is visible before adding the class (improves transition)
+                      setTimeout(() => {
+                          targetScreen.classList.add('active-screen');
+                          document.getElementById('content-area').scrollTop = 0; // Scroll to top on screen switch
+                      }, 50);
+                  }
+                  this.classList.add('active');
+
+                  closeNav();
+
+                  // Special handling for the map screen
+                  if (targetId === 'map') {
+                      setTimeout(() => {
+                          // Initialize the map (if first time) and ensure tiles are loaded (always light)
+                          initializeLeafletMap();
+                          reinitializeLeafletMap();
+                      }, 100);
+                  }
+              });
+          });
+
+          // --- 2. HAMBURGER MENU (SIDEBAR) LOGIC ---
+          window.openNav = function() {
+              document.getElementById("sidebar-menu").style.width = "280px";
+
+              // --- FIX: Overlay Activation ---
+              const overlay = document.getElementById("overlay");
+              if (overlay) {
+                  overlay.style.display = "block";
+                  setTimeout(() => { overlay.style.opacity = "1"; }, 10);
+              }
+              // -----------------------------
+          }
+
+          window.closeNav = function() {
+              document.getElementById("sidebar-menu").style.width = "0";
+
+              // --- FIX: Overlay Deactivation ---
+              const overlay = document.getElementById("overlay");
+              if (overlay) {
+                  overlay.style.opacity = "0";
+                  setTimeout(() => { overlay.style.display = "none"; }, 400);
+              }
+              // --------------------------------
+          }
+
+          // --- 3. BRUNEI-SPECIFIC FEATURE: SHOLAT TIME LOGIC (Mock Data) ---
+          const sholatTimes = [
+              // Prayer times are approximate for Brunei/BSB
+              { name: "Fajr", time: "04:51" },
+              { name: "Sunrise", time: "06:08" },
+              { name: "Dhuhr", time: "12:10" },
+              { name: "Asar", time: "15:23" },
+              { name: "Maghrib", time: "18:12" },
+              { name: "Isha", time: "19:21" }  
+          ];
+
+          function updateSholatTime() {
+              const now = new Date();
+              const nowMinutes = now.getHours() * 60 + now.getMinutes();
+              let nextPrayer = null;
+
+              for (const prayer of sholatTimes) {
+                  const [hour, minute] = prayer.time.split(':').map(Number);
+                  const prayerMinutes = hour * 60 + minute;
+
+                  if (prayerMinutes > nowMinutes) {
+                      nextPrayer = prayer;
+                      break;
+                  }
+              }
+
+              // If no prayer found today, assume the next is Fajr tomorrow
+              if (!nextPrayer) {
+                   nextPrayer = sholatTimes[0];
+              }
+
+              const sholatElementMain = document.getElementById('next-sholat');
+              const sholatElementSignup = document.getElementById('next-sholat-signup'); // NEW: Get the signup screen element
+
+              if (sholatElementMain || sholatElementSignup) {
+                  const [hour, minute] = nextPrayer.time.split(':');
+                  const displayTime = new Date(0, 0, 0, hour, minute).toLocaleTimeString('en-US', {
+                      hour: 'numeric', minute: 'numeric', hour12: true
+                  });
+                  const textContent = `Next: ${nextPrayer.name} at ${displayTime}`;
+
+                  if (sholatElementMain) {
+                      sholatElementMain.textContent = textContent;
+                  }
+                  // NEW: Update the signup screen element
+                  if (sholatElementSignup) {
+                      sholatElementSignup.textContent = textContent;
+                  }
+              }
+          }
+
+          updateSholatTime();
+          setInterval(updateSholatTime, 60000); // Update every minute
+
+
+          // --- 4. DISCOVER SCREEN: DYNAMIC COUNTDOWN TIMER 🔥 ---
+
+          function updateCountdown() {
+              const now = new Date();
+              const bagCards = document.querySelectorAll('.bag-card[data-available="true"]');
+
+              bagCards.forEach(card => {
+                  const timeLeftElement = card.querySelector('.time-left');
+                  const bagsLeftElement = card.querySelector('.bags-left');
+                  const cutoffTimeStr = card.dataset.cutoffTime; // e.g., "18:30"
+
+                  if (!cutoffTimeStr || !timeLeftElement) return;
+
+                  const [ch, cm] = cutoffTimeStr.split(':').map(Number);
+                  // Create a cutoff time object for today
+                  const cutoffTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ch, cm, 0);
+
+                  if (cutoffTime.getTime() < now.getTime()) {
+                      // Bag has expired for today
+                      card.classList.add('sold-out-card');
+                      card.setAttribute('data-available', 'false');
+                      timeLeftElement.textContent = 'Time Left: EXPIRED';
+                      timeLeftElement.classList.add('sold-out-text');
+                      bagsLeftElement.textContent = 'Expired';
+                      bagsLeftElement.classList.add('sold-out');
+                      // Remove the purchase modal click event for expired items
+                      card.onclick = null;
+                      return;
+                  }
+
+                  const milliseconds = cutoffTime.getTime() - now.getTime();
+                  const totalSeconds = Math.floor(milliseconds / 1000);
+                  const hours = Math.floor(totalSeconds / 3600);
+                  const minutes = Math.floor((totalSeconds % 3600) / 60);
+
+                  // Format: Xh Ym
+                  let timeDisplay = '';
+                  if (hours > 0) {
+                      timeDisplay += `${hours}h `;
+                  }
+                  timeDisplay += `${minutes}m`;
+
+                  timeLeftElement.textContent = `Time Left: ${timeDisplay}`;
+
+                  // Urgency styling: less than 1 hour left
+                  if (hours === 0 && minutes < 60) {
+                       timeLeftElement.style.color = rootStyle.getPropertyValue('--color-sold-out').trim();
+                  } else {
+                       timeLeftElement.style.color = rootStyle.getPropertyValue('--secondary-color').trim();
+                  }
+                  // Re-add the purchase modal click event for available items
+                  if (!card.onclick) {
+                      card.onclick = function() { openPurchaseModal(this); };
+                  }
+              });
+          }
+
+          updateCountdown();
+          setInterval(updateCountdown, 10000); // Update every 10 seconds
+
+
+          // --- 5. ORDERS SCREEN: VOUCHER LOGIC ---
+          window.applyVoucher = function() {
+              const input = document.getElementById('voucher-input');
+              const status = document.querySelector('.voucher-status');
+              const voucherCode = input.value.trim().toUpperCase();
+
+              status.classList.remove('success');
+              status.textContent = '';
+
+              if (voucherCode === 'SAVEYOUR5') {
+                  status.textContent = '✅ Voucher "SAVEYOUR5" applied! BND 5.00 discount confirmed.';
+                  status.classList.add('success');
+                  input.value = '';
+              } else if (voucherCode) {
+                  status.textContent = `❌ Error: Voucher "${voucherCode}" is invalid or expired.`;
+                  status.classList.remove('success');
+              } else {
+                  status.textContent = `Please enter a voucher code to proceed.`;
+                  status.classList.remove('success');
+              }
+          }
+
+
+          // --- 6. LEAFLET MAP INTEGRATION LOGIC (Full Map Screen) ---
+
+          // Define Custom Marker Icons
+          const activeBagIcon = L.divIcon({
+              className: 'map-icon-active',
+              html: '<div style="width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 5px #333;"><i class="fas fa-shopping-bag" style="color: white; font-size: 14px;"></i></div>',
+              iconSize: [30, 30],
+              iconAnchor: [15, 30],
+              popupAnchor: [0, -25]
+          });
+
+          const soldOutBagIcon = L.divIcon({
+              className: 'map-icon-soldout',
+              html: '<div style="width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; border: 3px solid white; opacity: 0.8; box-shadow: 0 0 5px #333;"><i class="fas fa-times-circle" style="color: white; font-size: 14px;"></i></div>',
+              iconSize: [30, 30],
+              iconAnchor: [15, 30],
+              popupAnchor: [0, -25]
+          });
+
+          function initializeLeafletMap() {
+              const mapElementId = 'interactive-map-full';
+              const mapCenter = [4.9450, 114.9427]; // Center near BSB
+
+              // Only initialize if the map is not already initialized
+              if (mapInstance) {
+                  mapInstance.invalidateSize();
+                  return;
+              }
+
+              // 1. Map Initialization
+              mapInstance = L.map(mapElementId).setView(mapCenter, 13);
+              reinitializeLeafletMap(true);
+
+              // Get dynamic CSS colors for popup content styling (for theming within the light map)
+              const colorAccent = rootStyle.getPropertyValue('--color-accent').trim();
+              const colorSoldOut = rootStyle.getPropertyValue('--color-sold-out').trim();
+
+              // 5. Add Markers dynamically
+              storeData.forEach(store => {
+                  const icon = store.isSoldOut ? soldOutBagIcon : activeBagIcon;
+                  const statusColor = store.isSoldOut ? colorSoldOut : colorAccent;
+
+                  // Use inline styles derived from CSS variables for consistent pop-up appearance
+                  const popupContent = `
+                      <b>${store.name}</b><br>
+                      <span style="color: ${statusColor}; font-weight: bold;">${store.status}</span><br>
+                      Price: ${store.price}
+                      <hr style="margin: 5px 0;">
+                      ${store.isSoldOut ? '<span>Check back tomorrow.</span>' : '<a href="javascript:void(0)" onclick="alert(\'Reserved 1 bag!\')">Reserve Now!</a>'}
+                  `;
+
+                  L.marker([store.lat, store.lon], { icon: icon }).addTo(mapInstance)
+                      .bindPopup(popupContent);
+              });
+
+              // 6. User Location (Simulated)
+              L.circle(mapCenter, {
+                  color: 'blue',
+                  fillColor: '#30a4ff',
+                  fillOpacity: 0.5,
+                  radius: 300
+              }).addTo(mapInstance).bindPopup("Your Location (Bandar Seri Begawan)");
+          }
+
+          /**
+           * @description Ensures the tile layer is present. **Fixed to always use the light OpenStreetMap tiles.**
+           */
+          function reinitializeLeafletMap() {
+              if (!mapInstance) return;
+
+              // Remove old tile layer if it exists
+              if (tileLayerInstance) {
+                  mapInstance.removeLayer(tileLayerInstance);
+              }
+
+              // 💡 FIX: Always use the standard light map tile URL for visibility
+              const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+              // 2. Add the NEW Tile Layer
+              tileLayerInstance = L.tileLayer(tileUrl, {
+                  maxZoom: 19,
+                  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              }).addTo(mapInstance);
+
+              mapInstance.invalidateSize();
+          }
+
+          // --- 7. PURCHASE MODAL LOGIC (UPDATED reserveBag) ---
+
+          // Function to hide the success popup (NEW)
+          window.hideSuccessPopup = function() {
+              document.getElementById('success-popup').classList.remove('active');
+          }
+
+          window.openPurchaseModal = function(bagElement) {
+              // Prevent opening the modal for sold-out cards (though click event should be removed by updateCountdown)
+              if (bagElement.classList.contains('sold-out-card')) return;
+
+              // Ensure sidebar is closed if it's open
+              if (document.getElementById("sidebar-menu").style.width !== "0px") {
+                   closeNav();
+              }
+
+              // 1. Collect Bag Data
+              const storeName = bagElement.getAttribute('data-store-name');
+              const location = bagElement.getAttribute('data-location');
+              const pickupTime = bagElement.getAttribute('data-pickup-time');
+              const priceNew = parseFloat(bagElement.getAttribute('data-price-new'));
+              const priceOld = parseFloat(bagElement.getAttribute('data-price-old'));
+
+              // Find the bags left element to determine max quantity
+              const bagsLeftText = bagElement.querySelector('.bags-left').textContent;
+              const bagsLeftMatch = bagsLeftText.match(/(\d+)/);
+              const maxBags = bagsLeftMatch ? parseInt(bagsLeftMatch[0]) : 1;
+
+              // Save data to global object
+              currentBagData = {
+                  storeName,
+                  location,
+                  pickupTime,
+                  priceNew,
+                  priceOld,
+                  maxBags
+              };
+
+              // 2. Populate Modal Content
+              document.getElementById('modal-store-name').textContent = storeName;
+              document.getElementById('modal-location-time').innerHTML =
+                  `<span class="material-icons" style="font-size: 1em; vertical-align: middle;">location_on</span> ${location}<br>` +
+                  `<span class="material-icons" style="font-size: 1em; vertical-align: middle;">schedule</span> Pickup: ${pickupTime}`;
+              document.getElementById('modal-price-new').textContent = `BND ${priceNew.toFixed(2)}`;
+              document.getElementById('modal-price-old').textContent = `BND ${priceOld.toFixed(2)}`;
+
+              // 3. Update Quantity Selector
+              const select = document.getElementById('modal-quantity-select');
+              select.innerHTML = '';
+              for (let i = 1; i <= maxBags; i++) {
+                  const option = document.createElement('option');
+                  option.value = i;
+                  option.textContent = `${i} Bag${i > 1 ? 's' : ''}`;
+                  select.appendChild(option);
+              }
+              select.value = '1'; // Default to 1 bag
+
+              // 4. Calculate and Display Total
+              updateModalTotal();
+
+              // 5. Show Modal
+              document.getElementById('purchase-modal').classList.add('active');
+          }
+
+          window.closePurchaseModal = function() {
+              document.getElementById('purchase-modal').classList.remove('active');
+          }
+
+          window.updateModalTotal = function() {
+              const priceNew = currentBagData.priceNew;
+              const quantity = parseInt(document.getElementById('modal-quantity-select').value);
+              const total = priceNew * quantity;
+              document.getElementById('modal-total-amount').textContent = `BND ${total.toFixed(2)}`;
+          }
+
+          window.reserveBag = function() {
+              const store = currentBagData.storeName;
+              const quantity = document.getElementById('modal-quantity-select').value;
+              const total = document.getElementById('modal-total-amount').textContent;
+
+              // 1. Close the purchase modal
+              closePurchaseModal();
+
+              // 2. Update the success message and show the popup
+              document.getElementById('success-message').innerHTML =
+                  `Your order for <strong>${quantity} bag(s)</strong> from <strong>${store}</strong> for ${total} is secured!`;
+
+              const successPopup = document.getElementById('success-popup');
+              successPopup.classList.add('active');
+
+              // 3. Automatically close the popup after 4 seconds
+              setTimeout(hideSuccessPopup, 4000);
+          }
+
+
+          // --- INITIALIZATION ---
+          // Start on the authentication screen by default
+          showScreen('auth');
+
+          // Expose required functions globally (called from HTML onclick attributes)
+          window.openNav = openNav;
+          window.closeNav = closeNav;
+          window.applyVoucher = applyVoucher;
+          window.initializeLeafletMap = initializeLeafletMap;
+          window.openPurchaseModal = openPurchaseModal;
+          window.closePurchaseModal = closePurchaseModal;
+          window.updateModalTotal = updateModalTotal;
+          window.reserveBag = reserveBag;
+          window.logout = logout; // Exposed logout function
+          window.hideSuccessPopup = hideSuccessPopup; // Exposed new function
+      });
     </script>
-</body>
-
+  </body>
 </html>
