@@ -185,7 +185,7 @@ NEW AUTH SCREEN STYLES
 
 .primary-auth-btn {
     background-color: var(--primary-color);
-    color: var(--text-light);
+    color: var(--background-color);
 }
 
 .secondary-auth-btn {
@@ -271,7 +271,7 @@ BUSINESS SIGNUP FORM ENHANCEMENTS (FILE UPLOAD)
 
 .file-upload-label {
     background-color: var(--primary-color);
-    color: var(--text-light);
+    color: var(--background-color);
     padding: 8px 15px;
     border-radius: 6px;
     cursor: pointer;
